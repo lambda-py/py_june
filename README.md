@@ -50,7 +50,6 @@ Run tests
 2. Compile messages  
     `python manage.py compilemessages -l uk`
 
-
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
