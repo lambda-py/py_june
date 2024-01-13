@@ -11,6 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection">
+  {% block link %}{% endblock %}
   <title>{% block title %}py_june{% endblock %}</title>
 </head>
 <body>
@@ -20,13 +21,10 @@
   {% endblock %}
   {% include 'footer.html' %}
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="{% static 'js/main.js' %}"></script>
-<script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/tab/plugin.js"></script>
-<script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/plugin.js"></script>
-<script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/lib/highlight/prism.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+{% block script %}{% endblock %}
 </body>
 </html>

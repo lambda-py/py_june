@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
+{% block link %}
+{% endblock %}
+
 {% block title %}
 {% endblock %}
 
@@ -17,4 +20,12 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block script %}
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/tab/plugin.js"></script>
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/plugin.js"></script>
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/lib/highlight/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
 {% endblock %}
