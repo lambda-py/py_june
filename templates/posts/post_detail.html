@@ -16,7 +16,7 @@
   <div class="col s12">
     <div class="row">
       <div class="input-field col s2">
-        {{ post.author }} {{ post.updated_at }}
+        {{ post.author }} {{ post.updated_at|date:"SHORT_DATETIME_FORMAT" }}
       </div>
       <div class="input-field col s10">
         {{ post.content }}
@@ -46,7 +46,7 @@
     <div class="col s12">
       <h3>{% trans "Answers" %}</h3>
       {% for comment in post.comments.all %}
-        <div class="row">
+        <div class="row" id={{ comment.id }}>
           <div class="input-field col s2">
             {{ comment.author }} {{ comment.updated_at }}
           </div>
