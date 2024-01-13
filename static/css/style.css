@@ -26,6 +26,16 @@ p {
   line-height: 2rem;
 }
 
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
 .sidenav-trigger {
   color: #26a69a;
 }
@@ -192,7 +202,7 @@ footer.page-footer {
   height: 100%;
   display: inline-block;
   color: #000;
-
+  flex: 1;
 }
 
 .signup-page {

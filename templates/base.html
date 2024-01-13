@@ -8,16 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css" rel="stylesheet"> 
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection">
   <title>{% block title %}py_june{% endblock %}</title>
 </head>
-{% include 'header.html' %}
 <body>
-{% block body %}
-{% endblock %}
-{% include 'footer.html' %}
+<div class="wrapper">
+  {% include 'header.html' %}
+  {% block body %}
+  {% endblock %}
+  {% include 'footer.html' %}
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="{% static 'js/main.js' %}"></script>
