@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
-
+{% load socialaccount %}
 {% load crispy_forms_tags %}
 
 {% block body %}
@@ -12,6 +12,12 @@
         {% csrf_token %}
         {% crispy form %}
       </form>
+      <p>OR</p>
+      <div>
+        <a href="{% provider_login_url 'github' %}">
+        <span>Login with GitHub</span>
+        </a>
+      </div>
     </div>
   </div>
 </div>

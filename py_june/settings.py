@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.instagram",
     "crispy_forms",
     "crispy_bootstrap4",
     "core.apps.CoreConfig",
@@ -58,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "py_june.urls"
@@ -148,3 +155,24 @@ AUTH_USER_MODEL = "users.ForumUser"
 # crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+#social account allauth
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = "none"
+LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGOUT_ON_GET = True
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     "github": {
+#         "APP": {
+#             "client_id": "cd77f23f8444bc9f2678",
+#             "secret": "f5cc996fe25fb2a039392a6d79874938a40a848c",
+#             "key": ""
+#         }
+#     }
+# }

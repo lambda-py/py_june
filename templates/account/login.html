@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load allauth %}
+
+{% block body %}
+    <h2>Login</h2>
+    <form method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+
+    <h2>Social Logins</h2>
+    <ul>
+        {% for socialaccount in socialaccount_set %}
+            <li>
+                <a href="{% provider_login_url socialaccount.provider.id method='oauth2' %}">
+                    Login with {{ socialaccount.provider.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'account_reset_password' %}">Forgot Password?</a>
+{% endblock %}
