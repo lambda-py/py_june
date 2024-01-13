@@ -12,9 +12,11 @@ from posts.models import Post
 def category_list(request: HttpRequest) -> HttpResponse:
     # FIXME: Probably not the best way to do this
     last_comment_subquery = (
-        Comment.objects.filter(post__category=OuterRef("pk"))
+        Comment.objects
+        .filter(post__category=OuterRef("pk"))
+        .select_related("author")
         .order_by("-created_at")
-        .values("content")[:1]
+        .values("author__username")[:1]
     )
 
     categories = Category.objects.annotate(
