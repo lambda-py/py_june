@@ -339,7 +339,7 @@ footer a {
   }
 }
 
-#last-posts, #most-hot, #need-help {
+#last-posts, #most-hot, #need-help, #user-activities {
   a {
     color: var(--primary-color);
   }
