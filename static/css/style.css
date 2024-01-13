@@ -338,3 +338,13 @@ footer a {
     }
   }
 }
+
+#last-posts, #most-hot, #need-help {
+  a {
+    color: var(--primary-color);
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
