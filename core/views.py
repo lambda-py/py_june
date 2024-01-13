@@ -45,6 +45,6 @@ def home(request: HttpRequest) -> HttpResponse:
             "most_hot": most_hot,
             "need_help_posts": need_help_posts,
             "user_activities": user_activities,
-            "answer_post_url": answer_question_url,
+            "answer_question_url": answer_question_url,
         },
     )
