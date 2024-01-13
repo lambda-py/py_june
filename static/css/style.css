@@ -11,7 +11,7 @@
 :root {
   --primary-color: #c1cad2;
   --primary-bg-color: #181d27;
-  --secondaty-bg-color: #0e1117;
+  --secondary-bg-color: #0e1117;
   --brand-bg-color: #0c4b33;
   --brand-color: #44b78b;
   --brand-second-color: #187f58;
@@ -156,6 +156,14 @@ footer.page-footer {
 }
 
 .home {
+  #row-info {
+    margin-bottom: 0;
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+  }
+
   #slogan {
     font-size: 1.5rem;
     font-weight: 700;
@@ -166,6 +174,7 @@ footer.page-footer {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--brand-color);
+    margin: 1.2rem 0 1rem 0;
   }
 
   h3 {
@@ -193,6 +202,10 @@ footer.page-footer {
     letter-spacing: 0;
     height: auto;
     line-height: normal;
+  }
+
+  #last-posts, #need-help {
+    background-color: var(--secondary-bg-color);
   }
 }
 
@@ -329,7 +342,7 @@ footer a {
     }
 
     tbody > tr:nth-child(odd) {
-      background-color: var(--secondaty-bg-color);
+      background-color: var(--secondary-bg-color);
     }
 
     .category-title {

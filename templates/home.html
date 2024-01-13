@@ -38,7 +38,7 @@
 
     <div class="container">
       <div class="section">
-        <div class="row">
+        <div class="row" id="row-info">
 
           <div class="col s12 m4" id="last-posts">
             <div class="icon-block">
@@ -46,16 +46,14 @@
                 <span><i class="material-icons">flash_on</i></span>
                 {% trans "Last posts" %}
               </h2>
-              {% for post in last_posts %}
-                <div>
-                  <ul>
-                    <li>
-                      <i class="tiny material-icons">access_time</i> {{ post.created_at|date:"d/m" }} -
-                      <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
-                    </li>
-                  </ul>
-                </div>
-              {% endfor %}
+              <ul>
+                {% for post in last_posts %}
+                  <li>
+                    <i class="tiny material-icons">access_time</i> {{ post.created_at|date:"d/m" }} -
+                    <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
 
@@ -65,17 +63,14 @@
                 <span><i class="material-icons">trending_up</i></span>
                 {% trans "Most hot" %}
               </h2>
-
-              {% for post in most_hot %}
-                <div>
-                  <ul>
-                    <li>
-                      <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
-                      <i class="tiny material-icons">comment</i> {{ post.comment_count }}
-                    </li>
-                  </ul>
-                </div>
-              {% endfor %}
+              <ul>
+                {% for post in most_hot %}
+                  <li>
+                    <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
+                    <i class="tiny material-icons">comment</i> {{ post.comment_count }}
+                  </li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
 
@@ -86,17 +81,15 @@
                 {% trans "Need help" %}
               </h2>
 
-              {% for post in need_help_posts %}
-                <div>
-                  <ul>
-                    <li>
-                      <i class="tiny material-icons">access_time</i>
-                      {{ post.created_at|date:"d/m" }} {{ post.created_at|time:"H:i" }} -
-                      <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
-                    </li>
-                  </ul>
-                </div>
-              {% endfor %}
+              <ul>
+                {% for post in need_help_posts %}
+                  <li>
+                    <i class="tiny material-icons">access_time</i>
+                    {{ post.created_at|date:"d/m" }} {{ post.created_at|time:"H:i" }} -
+                    <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
 
@@ -140,7 +133,7 @@
                 </div>
                 <div class="col s8 l10">
                   <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#{{ comment.id }}">
-                  {{ comment.content|truncatewords:30 }} ...</a>
+                    {{ comment.content|truncatewords:30 }} ...</a>
                 </div>
               </div>
             {% endfor %}
