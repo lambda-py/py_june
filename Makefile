@@ -33,3 +33,6 @@ autofmt: isort black
 .PHONY: test
 test:
 	./scripts/test.sh
+
+.PHONY: precommit
+precommit: autofmt lint test
