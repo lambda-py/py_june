@@ -27,6 +27,14 @@ p {
   line-height: 2rem;
 }
 
+table.striped > tbody > tr:nth-child(odd) {
+  background-color: var(--secondary-bg-color);
+}
+
+td:first-child {
+  padding: 0 1.5rem;
+}
+
 .wrapper {
   min-height: 100vh;
   display: flex;
@@ -157,11 +165,15 @@ footer.page-footer {
 
 .home {
   #row-info {
-    margin-bottom: 0;
+    margin: 1rem 0;
 
     li {
       margin-bottom: 0.75rem;
     }
+  }
+
+  #slogan-container {
+    background-color: var(--secondary-bg-color);
   }
 
   #slogan {
@@ -337,14 +349,6 @@ footer a {
       text-align: left;
     }
 
-    td:first-child {
-      padding: 0.2rem 1.5rem;
-    }
-
-    tbody > tr:nth-child(odd) {
-      background-color: var(--secondary-bg-color);
-    }
-
     .category-title {
       color: var(--brand-color);
       text-decoration: underline;
@@ -360,4 +364,8 @@ footer a {
   a:hover {
     text-decoration: underline;
   }
+}
+
+#user-activities table tr td:first-child {
+  width: 10em;
 }

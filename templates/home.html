@@ -10,8 +10,6 @@
   <div class="home">
     <div class="container">
       <div class="section">
-
-        <!--   Icon Section   -->
         <div class="row">
           <div class="col s12 center">
             <h1 id="slogan">{% trans "PY_JUNE - Code, Learn, and Grow Together!" %}</h1>
@@ -118,25 +116,31 @@
         <div class="row">
           <div class="col s12" id="user-activities">
             <h2>User activities</h2>
-            {% for comment in user_activities %}
-              <div class="row">
-                <div class="col s4 l2">
-                  <div>
-                    <i class="tiny material-icons">access_time</i>
-                    {{ comment.created_at|date:"d/m" }}
+            <table class="striped">
+              <tbody>
+              {% for comment in user_activities %}
+                <tr>
+                  <td>
+                    <ul>
+                      <li>
+                        <i class="tiny material-icons">access_time</i>
+                    {{ comment.created_at|date:"d/m" }}&nbsp;
                     {{ comment.created_at|time:"H:i" }}
-                  </div>
-                  <div>
-                    <i class="tiny material-icons">person</i>
-                    {{ comment.author.username }}
-                  </div>
-                </div>
-                <div class="col s8 l10">
-                  <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#{{ comment.id }}">
-                    {{ comment.content|truncatewords:30 }} ...</a>
-                </div>
-              </div>
-            {% endfor %}
+                      </li>
+                    <li><i class="tiny material-icons">person</i>
+                    {{ comment.author.username }}</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#{{ comment.id }}">
+                      {{ comment.content|truncatewords:30 }}
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+
           </div>
         </div>
 
