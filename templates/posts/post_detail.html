@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a>
-  / <span class="active">{{ post.title }}</span>
+  <a href="{% url 'categories:list' %}">PY_JUNE</a> / 
+  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a> / 
+  <span class="active">{{ post.title }}</span>
 {% endblock %}
 
 {% block content %}

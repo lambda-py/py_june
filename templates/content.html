@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col s12">
         <div class=" section breadcrumbs">
-          <a href="{% url 'home' %}">PY_JUNE</a> / {% block breadcrumbs %}{% endblock %}
+          {% block breadcrumbs %}{% endblock %}
         </div>
         <div class=" section content">
           {% block content %}{% endblock %}

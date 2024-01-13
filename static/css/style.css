@@ -301,3 +301,8 @@ footer a {
   color: white;
   text-decoration: underline;
 }
+
+.breadcrumbs a {
+  color: var(--brand-color);
+  text-decoration: underline;
+}
