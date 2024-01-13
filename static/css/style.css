@@ -341,8 +341,16 @@ footer a {
   table {
     margin-bottom: 2rem;
 
+    ul {
+      margin: 0 0 1rem 0;
+    }
+
     td, th {
       text-align: center;
+    }
+
+    th {
+      padding: 0.5rem;
     }
 
     td:first-child, td:last-child, th:first-child, th:last-child {
