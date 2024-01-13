@@ -1,0 +1,24 @@
+#category-details {
+  h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    margin: 0.5em 0 0 0;
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+
+  table {
+    td:first-child {
+      width: 60%;
+    }
+  }
+}

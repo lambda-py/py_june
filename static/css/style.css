@@ -142,6 +142,11 @@ footer.page-footer {
     line-height: normal;
   }
 
+  .btn-small {
+    font-size: 1em;
+    padding: 0.5em 1em;
+  }
+
   .icon-block span {
     position: relative;
     bottom: -7px;
