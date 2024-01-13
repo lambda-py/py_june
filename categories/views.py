@@ -11,9 +11,13 @@ from posts.models import Post
 
 def category_list(request: HttpRequest) -> HttpResponse:
     # FIXME: Probably not the best way to do this
-    last_comment_subquery = (
-        Comment.objects
-        .filter(post__category=OuterRef("pk"))
+    last_comment_dt_subquery = (
+        Comment.objects.filter(post__category=OuterRef("pk"))
+        .order_by("-created_at")
+        .values("created_at")[:1]
+    )
+    last_comment_username = (
+        Comment.objects.filter(post__category=OuterRef("pk"))
         .select_related("author")
         .order_by("-created_at")
         .values("author__username")[:1]
@@ -22,7 +26,8 @@ def category_list(request: HttpRequest) -> HttpResponse:
     categories = Category.objects.annotate(
         post_count=Count("posts", distinct=True),
         comment_count=Count("posts__comments", distinct=True),
-        last_comment=Subquery(last_comment_subquery, output_field=models.CharField()),
+        last_comment_dt=Subquery(last_comment_dt_subquery, output_field=models.DateTimeField()),
+        last_comment_username=Subquery(last_comment_username, output_field=models.CharField()),
     ).select_related("main_category")
 
     main_categories = MainCategory.objects.all()

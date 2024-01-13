@@ -38,7 +38,14 @@
                     </td>
                     <td>{{ category.post_count }}</td>
                     <td>{{ category.comment_count }}</td>
-                    <td><i class="tiny material-icons">edit</i>{{ category.last_comment }}</td>
+                    <td>
+                      <ul>
+                        <li><i class="tiny material-icons">access_time</i>
+                          {{ category.last_comment_dt|date:"SHORT_DATETIME_FORMAT" }}
+                        </li>
+                        <li><i class="tiny material-icons">edit</i>{{ category.last_comment_username }}</li>
+                      </ul>
+                    </td>
                   </tr>
                 {% endif %}
               {% endfor %}
