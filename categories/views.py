@@ -44,8 +44,10 @@ def category_list(request: HttpRequest) -> HttpResponse:
 
 def category_detail(request: HttpRequest, category_slug: str) -> HttpResponse:
     category = get_object_or_404(Category, slug=category_slug)
-    posts = Post.objects.filter(category_id=category.id, is_active=True).annotate(
-        comments_count=Count("comments")
+    posts = (
+        Post.objects.filter(category_id=category.id, is_active=True)
+        .annotate(comments_count=Count("comments"))
+        .prefetch_related("comments")
     )
     paginator = Paginator(posts, 10)
 

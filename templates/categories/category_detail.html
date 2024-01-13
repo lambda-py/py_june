@@ -50,7 +50,16 @@
               </td>
               <td>{{ post.comments_count }}</td>
               <td>
-                {{ post.comments.last.created_at|date:"d.m.Y H:i" }}
+                <ul>
+                  <li>
+                    <i class="tiny material-icons">access_time</i>
+                    {{ post.comments.last.created_at|date:"d/m H:i" }}
+                  </li>
+                  <li>
+                    <i class="tiny material-icons">person</i>
+                    {{ post.comments.last.author }}
+                  </li>
+                </ul>
               </td>
             </tr>
           {% endfor %}

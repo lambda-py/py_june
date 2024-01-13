@@ -16,9 +16,17 @@
     text-decoration: underline;
   }
 
+  ul {
+    margin: 0;
+  }
+
   table {
     td:first-child {
       width: 60%;
+    }
+
+    td:nth-child(2), th:nth-child(2) {
+      text-align: center;
     }
   }
 }
