@@ -18,7 +18,7 @@ class PostModelTest(TestDataMixin, TestCase):
         self.assertEqual(str(self.post), "Test Post")
 
     def test_post_model_get_absolute_url(self):
-        self.assertEqual(self.post.get_absolute_url(), '/en-us/posts/test-post/')
+        self.assertEqual(self.post.get_absolute_url(), "/en-us/posts/test-post/")
 
 
 class CreatePostViewTest(TestDataMixin, TestCase):
