@@ -35,7 +35,7 @@ def home(request: HttpRequest) -> HttpResponse:
     ):
         answer_question_url = first_not_commented_post.get_absolute_url()
     else:
-        answer_question_url = last_posts[0].get_absolute_url()
+        answer_question_url = last_posts[0].get_absolute_url() if last_posts else ""
 
     return render(
         request,
