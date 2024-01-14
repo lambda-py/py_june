@@ -1,7 +1,9 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+
 from core.models import SlugModel
+
 
 class ProfileUser(SlugModel):
     first_name = models.CharField(max_length=50, blank=True)

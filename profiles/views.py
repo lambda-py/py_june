@@ -5,9 +5,10 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView, UpdateView
 
-from users.models import ForumUser
-from profiles.models import ProfileUser
 from profiles.forms import ProfileForm
+from profiles.models import ProfileUser
+from users.models import ForumUser
+
 
 class CreateProfileView(LoginRequiredMixin, View):
     template_name = "users/profile.html"
@@ -31,24 +32,21 @@ class CreateProfileView(LoginRequiredMixin, View):
 class ProfiletView(View):
     template_name = "users/profile.html"
 
-    def get(
-        self, request: HttpRequest, profile_slug: str) -> HttpResponse:
+    def get(self, request: HttpRequest, profile_slug: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile_slug)
 
         profile = ForumUser.objects.first()
 
         context = {
-            'id':       profile.id,
-            'username': profile.username,
-            'bio':      profile.bio,
-            'email':    profile.email,
-            'join':     profile.date_joined,
-
+            "id": profile.id,
+            "username": profile.username,
+            "bio": profile.bio,
+            "email": profile.email,
+            "join": profile.date_joined,
         }
         return render(request, self.template_name, {"user": user, "context": context})
 
-    def post(
-        self, request: HttpRequest, profile_slug: str) -> HttpResponse:
+    def post(self, request: HttpRequest, profile_slug: str) -> HttpResponse:
         user = get_object_or_404(ForumUser)
 
         return redirect("profile", post_slug=user.slug)

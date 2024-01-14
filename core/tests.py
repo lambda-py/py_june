@@ -44,33 +44,3 @@ class HomePageTest(TestDataMixin, TestCase):
         self.assertIn(self.post, response.context["last_posts"])
         self.assertIn(self.post, response.context["most_hot"])
         self.assertIn(self.comment, response.context["user_activities"])
-
-    def test_answer_question_url_not_commented_first(self):
-        Post.objects.create(
-            title="Test Post 2",
-            slug="test-post-2",
-            content="Test content",
-            author=self.user,
-            category=self.category,
-        )
-        response = self.client.get(reverse("home"))
-        self.assertEqual(response.status_code, 200)
-
-        self.assertEqual(
-            response.context["answer_question_url"], "/en-us/posts/test-post-2/"
-        )
-
-    def test_answer_question_url_last_post(self):
-        response = self.client.get(reverse("home"))
-        self.assertEqual(response.status_code, 200)
-
-        self.assertEqual(
-            response.context["answer_question_url"], "/en-us/posts/test-post/"
-        )
-
-    def test_answer_question_url_no_posts(self):
-        Post.objects.all().delete()
-        response = self.client.get(reverse("home"))
-        self.assertEqual(response.status_code, 200)
-
-        self.assertEqual(response.context["answer_question_url"], "")

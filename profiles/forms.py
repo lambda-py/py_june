@@ -1,12 +1,13 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
-#from django.contrib.auth.forms import UserCreationForm
 
 from .models import ProfileUser
 
-class ProfileForm(forms.ModelForm):
+# from django.contrib.auth.forms import UserCreationForm
 
+
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = ProfileUser
         fields = ["first_name", "last_name", "bio", "birth_date"]
@@ -24,7 +25,9 @@ class ProfileForm(forms.ModelForm):
                 Column("bio", css_class="col s12"),
                 Column("birth_date", css_class="col s12"),
             ),
-            Submit("submit", "Profile create",
+            Submit(
+                "submit",
+                "Profile create",
                 css_class="btn waves-effect waves-light submit-button",
             ),
         )
