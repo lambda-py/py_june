@@ -14,7 +14,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from allauth.account.views import LoginView
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import include, path
@@ -28,5 +27,4 @@ urlpatterns = i18n_patterns(
     path("users/", include("users.urls")),
     path("posts/", include("posts.urls")),
     path("comments/", include("comments.urls")),
-    path('accounts/login/', LoginView.as_view(), name='account_login'),
 )
