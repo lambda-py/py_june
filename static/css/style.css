@@ -11,6 +11,7 @@
  :root {
    --primary-color: #c1cad2;
    --primary-bg-color: #181d27;
+   --secondary-bg-color: #0e1117;
    --brand-bg-color: #0c4b33;
    --brand-color: #44b78b;
    --brand-second-color: #187f58;
@@ -24,6 +25,24 @@
  
  p {
    line-height: 2rem;
+ }
+ 
+ table.striped > tbody > tr:nth-child(odd) {
+   background-color: var(--secondary-bg-color);
+ }
+ 
+ td:first-child {
+   padding: 0 1.5rem;
+ }
+ 
+ .wrapper {
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .content {
+   flex: 1 0 auto;
  }
  
  .sidenav-trigger {
@@ -123,6 +142,11 @@
      line-height: normal;
    }
  
+   .btn-small {
+     font-size: 1em;
+     padding: 0.5em 1em;
+   }
+ 
    .icon-block span {
      position: relative;
      bottom: -7px;
@@ -145,6 +169,18 @@
  }
  
  .home {
+   #row-info {
+     margin: 1rem 0;
+ 
+     li {
+       margin-bottom: 0.75rem;
+     }
+   }
+ 
+   #slogan-container {
+     background-color: var(--secondary-bg-color);
+   }
+ 
    #slogan {
      font-size: 1.5rem;
      font-weight: 700;
@@ -155,6 +191,7 @@
      font-size: 1.8rem;
      font-weight: 700;
      color: var(--brand-color);
+     margin: 1.2rem 0 1rem 0;
    }
  
    h3 {
@@ -183,106 +220,165 @@
      height: auto;
      line-height: normal;
    }
+ 
+   #last-posts, #need-help {
+     background-color: var(--secondary-bg-color);
+   }
  }
-
+ 
  .login-page {
-  background-image: url("/static/images/background1.jpg");
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  color: #000;
-  
-}
-
-.signup-page {
-  background-image: url("/static/images/background2.jpg");
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  color: #000;
-  
-}
-
-.login-window {
-  width: 80%;
-  height: 450px;
-  display: flex;
-  color: #000;
-  max-width: 600px;
-  align-items: center;
-  border-radius: 20px;
-  flex-direction: column;
-  justify-content: center;
-  background: transparent;
-  backdrop-filter: blur(50px);
-  border: 2px solid rgba(255,255,255,0.5); 
-
-}
-
-.signup-window {
-  width: 80%;
-  height: auto;
-  display: flex;
-  color: #000;
-  max-width: 600px;
-  align-items: center;
-  border-radius: 20px;
-  flex-direction: column;
-  justify-content: center;
-  background: transparent;
-  backdrop-filter: blur(50px);
-  border: 2px solid rgba(255,255,255,0.5); 
-}
-
-.login-form {
-  width: 70%;
-  color: #000;
-  max-width: 500px;
-  text-align: center;
-}
-
-.signup-form {
-  width: 70%;
-  color: #000;
-  max-width: 500px;
-  margin-top: 15px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-label {
-  color: #fff;
-  font-size: medium;
-}
-
-.form-control {
-  color: #fff;
-  font-size: medium;
-}
-
-.form-text {
-  color: #fff;
-  font-size: medium;
-}
-
-.alert {
-  color: #fff;
-  font-size: medium;
-}
-
-.invalid-feedback {
-  color: #fff;
-  font-size: medium;
-}
-.sidenav {
-  background: transparent;
-  backdrop-filter: blur(20px);
-  width: 70%;
-}
-
-.submit-button {
-  margin-top: 25px;
-}
-
+   background-image: url("/static/images/background1.jpg");
+   background-size: cover;
+   width: 100%;
+   height: 100%;
+   display: inline-block;
+   color: #000;
+   flex: 1;
+ }
+ 
+ .signup-page {
+   background-image: url("/static/images/background2.jpg");
+   background-size: cover;
+   width: 100%;
+   height: 100%;
+   display: inline-block;
+   color: #000;
+ 
+ }
+ 
+ .login-window {
+   width: 80%;
+   height: 450px;
+   display: flex;
+   color: #000;
+   max-width: 600px;
+   align-items: center;
+   border-radius: 20px;
+   flex-direction: column;
+   justify-content: center;
+   background: transparent;
+   backdrop-filter: blur(50px);
+   border: 2px solid rgba(255, 255, 255, 0.5);
+ 
+ }
+ 
+ .signup-window {
+   width: 80%;
+   height: auto;
+   display: flex;
+   color: #000;
+   max-width: 600px;
+   align-items: center;
+   border-radius: 20px;
+   flex-direction: column;
+   justify-content: center;
+   background: transparent;
+   backdrop-filter: blur(50px);
+   border: 2px solid rgba(255, 255, 255, 0.5);
+ }
+ 
+ .login-form {
+   width: 70%;
+   color: #000;
+   max-width: 500px;
+   text-align: center;
+ }
+ 
+ .signup-form {
+   width: 70%;
+   color: #000;
+   max-width: 500px;
+   margin-top: 15px;
+   margin-bottom: 30px;
+   text-align: center;
+ }
+ 
+ label {
+   color: #fff;
+   font-size: medium;
+ }
+ 
+ .form-control {
+   color: #fff;
+   font-size: medium;
+ }
+ 
+ .form-text {
+   color: #fff;
+   font-size: medium;
+ }
+ 
+ .alert {
+   color: #fff;
+   font-size: medium;
+ }
+ 
+ .invalid-feedback {
+   color: #fff;
+   font-size: medium;
+ }
+ 
+ .sidenav {
+   background: transparent;
+   backdrop-filter: blur(20px);
+   width: 70%;
+ }
+ 
+ .submit-button {
+   margin-top: 25px;
+ }
+ 
+ footer a {
+   color: white;
+   text-decoration: underline;
+ }
+ 
+ .breadcrumbs a {
+   color: var(--brand-color);
+   text-decoration: underline;
+ }
+ 
+ #forum-content {
+   h2, h3 {
+     margin: 1.2rem 0 0.8rem 0;
+   }
+ 
+   table {
+     margin-bottom: 2rem;
+ 
+     ul {
+       margin: 0 0 1rem 0;
+     }
+ 
+     td, th {
+       text-align: center;
+     }
+ 
+     th {
+       padding: 0.5rem;
+     }
+ 
+     td:first-child, td:last-child, th:first-child, th:last-child {
+       text-align: left;
+     }
+ 
+     .category-title {
+       color: var(--brand-color);
+       text-decoration: underline;
+     }
+   }
+ }
+ 
+ #last-posts, #most-hot, #need-help, #user-activities {
+   a {
+     color: var(--primary-color);
+   }
+ 
+   a:hover {
+     text-decoration: underline;
+   }
+ }
+ 
+ #user-activities table tr td:first-child {
+   width: 10em;
+ }

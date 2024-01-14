@@ -6,8 +6,9 @@ from django.views import View
 from django.views.generic import DeleteView, UpdateView
 
 from profiles.forms import ProfileForm
-from profiles.models import ProfileUser
 from users.models import ForumUser
+from posts.models import Post
+from comments.models import Comment
 
 
 class CreateProfileView(LoginRequiredMixin, View):
@@ -29,20 +30,24 @@ class CreateProfileView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form})
 
 
-class ProfiletView(View):
+class ProfiletView(LoginRequiredMixin, View):
     template_name = "users/profile.html"
+    login_url = "/users/login/"
 
-    def get(self, request: HttpRequest, profile_slug: str) -> HttpResponse:
-        user = get_object_or_404(ForumUser, username=profile_slug)
+    def get(self, request: HttpRequest, profile: str) -> HttpResponse:
+        user = get_object_or_404(ForumUser, username=profile)
 
-        profile = ForumUser.objects.first()
+        comments_count = Comment.objects.filter(author_id=user.id).count()
+        posts_count = Post.objects.filter(author_id=user.id).count()
 
         context = {
-            "id": profile.id,
-            "username": profile.username,
-            "bio": profile.bio,
-            "email": profile.email,
-            "join": profile.date_joined,
+            "id":             user.id,
+            "username":       user.username,
+            "bio":            user.bio,
+            "email":          user.email,
+            "join":           user.date_joined,
+            "posts_count":    posts_count, 
+            "comments_count": comments_count,
         }
         return render(request, self.template_name, {"user": user, "context": context})
 
