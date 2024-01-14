@@ -5,10 +5,10 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView, UpdateView
 
+from comments.models import Comment
+from posts.models import Post
 from profiles.forms import ProfileForm
 from users.models import ForumUser
-from posts.models import Post
-from comments.models import Comment
 
 
 class CreateProfileView(LoginRequiredMixin, View):
@@ -41,12 +41,12 @@ class ProfiletView(LoginRequiredMixin, View):
         posts_count = Post.objects.filter(author_id=user.id).count()
 
         context = {
-            "id":             user.id,
-            "username":       user.username,
-            "bio":            user.bio,
-            "email":          user.email,
-            "join":           user.date_joined,
-            "posts_count":    posts_count, 
+            "id": user.id,
+            "username": user.username,
+            "bio": user.bio,
+            "email": user.email,
+            "join": user.date_joined,
+            "posts_count": posts_count,
             "comments_count": comments_count,
         }
         return render(request, self.template_name, {"user": user, "context": context})
