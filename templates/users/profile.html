@@ -1,0 +1,21 @@
+{% extends 'content.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+{{ context.username }}
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="profile-page">
+    <div class="container">
+        <div class="profile-background">
+            <img class="profile-background-photo" src="{% static 'images/butterfly.png' %}">
+        </div>
+        <h5>{{ context.join }}</h5>
+        <div></div>
+    </div>
+</div>
+{% endblock %}

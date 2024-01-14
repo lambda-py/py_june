@@ -1,0 +1,14 @@
+.profile-background {
+    margin-top: 100px;
+    align-items: center;
+    position: relative;
+  }
+  
+  .profile-background-photo {
+    width: auto;
+    max-width: 1280px;
+    height: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+  

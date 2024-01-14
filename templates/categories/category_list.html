@@ -2,58 +2,42 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans "Forum" %}
+{% trans "Forum" %}
 {% endblock %}
 
-{% block body %}
-  <div class="container content">
-    <div class="row">
-      <div class="col s12">
-        <div class="section content" id="forum-content">
-          {% for main_category in main_categories %}
-            <h2>{{ main_category.title }}</h2>
-            <hr>
-            <table class="striped">
-              <thead>
-              <tr>
-                <th></th>
-                <th>{% trans "Posts" %}</th>
-                <th>{% trans "Comments" %}</th>
-                <th>{% trans "Last comment" %}</th>
-              </tr>
-              </thead>
-              <tbody>
-              {% for category in categories %}
-                {% if category.main_category == main_category %}
-                  <tr>
-                    <td>
-                      <ul>
-                        <li>
-                          <a href="{% url 'categories:detail' category_slug=category.slug %}" class="category-title">
-                            <h3>{{ category.title }}</h3>
-                          </a>
-                        </li>
-                        <li>{{ category.description }}</li>
-                      </ul>
-                    </td>
-                    <td>{{ category.post_count }}</td>
-                    <td>{{ category.comment_count }}</td>
-                    <td>
-                      <ul>
-                        <li><i class="tiny material-icons">access_time</i>
-                          {{ category.last_comment_dt|date:"SHORT_DATETIME_FORMAT" }}
-                        </li>
-                        <li><i class="tiny material-icons">edit</i>{{ category.last_comment_username }}</li>
-                      </ul>
-                    </td>
-                  </tr>
-                {% endif %}
-              {% endfor %}
-              </tbody>
-            </table>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
+{% block content %}
+
+  {% for main_category in main_categories %}
+  <h2>{{ main_category.title }}</h2>
+  <table class="highlight">
+    <thead>
+    <tr>
+      <th></th>
+      <th>{% trans "Posts" %}</th>
+      <th>{% trans "Comments" %}</th>
+      <th>{% trans "Last comment" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for category in categories %}
+      {% if category.main_category == main_category %}
+        <tr>
+          <td>
+            <ul>
+              <li><h3>{{ category.title }}</h3></li>
+              <li>{{ category.description }}</li>
+            </ul>
+          </td>
+          <td>{{ category.post_count }}</td>
+          <td>{{ category.comment_count }}</td>
+          <td>{{ category.last_comment }}</td>
+          <td><a href="{% url 'categories:detail' category_slug=category.slug %}"
+                class="waves-effect waves-light btn">{% trans "Go to" %}...</a></td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endfor %}
+
+  {% endblock %}

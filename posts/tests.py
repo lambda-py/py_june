@@ -5,22 +5,6 @@ from core.tests import TestDataMixin
 from posts.models import Post
 
 
-class PostModelTest(TestDataMixin, TestCase):
-    def test_post_model(self):
-        self.assertEqual(self.post.title, "Test Post")
-        self.assertEqual(self.post.content, "Test content")
-        self.assertEqual(self.post.author, self.user)
-        self.assertEqual(self.post.category, self.category)
-        self.assertEqual(self.post.slug, "test-post")
-        self.assertTrue(self.post.is_active)
-
-    def test_post_model_str(self):
-        self.assertEqual(str(self.post), "Test Post")
-
-    def test_post_model_get_absolute_url(self):
-        self.assertEqual(self.post.get_absolute_url(), "/en-us/posts/test-post/")
-
-
 class CreatePostViewTest(TestDataMixin, TestCase):
     def setUp(self):
         super().setUp()

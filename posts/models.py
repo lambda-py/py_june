@@ -1,6 +1,5 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
-from django.urls import reverse
 
 from core.models import SlugModel
 
@@ -26,6 +25,3 @@ class Post(SlugModel):
 
     def __str__(self) -> str:
         return self.title
-
-    def get_absolute_url(self) -> str:
-        return reverse("posts:details", kwargs={"post_slug": self.slug})

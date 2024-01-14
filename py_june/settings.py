@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "categories.apps.CategoriesConfig",
     "posts.apps.PostsConfig",
     "comments.apps.CommentsConfig",
+    "profiles.apps.ProfilesConfig",
     # TODO PJ-75
     "ckeditor",
     "ckeditor_uploader",
