@@ -52,7 +52,9 @@ class UpdateCommentView(UserPassesTestMixin, View):
             {"form": form, "post": post, "comment": comment},
         )
 
-    def post(self, request: HttpRequest, post_slug: str, comment_pk: int) -> HttpResponse:
+    def post(
+        self, request: HttpRequest, post_slug: str, comment_pk: int
+    ) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug)
         comment = get_object_or_404(Comment, pk=comment_pk)
         form = CommentForm(request.POST, instance=comment)

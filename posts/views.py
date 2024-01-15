@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import DeleteView, UpdateView
 
 from categories.models import Category
-from comments.forms import CommentForm, AnswerCommentForm
+from comments.forms import AnswerCommentForm, CommentForm
 from comments.models import Comment
 from posts.forms import PostForm
 from posts.models import Post
@@ -44,8 +44,16 @@ class DetailsPostView(View):
         form = CommentForm()
         answer_form = AnswerCommentForm()
 
-        return render(request, self.template_name, {"post": post, "form": form,
-                                                    "answer_form": answer_form, "comments": comments})
+        return render(
+            request,
+            self.template_name,
+            {
+                "post": post,
+                "form": form,
+                "answer_form": answer_form,
+                "comments": comments,
+            },
+        )
 
     def post(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         form = CommentForm(request.POST)
@@ -67,8 +75,16 @@ class DetailsPostView(View):
             comment.save()
             return redirect("posts:details", post_slug=post.slug)
 
-        return render(request, self.template_name, {"form": form, "answer_form": answer_form,
-                                                    "post": post, "comments": comments})
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "answer_form": answer_form,
+                "post": post,
+                "comments": comments,
+            },
+        )
 
 
 class UpdatePostView(UserPassesTestMixin, View):
