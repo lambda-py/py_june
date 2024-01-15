@@ -1,11 +1,5 @@
 {% extends 'content.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
 {% load i18n %}
-
-{% block link %}
-  <link rel="stylesheet" href="{% static 'css/posts.css' %}">
-{% endblock%}
 
 {% block title %}
   {{ post.title }}
