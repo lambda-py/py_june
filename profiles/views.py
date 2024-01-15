@@ -7,27 +7,29 @@ from django.views.generic import DeleteView, UpdateView
 
 from comments.models import Comment
 from posts.models import Post
-from profiles.forms import ProfileForm
+
+# from profiles.forms import ProfileForm
 from users.models import ForumUser
 
+# TODO Pj-97 Create `settings` page for user
 
-class CreateProfileView(LoginRequiredMixin, View):
-    template_name = "users/profile.html"
+# class CreateProfileView(LoginRequiredMixin, View):
+#     template_name = "users/profile.html"
 
-    def get(self, request: HttpRequest) -> HttpResponse:
-        form = ProfileForm()
-        return render(request, self.template_name, {"form": form})
+#     def get(self, request: HttpRequest) -> HttpResponse:
+#         form = ProfileForm()
+#         return render(request, self.template_name, {"form": form})
 
-    def post(self, request: HttpRequest) -> HttpResponse:
-        form = ProfileForm(request.POST)
+#     def post(self, request: HttpRequest) -> HttpResponse:
+#         form = ProfileForm(request.POST)
 
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.forum_user = self.request.user
-            user.save()
-            return redirect("home")
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.forum_user = self.request.user
+#             user.save()
+#             return redirect("home")
 
-        return render(request, self.template_name, {"form": form})
+#         return render(request, self.template_name, {"form": form})
 
 
 class ProfiletView(LoginRequiredMixin, View):
