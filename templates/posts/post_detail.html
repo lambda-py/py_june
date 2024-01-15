@@ -5,43 +5,43 @@
 
 {% block link %}
   <link rel="stylesheet" href="{% static 'css/posts.css' %}">
-{% endblock%}
+{% endblock %}
 
 {% block title %}
   {{ post.title }}
 {% endblock %}
 
 {% block breadcrumbs %}
-  <a href="{% url 'categories:list' %}">PY_JUNE</a> / 
-  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a> / 
+  <a href="{% url 'categories:list' %}">PY_JUNE</a> /
+  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a> /
   <span class="active">{{ post.title }}</span>
 {% endblock %}
 
 {% block content %}
-<div class="row">
-  <div class="col s4 offset-s10">
-    {% if request.user.is_authenticated == False %}
-    <a href="{% url 'categories:detail' category_slug=post.category.slug%}"
-       class="waves-effect waves-light btn">{% trans "Back" %}
-    </a>
-    {% endif %}
+  <div class="row">
+    <div class="col s4 offset-s10">
+      {% if request.user.is_authenticated == False %}
+        <a href="{% url 'categories:detail' category_slug=post.category.slug %}"
+           class="waves-effect waves-light btn">{% trans "Back" %}
+        </a>
+      {% endif %}
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col s12 offset-s7">
-        {% if request.user.is_authenticated and request.user.id == post.author.id %}
-          <a href="{% url 'categories:detail' category_slug=post.category.slug%}"
-             class="waves-effect waves-light btn">{% trans "Back" %}</a>
-          <a href="{% url 'posts:update' post_slug=post.slug %}"
-             class="waves-effect waves-light btn">{% trans "Edit" %}</a>
-          <a href="{% url 'posts:delete' post_slug=post.slug %}"
-             class="waves-effect waves-light btn red darken-2">{% trans "Delete" %}</a>
-        {% endif %}
-      </div>
-</div>
+  <div class="row">
+    <div class="col s12 offset-s7">
+      {% if request.user.is_authenticated and request.user.id == post.author.id %}
+        <a href="{% url 'categories:detail' category_slug=post.category.slug %}"
+           class="waves-effect waves-light btn">{% trans "Back" %}</a>
+        <a href="{% url 'posts:update' post_slug=post.slug %}"
+           class="waves-effect waves-light btn">{% trans "Edit" %}</a>
+        <a href="{% url 'posts:delete' post_slug=post.slug %}"
+           class="waves-effect waves-light btn red darken-2">{% trans "Delete" %}</a>
+      {% endif %}
+    </div>
+  </div>
 
-<div id="category-details">
+  <div id="category-details">
     <div class="row">
       <div class="col s10">
         <h1>{{ post.title }}</h1>
@@ -62,51 +62,39 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col s12">
-        {% if request.user.is_authenticated %}
-        <form method="post" class="create-comment-form">
-          {% csrf_token %}
-          {% crispy form %}
-        </form>
-        {% else %}
-        <h2>You must be logged in to post comments</h2>
-        {% endif %}
-      </div>
-    </div>
 
-  <div class="row">
-    <div class="col s12 center">
-      <table class="striped">
-        <thead>
+    <div class="row">
+      <div class="col s12 center">
+        <table class="striped">
+          <thead>
           <tr>
             <th></th>
             <th></th>
             <th>Answered</th>
             <th>Button</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {% for comment in comments %}
-            <tr>
-              <td>
+            <tr class="comment">
+              <td class="comment-text">
                 {{ comment.content }}
               </td>
               <td>
                 {% if request.user.is_authenticated and request.user.id == comment.author.id %}
-                <a href="{% url 'comments:update' post_slug=post.slug comment_pk=comment.id %}">
-                  <i class="tiny material-icons">edit</i>
-                </a>
-                <a href="{% url 'comments:delete' post_slug=post.slug comment_pk=comment.id %}">
-                  <i class="tiny material-icons">delete</i>
-                </a>
+                  <a href="{% url 'comments:update' post_slug=post.slug comment_pk=comment.id %}">
+                    <i class="tiny material-icons">edit</i>
+                  </a>
+                  <a href="{% url 'comments:delete' post_slug=post.slug comment_pk=comment.id %}">
+                    <i class="tiny material-icons">delete</i>
+                  </a>
                 {% endif %}
               </td>
               <td>
                 <ul>
                   <li>
                     <i class="tiny material-icons">access_time</i>
-                    {{comment.updated_at|date:"d/m H:i"}}
+                    {{ comment.updated_at|date:"d/m H:i" }}
                   </li>
                   <li>
                     <i class="tiny material-icons">person</i>
@@ -116,36 +104,48 @@
               </td>
               <td>
                 {% if request.user.is_authenticated %}
-                  <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#answer-comment-form"
-                     class="waves-effect waves-light btn">
+                  <button 
+                    data-comment-text="{{ comment.content }}"
+                    class="waves-effect waves-light btn answer"
+                  >
                     {% trans "Answer" %}
-                  </a>
+                  </button>
                 {% else %}
                   <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#answer-comment-form"
-                   class="btn disabled">
-                  {% trans "Answer" %}
-                </a>
+                     class="btn disabled">
+                    {% trans "Answer" %}
+                  </a>
                 {% endif %}
               </td>
             </tr>
           {% endfor %}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col s12">
-      {% if request.user.is_authenticated %}
-      <form method="post" class="answer-comment-form" id="answer-comment-form">
-        {% csrf_token %}
-        {% crispy answer_form %}
-      </form>
-      {% else %}
-      <h2>You must be logged in to post comments</h2>
-      {% endif %}
+    <div class="row">
+      <div class="col s12">
+        {% if request.user.is_authenticated %}
+          <form method="post" class="create-comment-form" id="answer-comment-form">
+            {% csrf_token %}
+            {% crispy form %}
+          </form>
+        {% else %}
+          <h2>You must be logged in to post comments</h2>
+        {% endif %}
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>
 {% endblock %}
+
+{% block script %}
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/tab/plugin.js"></script>
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/plugin.js"></script>
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/lib/highlight/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="{% static 'js/post.js' %}"></script>
+{% endblock %}
+```
