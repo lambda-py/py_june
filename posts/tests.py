@@ -109,7 +109,7 @@ class UpdatePostViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.update_post_view_url, data)
 
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("categories:list"))
+        self.assertRedirects(response, reverse("posts:details", kwargs={"post_slug": self.post.slug}))
         update_post = Post.objects.get(pk=self.post.pk)
         self.assertEqual(update_post.title, "Update title")
         self.assertEqual(update_post.content, "Update content")
