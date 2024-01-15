@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import DeleteView, UpdateView
 
 from categories.models import Category
-from comments.forms import CommentForm
+from comments.forms import CommentForm, AnswerCommentForm
 from comments.models import Comment
 from posts.forms import PostForm
 from posts.models import Post
@@ -42,11 +42,14 @@ class DetailsPostView(View):
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         form = CommentForm()
+        answer_form = AnswerCommentForm()
 
-        return render(request, self.template_name, {"post": post, "form": form, "comments": comments})
+        return render(request, self.template_name, {"post": post, "form": form,
+                                                    "answer_form": answer_form, "comments": comments})
 
     def post(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         form = CommentForm(request.POST)
+        answer_form = AnswerCommentForm(request.POST)
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
 
@@ -57,7 +60,15 @@ class DetailsPostView(View):
             comment.save()
             return redirect("posts:details", post_slug=post.slug)
 
-        return render(request, self.template_name, {"form": form, "post": post, "comments": comments})
+        if answer_form.is_valid():
+            comment = answer_form.save(commit=False)
+            comment.author = self.request.user
+            comment.post = post
+            comment.save()
+            return redirect("posts:details", post_slug=post.slug)
+
+        return render(request, self.template_name, {"form": form, "answer_form": answer_form,
+                                                    "post": post, "comments": comments})
 
 
 class UpdatePostView(UserPassesTestMixin, View):

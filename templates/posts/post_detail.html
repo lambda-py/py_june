@@ -64,10 +64,14 @@
 
     <div class="row">
       <div class="col s12">
+        {% if request.user.is_authenticated %}
         <form method="post" class="create-comment-form">
           {% csrf_token %}
           {% crispy form %}
         </form>
+        {% else %}
+        <h2>You must be logged in to post comments</h2>
+        {% endif %}
       </div>
     </div>
 
@@ -76,6 +80,7 @@
       <table class="striped">
         <thead>
           <tr>
+            <th></th>
             <th></th>
             <th>Answered</th>
             <th>Button</th>
@@ -86,6 +91,16 @@
             <tr>
               <td>
                 {{ comment.content }}
+              </td>
+              <td>
+                {% if request.user.is_authenticated and request.user.id == comment.author.id %}
+                <a href="{% url 'comments:update' post_slug=post.slug comment_pk=comment.id %}">
+                  <i class="tiny material-icons">edit</i>
+                </a>
+                <a href="{% url 'comments:delete' post_slug=post.slug comment_pk=comment.id %}">
+                  <i class="tiny material-icons">delete</i>
+                </a>
+                {% endif %}
               </td>
               <td>
                 <ul>
@@ -100,9 +115,17 @@
                 </ul>
               </td>
               <td>
-                <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#answer-comment-form" class="waves-effect waves-light btn">
+                {% if request.user.is_authenticated %}
+                  <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#answer-comment-form"
+                     class="waves-effect waves-light btn">
+                    {% trans "Answer" %}
+                  </a>
+                {% else %}
+                  <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#answer-comment-form"
+                   class="btn disabled">
                   {% trans "Answer" %}
                 </a>
+                {% endif %}
               </td>
             </tr>
           {% endfor %}
@@ -113,10 +136,14 @@
 
   <div class="row">
     <div class="col s12">
-      <form method="post" class="create-comment-form" id="answer-comment-form">
+      {% if request.user.is_authenticated %}
+      <form method="post" class="answer-comment-form" id="answer-comment-form">
         {% csrf_token %}
-        {% crispy form %}
+        {% crispy answer_form %}
       </form>
+      {% else %}
+      <h2>You must be logged in to post comments</h2>
+      {% endif %}
     </div>
   </div>
 
