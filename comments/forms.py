@@ -17,7 +17,7 @@ class CommentForm(forms.ModelForm):
         self.helper.layout = Layout(
             "content",
             Submit(
-                "submit", "Create Comment", css_class="btn waves-effect waves-light"
+                "submit", "Confirm", css_class="btn waves-effect waves-light"
             ),
         )
         self.field_order = ["content"]

@@ -19,9 +19,22 @@
 
 {% block content %}
 <div class="row">
-  <div class="col s6 offset-s9">
+  <div class="col s4 offset-s10">
+    {% if request.user.is_authenticated == False %}
+    <a href="{% url 'categories:detail' category_slug=post.category.slug%}"
+       class="waves-effect waves-light btn">{% trans "Back" %}
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 offset-s7">
         {% if request.user.is_authenticated and request.user.id == post.author.id %}
-          <a href="{% url 'posts:update' post_slug=post.slug %}" class="waves-effect waves-light btn">{% trans "Edit" %}</a>
+          <a href="{% url 'categories:detail' category_slug=post.category.slug%}"
+             class="waves-effect waves-light btn">{% trans "Back" %}</a>
+          <a href="{% url 'posts:update' post_slug=post.slug %}"
+             class="waves-effect waves-light btn">{% trans "Edit" %}</a>
           <a href="{% url 'posts:delete' post_slug=post.slug %}"
              class="waves-effect waves-light btn red darken-2">{% trans "Delete" %}</a>
         {% endif %}
@@ -69,7 +82,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for comment in post.comments.all %}
+          {% for comment in comments %}
             <tr>
               <td>
                 {{ comment.content }}
