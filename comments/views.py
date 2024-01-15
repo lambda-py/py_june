@@ -5,7 +5,7 @@ from django.views import View
 
 from posts.models import Post
 
-from .forms import AnswerCommentForm, CommentForm
+from .forms import CommentForm
 from .models import Comment
 
 
@@ -95,41 +95,3 @@ class DeleteCommentView(UserPassesTestMixin, View):
         comment.delete()
 
         return redirect("posts:details", post_slug=post.slug)
-
-
-class AnswerCommentView(LoginRequiredMixin, View):
-    template_name = "comments/comment_answer.html"
-    login_url = "/users/login/"
-
-    def get(
-        self, request: HttpRequest, post_slug: str, comment_pk: int
-    ) -> HttpResponse:
-        post = get_object_or_404(Post, slug=post_slug)
-        comment = get_object_or_404(Comment, pk=comment_pk)
-        form = AnswerCommentForm()
-
-        return render(
-            request,
-            self.template_name,
-            {"form": form, "post": post, "comment": comment},
-        )
-
-    def post(
-        self, request: HttpRequest, post_slug: str, comment_pk: int
-    ) -> HttpResponse:
-        post = get_object_or_404(Post, slug=post_slug)
-        form = AnswerCommentForm(request.POST)
-        comment = get_object_or_404(Comment, pk=comment_pk)
-
-        if form.is_valid():
-            answer = form.save(commit=False)
-            answer.author = self.request.user
-            answer.post_id = post.pk
-            answer.save()
-            return redirect("posts:details", post_slug=post.slug)
-
-        return render(
-            request,
-            self.template_name,
-            {"form": form, "post": post, "comment": comment},
-        )
