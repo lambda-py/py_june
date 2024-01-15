@@ -36,7 +36,16 @@
         <h2>{{ post.content }}</h2>
       </div>
       <div class="input-field col s2 ">
-        {{ post.author }} {{ post.updated_at|date:"SHORT_DATETIME_FORMAT" }}
+        <ul>
+          <li>
+            <i class="tiny material-icons">person</i>
+            {{ post.author }}
+          </li>
+          <li>
+            <i class="tiny material-icons">access_time</i>
+            {{ post.updated_at|date:"SHORT_DATETIME_FORMAT" }}
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -78,8 +87,9 @@
                 </ul>
               </td>
               <td>
-                <a href="{% url 'comments:answer' post_slug=comment.post.slug comment_pk=comment.id%}"
-                   class="waves-effect waves-light btn">{% trans "Answer" %}</a>
+                <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#answer-comment-form" class="waves-effect waves-light btn">
+                  {% trans "Answer" %}
+                </a>
               </td>
             </tr>
           {% endfor %}
@@ -88,6 +98,14 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col s12">
+      <form method="post" class="create-comment-form" id="answer-comment-form">
+        {% csrf_token %}
+        {% crispy form %}
+      </form>
+    </div>
+  </div>
 
 </div>
 {% endblock %}
