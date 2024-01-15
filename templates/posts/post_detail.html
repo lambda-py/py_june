@@ -1,5 +1,11 @@
 {% extends 'content.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 {% load i18n %}
+
+{% block link %}
+  <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{% endblock%}
 
 {% block title %}
   {{ post.title }}
@@ -12,50 +18,76 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ post.title }}</h1>
-  <div class="col s12">
+<div class="row">
+  <div class="col s6 offset-s9">
+        {% if request.user.is_authenticated and request.user.id == post.author.id %}
+          <a href="{% url 'posts:update' post_slug=post.slug %}" class="waves-effect waves-light btn">{% trans "Edit" %}</a>
+          <a href="{% url 'posts:delete' post_slug=post.slug %}"
+             class="waves-effect waves-light btn red darken-2">{% trans "Delete" %}</a>
+        {% endif %}
+      </div>
+</div>
+
+<div id="category-details">
     <div class="row">
-      <div class="input-field col s2">
+      <div class="col s10">
+        <h1>{{ post.title }}</h1>
+        <hr>
+        <h2>{{ post.content }}</h2>
+      </div>
+      <div class="input-field col s2 ">
         {{ post.author }} {{ post.updated_at|date:"SHORT_DATETIME_FORMAT" }}
       </div>
-      <div class="input-field col s10">
-        {{ post.content }}
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <form method="post" class="create-comment-form">
+          {% csrf_token %}
+          {% crispy form %}
+        </form>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col s6">
-      <a href="{% url 'categories:detail' category_slug=post.category.slug %}" class="waves-effect waves-light btn">
-        {% trans "Back" %}
-      </a>
-      <a href="{% url 'comments:create' post_slug=post.slug %}" class="waves-effect waves-light btn">
-        {% trans "Answer" %}
-      </a>
-
-    </div>
-    <div class="col s6 center">
-      {% if request.user.is_authenticated and request.user.id == post.author.id %}
-        <a href="{% url 'posts:update' post_slug=post.slug %}" class="waves-effect waves-light btn">{% trans "Edit" %}</a>
-        <a href="{% url 'posts:delete' post_slug=post.slug %}"
-           class="waves-effect waves-light btn red darken-2">{% trans "Delete" %}</a>
-      {% endif %}
-    </div>
-  </div>
 
   <div class="row">
-    <div class="col s12">
-      <h3>{% trans "Answers" %}</h3>
-      {% for comment in post.comments.all %}
-        <div class="row" id={{ comment.id }}>
-          <div class="input-field col s2">
-            {{ comment.author }} {{ comment.updated_at }}
-          </div>
-          <div class="input-field col s10">
-            {{ comment.content }}
-          </div>
-        </div>
-      {% endfor %}
+    <div class="col s12 center">
+      <table class="striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Answered</th>
+            <th>Button</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for comment in post.comments.all %}
+            <tr>
+              <td>
+                {{ comment.content }}
+              </td>
+              <td>
+                <ul>
+                  <li>
+                    <i class="tiny material-icons">access_time</i>
+                    {{comment.updated_at|date:"d/m H:i"}}
+                  </li>
+                  <li>
+                    <i class="tiny material-icons">person</i>
+                    {{ comment.author }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <a href="{% url 'comments:answer' post_slug=comment.post.slug comment_pk=comment.id%}"
+                   class="waves-effect waves-light btn">{% trans "Answer" %}</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 
+
+</div>
 {% endblock %}

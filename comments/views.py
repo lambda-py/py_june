@@ -100,7 +100,7 @@ class DeleteCommentView(UserPassesTestMixin, View):
 
 
 class AnswerCommentView(LoginRequiredMixin, View):
-    template_name = "comments/comment_answer.html"
+    template_name = "posts/detail.html"
     login_url = "/users/login/"
 
     def get(
@@ -113,7 +113,7 @@ class AnswerCommentView(LoginRequiredMixin, View):
         return render(
             request,
             self.template_name,
-            {"form": form, "comment": comment, "post": post},
+            {"form_answer": form},
         )
 
     def post(
@@ -133,5 +133,5 @@ class AnswerCommentView(LoginRequiredMixin, View):
         return render(
             request,
             self.template_name,
-            {"form": form, "comment": comment, "post": post},
+            {"form_answer": form},
         )
