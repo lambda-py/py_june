@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="col s6">
+    <div class="col s6 offset-s9">
         <a href="{% url 'posts:details' post_slug=post.slug %}"
            class="btn waves-effect waves-light red darken-2">{% trans "Cancel" %}</a>
     </div>

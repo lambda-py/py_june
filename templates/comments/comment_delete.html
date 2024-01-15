@@ -19,6 +19,7 @@
     <p>{% trans "Are you sure you want to delete comment for" %} "{{ post.title }}"</p>
     {{ form|crispy }}
     <button type="submit" class="btn waves-effect waves-light">{% trans "Confirm" %}</button>
-    <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light">{% trans "Cancel" %}</a>
+    <a href="{% url 'posts:details' post_slug=post.slug %}"
+       class="btn waves-effect waves-light red darken-2">{% trans "Cancel" %}</a>
   </form>
 {% endblock %}
