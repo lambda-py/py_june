@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "bleach",
     "crispy_forms",
     "crispy_bootstrap4",
     "core.apps.CoreConfig",
@@ -172,3 +173,17 @@ AUTH_USER_MODEL = "users.ForumUser"
 # crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# bleach verify HTML
+ALLOWED_TAGS = [
+    "p",
+    "b",
+    "i",
+    "u",
+    "em",
+    "strong",
+    "a",
+]
+ALLOWED_ATTRIBUTES = {"a": ["href", "title"]}
+ALLOWED_STYLES = []
+STRIP = True

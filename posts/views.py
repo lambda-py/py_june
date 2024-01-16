@@ -10,6 +10,7 @@ from comments.forms import CommentForm
 from comments.models import Comment
 from posts.forms import PostForm
 from posts.models import Post
+from utils.html_sanitizer import html_sanitizer
 
 
 class CreatePostView(LoginRequiredMixin, View):
@@ -22,7 +23,10 @@ class CreatePostView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form, "category": category})
 
     def post(self, request: HttpRequest, category_slug: str) -> HttpResponse:
-        form = PostForm(request.POST)
+        content_data = request.POST.get("content")
+        title = request.POST.get("title")
+        clean_content = html_sanitizer(content_data)
+        form = PostForm(data={"content": clean_content, "title": title})
         category = get_object_or_404(Category, slug=category_slug)
 
         if form.is_valid():
