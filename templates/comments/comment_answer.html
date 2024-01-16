@@ -13,8 +13,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans "Comment for" %} "{{ comment.title }}"</h1>
-    <p>{{ comment.content }}</p>
+    <h2>{{ comment.content }}</h2>
     <form method="post" class="answer-comment-form">
       {% csrf_token %}
       {% crispy form %}

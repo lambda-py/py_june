@@ -17,6 +17,6 @@ class PostForm(forms.ModelForm):
         self.helper.layout = Layout(
             "title",
             "content",
-            Submit("submit", "Create Post", css_class="btn waves-effect waves-light"),
+            Submit("submit", "Confirm", css_class="btn waves-effect waves-light"),
         )
         self.field_order = ["title", "content"]

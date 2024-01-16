@@ -1,61 +1,151 @@
 {% extends 'content.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 {% load i18n %}
+
+{% block link %}
+  <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{% endblock %}
 
 {% block title %}
   {{ post.title }}
 {% endblock %}
 
 {% block breadcrumbs %}
-  <a href="{% url 'categories:list' %}">PY_JUNE</a> / 
-  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a> / 
+  <a href="{% url 'categories:list' %}">PY_JUNE</a> /
+  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a> /
   <span class="active">{{ post.title }}</span>
 {% endblock %}
 
 {% block content %}
-  <h1>{{ post.title }}</h1>
-  <div class="col s12">
-    <div class="row">
-      <div class="input-field col s2">
-        {{ post.author }} {{ post.updated_at|date:"SHORT_DATETIME_FORMAT" }}
-      </div>
-      <div class="input-field col s10">
-        {{ post.content }}
-      </div>
+  <div class="row">
+    <div class="col s4 offset-s10">
+      {% if request.user.is_authenticated == False %}
+        <a href="{% url 'categories:detail' category_slug=post.category.slug %}"
+           class="waves-effect waves-light btn">{% trans "Back" %}
+        </a>
+      {% endif %}
     </div>
   </div>
-  <div class="row">
-    <div class="col s6">
-      <a href="{% url 'categories:detail' category_slug=post.category.slug %}" class="waves-effect waves-light btn">
-        {% trans "Back" %}
-      </a>
-      <a href="{% url 'comments:create' post_slug=post.slug %}" class="waves-effect waves-light btn">
-        {% trans "Answer" %}
-      </a>
 
-    </div>
-    <div class="col s6 center">
+  <div class="row">
+    <div class="col s12 offset-s7">
       {% if request.user.is_authenticated and request.user.id == post.author.id %}
-        <a href="{% url 'posts:update' post_slug=post.slug %}" class="waves-effect waves-light btn">{% trans "Edit" %}</a>
+        <a href="{% url 'categories:detail' category_slug=post.category.slug %}"
+           class="waves-effect waves-light btn">{% trans "Back" %}</a>
+        <a href="{% url 'posts:update' post_slug=post.slug %}"
+           class="waves-effect waves-light btn">{% trans "Edit" %}</a>
         <a href="{% url 'posts:delete' post_slug=post.slug %}"
            class="waves-effect waves-light btn red darken-2">{% trans "Delete" %}</a>
       {% endif %}
     </div>
   </div>
 
-  <div class="row">
-    <div class="col s12">
-      <h3>{% trans "Answers" %}</h3>
-      {% for comment in post.comments.all %}
-        <div class="row" id={{ comment.id }}>
-          <div class="input-field col s2">
-            {{ comment.author }} {{ comment.updated_at }}
-          </div>
-          <div class="input-field col s10">
-            {{ comment.content }}
-          </div>
-        </div>
-      {% endfor %}
+  <div id="category-details">
+    <div class="row">
+      <div class="col s10">
+        <h1>{{ post.title }}</h1>
+        <hr>
+        <h2>{{ post.content }}</h2>
+      </div>
+      <div class="input-field col s2 ">
+        <ul>
+          <li>
+            <i class="tiny material-icons">person</i>
+            {{ post.author }}
+          </li>
+          <li>
+            <i class="tiny material-icons">access_time</i>
+            {{ post.updated_at|date:"SHORT_DATETIME_FORMAT" }}
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
 
+
+    <div class="row">
+      <div class="col s12 center">
+        <table class="striped">
+          <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Answered</th>
+            <th>Button</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for comment in comments %}
+            <tr class="comment">
+              <td class="comment-text">
+                {{ comment.content }}
+              </td>
+              <td>
+                {% if request.user.is_authenticated and request.user.id == comment.author.id %}
+                  <a href="{% url 'comments:update' post_slug=post.slug comment_pk=comment.id %}">
+                    <i class="tiny material-icons">edit</i>
+                  </a>
+                  <a href="{% url 'comments:delete' post_slug=post.slug comment_pk=comment.id %}">
+                    <i class="tiny material-icons">delete</i>
+                  </a>
+                {% endif %}
+              </td>
+              <td>
+                <ul>
+                  <li>
+                    <i class="tiny material-icons">access_time</i>
+                    {{ comment.updated_at|date:"d/m H:i" }}
+                  </li>
+                  <li>
+                    <i class="tiny material-icons">person</i>
+                    {{ comment.author }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                {% if request.user.is_authenticated %}
+                  <button
+                    data-comment-text="{{ comment.content }}"
+                    class="waves-effect waves-light btn answer"
+                  >
+                    {% trans "Answer" %}
+                  </button>
+                {% else %}
+                  <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#answer-comment-form"
+                     class="btn disabled">
+                    {% trans "Answer" %}
+                  </a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        {% if request.user.is_authenticated %}
+          <form method="post" class="create-comment-form" id="answer-comment-form">
+            {% csrf_token %}
+            {% crispy form %}
+          </form>
+        {% else %}
+          <h2>You must be logged in to post comments</h2>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
 {% endblock %}
+
+{% block script %}
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/tab/plugin.js"></script>
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/plugin.js"></script>
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/lib/highlight/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="{% static 'js/post.js' %}"></script>
+{% endblock %}
+```

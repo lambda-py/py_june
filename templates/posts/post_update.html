@@ -13,11 +13,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans "Update" %} {{ post.title }}</h1>
-    <form method="post" class="update-post-form">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <button type="submit" class="btn waves-effect waves-light">{% trans "Save Changes" %}</button>
-      <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light">{% trans "Cancel" %}</a>
-    </form>
+    <div class="col s6 offset-s9">
+        <a href="{% url 'posts:details' post_slug=post.slug %}"
+           class="btn waves-effect waves-light red darken-2">{% trans "Cancel" %}</a>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h1>{% trans "Update" %} {{ post.title }}</h1>
+            <form method="post" class="update-post-form">
+              {% csrf_token %}
+              {% crispy form %}
+            </form>
+        </div>
+    </div>
 {% endblock %}

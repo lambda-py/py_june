@@ -7,7 +7,7 @@ from core.models import SlugModel
 
 class Post(SlugModel):
     title = models.CharField(max_length=50)
-    content = RichTextUploadingField(max_length=500, blank=True)
+    content = RichTextUploadingField(max_length=500)
     author = models.ForeignKey(
         "users.ForumUser", on_delete=models.CASCADE, related_name="posts"
     )
