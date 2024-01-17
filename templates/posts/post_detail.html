@@ -46,7 +46,7 @@
       <div class="col s10">
         <h1>{{ post.title }}</h1>
         <hr>
-        <h2>{{ post.content }}</h2>
+        <h2>{{ post.content|safe }}</h2>
       </div>
       <div class="input-field col s2 ">
         <ul>
@@ -78,7 +78,7 @@
           {% for comment in comments %}
             <tr class="comment">
               <td class="comment-text">
-                {{ comment.content }}
+                {{ comment.content|safe }}
               </td>
               <td>
                 {% if request.user.is_authenticated and request.user.id == comment.author.id %}
