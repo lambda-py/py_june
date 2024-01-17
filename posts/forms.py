@@ -2,6 +2,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
 from django import forms
 
+from core.utils.html_sanitizer import html_sanitizer
 from .models import Post
 
 
@@ -20,3 +21,7 @@ class PostForm(forms.ModelForm):
             Submit("submit", "Confirm", css_class="btn waves-effect waves-light"),
         )
         self.field_order = ["title", "content"]
+
+    def clean_content(self):
+        content = self.cleaned_data.get("content")
+        return html_sanitizer(content)
