@@ -172,3 +172,6 @@ AUTH_USER_MODEL = "users.ForumUser"
 # crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# post timeout
+POST_TIME_OUT = 300
