@@ -21,8 +21,7 @@ def check_post_time_limit(request: HttpRequest) -> bool:
             time_diff = timezone.now() - last_post_time
             if time_diff.total_seconds() < 300:
                 return True
-    else:
-        return False
+    return False
 
 
 class CreatePostView(LoginRequiredMixin, View):
@@ -35,7 +34,9 @@ class CreatePostView(LoginRequiredMixin, View):
         else:
             category = get_object_or_404(Category, slug=category_slug)
             form = PostForm()
-            return render(request, self.template_name, {"form": form, "category": category})
+            return render(
+                request, self.template_name, {"form": form, "category": category}
+            )
 
     def post(self, request: HttpRequest, category_slug: str) -> HttpResponse:
         form = PostForm(request.POST)
