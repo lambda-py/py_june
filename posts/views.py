@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
@@ -5,6 +6,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
 from django.views.generic import DeleteView
+from django.utils.translation import gettext_lazy as _
 
 from categories.models import Category
 from comments.forms import CommentForm
@@ -13,15 +15,15 @@ from posts.forms import PostForm
 from posts.models import Post
 
 
-def check_post_time_limit(request: HttpRequest) -> bool:
+def can_user_post(request: HttpRequest) -> bool:
     user = request.user
-    if user.is_authenticated:
-        last_post_time = user.last_post_time
-        if last_post_time:
-            time_diff = timezone.now() - last_post_time
-            if time_diff.total_seconds() < 300:
-                return True
-    return False
+    time_out = getattr(settings, "POST_TIME_OUT")
+    last_post_time = user.last_post_time
+    if last_post_time:
+        time_diff = timezone.now() - last_post_time
+        if time_diff.total_seconds() < time_out:
+            return False
+    return True
 
 
 class CreatePostView(LoginRequiredMixin, View):
@@ -29,14 +31,15 @@ class CreatePostView(LoginRequiredMixin, View):
     login_url = "/users/login/"
 
     def get(self, request: HttpRequest, category_slug: str) -> HttpResponse:
-        if check_post_time_limit(request):
-            return HttpResponseForbidden("You can only post every 5 minutes.")
-        else:
+        if can_user_post(request):
             category = get_object_or_404(Category, slug=category_slug)
             form = PostForm()
             return render(
                 request, self.template_name, {"form": form, "category": category}
             )
+        else:
+            message = _("You can only post every 5 minutes.")
+            return HttpResponseForbidden(message)
 
     def post(self, request: HttpRequest, category_slug: str) -> HttpResponse:
         form = PostForm(request.POST)
