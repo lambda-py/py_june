@@ -182,9 +182,8 @@ ALLOWED_TAGS = [
     "u",
     "em",
     "strong",
-    "a",
 ]
-ALLOWED_ATTRIBUTES = {"a": ["href", "title"]}
+ALLOWED_ATTRIBUTES = {}
 ALLOWED_STYLES = []
 STRIP = True
 
