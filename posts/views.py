@@ -2,8 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views import View
-from django.views.generic import DeleteView, UpdateView
+from django.views.generic import DeleteView
 
 from categories.models import Category
 from comments.forms import CommentForm
@@ -27,9 +28,12 @@ class CreatePostView(LoginRequiredMixin, View):
 
         if form.is_valid():
             post = form.save(commit=False)
+            user = self.request.user
+            user.last_post_time = timezone.now()
             post.author = self.request.user
             post.category = category
             post.save()
+            user.save()
             return redirect("categories:list")
 
         return render(request, self.template_name, {"form": form, "category": category})

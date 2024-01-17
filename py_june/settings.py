@@ -62,6 +62,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "py_june.middleware.post_rate_limit.PostRateLimitMiddleware",
 ]
 
 ROOT_URLCONF = "py_june.urls"
