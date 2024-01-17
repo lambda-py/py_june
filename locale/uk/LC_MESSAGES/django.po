@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-11 02:20+0200\n"
+"POT-Creation-Date: 2024-01-17 14:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,67 +21,54 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: py_june/settings.py:119
+#: comments/forms.py:20 templates/comments/comment_delete.html:21
+#: templates/posts/post_delete.html:21
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: posts/models.py:24
+msgid "Post"
+msgstr "Пост"
+
+#: posts/models.py:25 templates/categories/category_list.html:20
+msgid "Posts"
+msgstr "Пости"
+
+#: py_june/settings.py:124
 msgid "English"
 msgstr ""
 
-#: py_june/settings.py:120
+#: py_june/settings.py:125
 msgid "Ukrainian"
 msgstr ""
 
-#: templates/categories/category_detail.html:21
+#: templates/categories/category_detail.html:27
 #: templates/posts/post_form.html:7 templates/posts/post_form.html:12
 msgid "Create Post"
 msgstr "Створити пост"
 
-#: templates/categories/category_detail.html:31
-msgid "Post"
-msgstr "Пост"
+#: templates/categories/category_detail.html:38
+#: templates/categories/category_list.html:21
+#: templates/comments/comment_answer.html:12
+#: templates/comments/comment_form.html:12
+msgid "Comments"
+msgstr "Коментарі"
 
-#: templates/categories/category_detail.html:32
-msgid "Created"
-msgstr "Створений"
-
-#: templates/categories/category_detail.html:33
-msgid "Post details"
-msgstr "Деталі посту"
-
-#: templates/categories/category_detail.html:43
-msgid "Details"
-msgstr "Деталі"
+#: templates/categories/category_detail.html:39
+#: templates/categories/category_list.html:22
+msgid "Last comment"
+msgstr "Останній коментарій"
 
 #: templates/categories/category_list.html:5 templates/header.html:12
 #: templates/header.html:31
 msgid "Forum"
 msgstr "Форум"
 
-#: templates/categories/category_list.html:16
-msgid "Posts"
-msgstr "Пости"
-
-#: templates/categories/category_list.html:17
-#: templates/comments/comment_answer.html:12
-#: templates/comments/comment_form.html:12
-msgid "Comments"
-msgstr "Коментарі"
-
-#: templates/categories/category_list.html:18
-msgid "Last comment"
-msgstr "Останній коментарій"
-
-#: templates/categories/category_list.html:35
-msgid "Go to"
-msgstr "Перейти до"
-
 #: templates/comments/comment_answer.html:7
 #: templates/comments/comment_answer.html:12
-#: templates/posts/post_detail.html:31
+#: templates/posts/post_detail.html:111 templates/posts/post_detail.html:116
 msgid "Answer"
 msgstr "Відповісти"
-
-#: templates/comments/comment_answer.html:16
-msgid "Comment for"
-msgstr "Коментар для"
 
 #: templates/comments/comment_delete.html:7
 msgid "Delete Comment"
@@ -95,14 +82,9 @@ msgstr "Видалити коментар для"
 msgid "Are you sure you want to delete comment for"
 msgstr "Ви впевнені що хочете видалити коментар для"
 
-#: templates/comments/comment_delete.html:21
-#: templates/posts/post_delete.html:21
-msgid "Confirm"
-msgstr "Підтвердити"
-
-#: templates/comments/comment_delete.html:22
-#: templates/comments/comment_update.html:21
-#: templates/posts/post_delete.html:22 templates/posts/post_update.html:21
+#: templates/comments/comment_delete.html:23
+#: templates/comments/comment_update.html:18
+#: templates/posts/post_delete.html:22 templates/posts/post_update.html:18
 msgid "Cancel"
 msgstr "Відмінити"
 
@@ -112,56 +94,31 @@ msgid "Comment"
 msgstr "Коментар"
 
 #: templates/comments/comment_update.html:7
-#: templates/comments/comment_update.html:16
+#: templates/comments/comment_update.html:22
 msgid "Edit Comment"
 msgstr "Змінити коментар"
 
-#: templates/comments/comment_update.html:20
-#: templates/posts/post_update.html:20
-msgid "Save Changes"
-msgstr "Зберегти зміни"
-
 #: templates/footer.html:7
-msgid "Company Bio"
-msgstr "Опис компанії"
-
-#: templates/footer.html:9
-msgid ""
-" We are a team of college students working on this project like it's our "
-"full time job. \n"
-"          Any amount would help support and continue development on this "
-"project and is greatly appreciated. "
-msgstr ""
-"Ми команда студентів коледжу, які працюють над цим проектом, ніби це наша "
-"повна зайнятість. \n"
-"Будь-яка сума допоможе підтримати та продовжити розвиток"
-"проект і дуже цінується."
-
-#: templates/footer.html:15
-msgid "Settings"
-msgstr "Налаштування"
-
-#: templates/footer.html:17 templates/footer.html:26
-msgid "Link 1"
+msgid "Useful links"
 msgstr ""
 
-#: templates/footer.html:18 templates/footer.html:27
-msgid "Link 2"
+#: templates/footer.html:14
+msgid "Follow Us"
 msgstr ""
 
-#: templates/footer.html:19 templates/footer.html:28
-msgid "Link 3"
-msgstr ""
-
-#: templates/footer.html:20 templates/footer.html:29
-msgid "Link 4"
+#: templates/footer.html:22
+msgid "Contribute"
 msgstr ""
 
 #: templates/footer.html:24
-msgid "Connect"
-msgstr "З`єднати"
+msgid "Our repositories"
+msgstr ""
 
-#: templates/footer.html:36
+#: templates/footer.html:25
+msgid "Write email"
+msgstr ""
+
+#: templates/footer.html:32
 msgid "Made by"
 msgstr "Зроблено завдяки"
 
@@ -182,41 +139,47 @@ msgstr "Зареєструватися"
 msgid "Home"
 msgstr "Головна"
 
-#: templates/home.html:17
+#: templates/home.html:15
 msgid "PY_JUNE - Code, Learn, and Grow Together!"
 msgstr "PY_JUNE - Програмуйте, Навчайтеся, та Розвивайтеся Разом!"
 
-#: templates/home.html:27
+#: templates/home.html:26
 msgid "There should be one-- and preferably only one --obvious way to do it."
 msgstr "Має бути один -- і бажано лише один -- очевидний спосіб це зробити."
 
-#: templates/home.html:31
+#: templates/home.html:30
 msgid "Ask question"
 msgstr "Задати питання"
 
-#: templates/home.html:50
+#: templates/home.html:45
 msgid "Last posts"
 msgstr "Останній пост"
 
-#: templates/home.html:67
+#: templates/home.html:62
 msgid "Most hot"
 msgstr "Найпопулярніший"
 
-#: templates/home.html:84
+#: templates/home.html:79
 msgid "Need help"
 msgstr "Потрібна допомога"
 
-#: templates/home.html:104
+#: templates/home.html:102
 msgid "Beautiful is better than ugly."
 msgstr "Красиве краще, ніж потворне."
 
-#: templates/home.html:116
-msgid "User activities"
-msgstr "Діяльність користувача"
+#: templates/home.html:106
+#, fuzzy
+#| msgid "Ask question"
+msgid "Answer question"
+msgstr "Задати питання"
 
-#: templates/home.html:136
+#: templates/home.html:154
 msgid "Simple is better than complex."
 msgstr "Просте краще, ніж складне."
+
+#: templates/home.html:158
+msgid "Chat"
+msgstr ""
 
 #: templates/posts/post_delete.html:7
 msgid "Delete Post"
@@ -230,17 +193,13 @@ msgstr "Видалити"
 msgid "Are you sure you want to delete post"
 msgstr "Ви впевнені що хочете видалити пост"
 
-#: templates/posts/post_detail.html:28
+#: templates/posts/post_detail.html:25 templates/posts/post_detail.html:35
 msgid "Back"
 msgstr "Назад"
 
 #: templates/posts/post_detail.html:37
 msgid "Edit"
 msgstr "Змінити"
-
-#: templates/posts/post_detail.html:46
-msgid "Answers"
-msgstr "Відповіді"
 
 #: templates/posts/post_form.html:16
 msgid "Create a new post in"
@@ -250,10 +209,97 @@ msgstr "Створити новий пост в"
 msgid "Update Post"
 msgstr "Оновити пост"
 
-#: templates/posts/post_update.html:16
+#: templates/posts/post_update.html:22
 msgid "Update"
 msgstr "Оновити"
+
+#: templates/users/profile.html:33
+#, fuzzy
+#| msgid "Posts"
+msgid "Posts Count"
+msgstr "Пости"
+
+#: templates/users/profile.html:44
+#, fuzzy
+#| msgid "Comments"
+msgid "Comments Count"
+msgstr "Коментарі"
 
 #: templates/users/signup.html:9
 msgid "Registration"
 msgstr "Реєстрація"
+
+#, fuzzy
+#~| msgid "Comments"
+#~ msgid "Commands"
+#~ msgstr "Коментарі"
+
+#, fuzzy
+#~| msgid "Registration"
+#~ msgid "Duration"
+#~ msgstr "Реєстрація"
+
+#, fuzzy
+#~| msgid "Save Changes"
+#~ msgid "Change"
+#~ msgstr "Зберегти зміни"
+
+#, fuzzy
+#~| msgid "Made by"
+#~ msgid "May"
+#~ msgstr "Зроблено завдяки"
+
+#, fuzzy
+#~| msgid "Connect"
+#~ msgid "oct"
+#~ msgstr "З`єднати"
+
+#, fuzzy
+#~| msgid "Made by"
+#~ msgctxt "abbrev. month"
+#~ msgid "May"
+#~ msgstr "Зроблено завдяки"
+
+#, fuzzy
+#~| msgid "Made by"
+#~ msgctxt "alt. month"
+#~ msgid "May"
+#~ msgstr "Зроблено завдяки"
+
+#~ msgid "Created"
+#~ msgstr "Створений"
+
+#~ msgid "Post details"
+#~ msgstr "Деталі посту"
+
+#~ msgid "Details"
+#~ msgstr "Деталі"
+
+#~ msgid "Go to"
+#~ msgstr "Перейти до"
+
+#~ msgid "Comment for"
+#~ msgstr "Коментар для"
+
+#~ msgid "Company Bio"
+#~ msgstr "Опис компанії"
+
+#~ msgid ""
+#~ " We are a team of college students working on this project like it's our "
+#~ "full time job. \n"
+#~ "          Any amount would help support and continue development on this "
+#~ "project and is greatly appreciated. "
+#~ msgstr ""
+#~ "Ми команда студентів коледжу, які працюють над цим проектом, ніби це наша "
+#~ "повна зайнятість. \n"
+#~ "Будь-яка сума допоможе підтримати та продовжити розвитокпроект і дуже "
+#~ "цінується."
+
+#~ msgid "Settings"
+#~ msgstr "Налаштування"
+
+#~ msgid "User activities"
+#~ msgstr "Діяльність користувача"
+
+#~ msgid "Answers"
+#~ msgstr "Відповіді"

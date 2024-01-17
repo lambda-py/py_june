@@ -47,8 +47,10 @@ Run tests
 ## Internalization
 1. Install gettext  
     `brew install gettext`
-2. Compile messages  
-    `python manage.py compilemessages -l uk`
+2. Make messages
+    `python manage.py makemessages -l uk --ignore=venv`
+3. Compile messages  
+    `python manage.py compilemessages -l uk --ignore=venv`
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
