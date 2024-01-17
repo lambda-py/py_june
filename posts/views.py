@@ -1,7 +1,10 @@
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import DeleteView
 
@@ -12,14 +15,31 @@ from posts.forms import PostForm
 from posts.models import Post
 
 
+def can_user_post(request: HttpRequest) -> bool:
+    user = request.user
+    time_out = getattr(settings, "POST_TIME_OUT")
+    last_post_time = user.last_post_time
+    if last_post_time:
+        time_diff = timezone.now() - last_post_time
+        if time_diff.total_seconds() < time_out:
+            return False
+    return True
+
+
 class CreatePostView(LoginRequiredMixin, View):
     template_name = "posts/post_form.html"
     login_url = "/users/login/"
 
     def get(self, request: HttpRequest, category_slug: str) -> HttpResponse:
-        category = get_object_or_404(Category, slug=category_slug)
-        form = PostForm()
-        return render(request, self.template_name, {"form": form, "category": category})
+        if can_user_post(request):
+            category = get_object_or_404(Category, slug=category_slug)
+            form = PostForm()
+            return render(
+                request, self.template_name, {"form": form, "category": category}
+            )
+        else:
+            message = _("You can only post every 5 minutes.")
+            return HttpResponseForbidden(message)
 
     def post(self, request: HttpRequest, category_slug: str) -> HttpResponse:
         form = PostForm(request.POST)
@@ -27,9 +47,12 @@ class CreatePostView(LoginRequiredMixin, View):
 
         if form.is_valid():
             post = form.save(commit=False)
+            user = self.request.user
+            user.last_post_time = timezone.now()
             post.author = self.request.user
             post.category = category
             post.save()
+            user.save()
             return redirect("categories:list")
 
         return render(request, self.template_name, {"form": form, "category": category})

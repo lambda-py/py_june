@@ -187,3 +187,6 @@ ALLOWED_TAGS = [
 ALLOWED_ATTRIBUTES = {"a": ["href", "title"]}
 ALLOWED_STYLES = []
 STRIP = True
+
+# post timeout
+POST_TIME_OUT = 300
