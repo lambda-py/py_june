@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
+from core.utils.validate_swear_words import censored_text
 from posts.models import Post
 
 from .forms import CommentForm
@@ -24,6 +25,7 @@ class CreateCommentView(LoginRequiredMixin, View):
 
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.content = censored_text(form.cleaned_data["content"])
             comment.author = self.request.user
             comment.post_id = post.pk
             comment.save()

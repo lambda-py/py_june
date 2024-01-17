@@ -11,6 +11,7 @@ from django.views.generic import DeleteView
 from categories.models import Category
 from comments.forms import CommentForm
 from comments.models import Comment
+from core.utils.validate_swear_words import censored_text
 from posts.forms import PostForm
 from posts.models import Post
 
@@ -49,6 +50,8 @@ class CreatePostView(LoginRequiredMixin, View):
             post = form.save(commit=False)
             user = self.request.user
             user.last_post_time = timezone.now()
+            post.title = censored_text(form.cleaned_data["title"])
+            post.content = censored_text(form.cleaned_data["content"])
             post.author = self.request.user
             post.category = category
             post.save()
