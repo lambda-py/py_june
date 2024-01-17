@@ -1,6 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from core.models import SlugModel
 
@@ -20,8 +21,8 @@ class Post(SlugModel):
 
     class Meta:
         db_table = "posts"
-        verbose_name = "Post"
-        verbose_name_plural = "Posts"
+        verbose_name = _("Post")
+        verbose_name_plural = _("Posts")
         ordering = ["-created_at"]
 
     def __str__(self) -> str:
