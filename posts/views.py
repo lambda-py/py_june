@@ -4,9 +4,9 @@ from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import DeleteView
-from django.utils.translation import gettext_lazy as _
 
 from categories.models import Category
 from comments.forms import CommentForm
