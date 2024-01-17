@@ -174,7 +174,7 @@ AUTH_USER_MODEL = "users.ForumUser"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-# bleach verify HTML
+# Safe tags user can use in CKEditor
 ALLOWED_TAGS = [
     "p",
     "b",
@@ -187,5 +187,5 @@ ALLOWED_ATTRIBUTES = {}
 ALLOWED_STYLES = []
 STRIP = True
 
-# post timeout
-POST_TIME_OUT = 300
+# Allow users to post every 5 minutes
+POST_TIME_OUT = 5 * 60
