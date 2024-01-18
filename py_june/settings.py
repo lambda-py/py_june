@@ -88,13 +88,13 @@ WSGI_APPLICATION = "py_june.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': os.getenv("DATABASE_ENGINE", "django.db.backends.postgresql"),
-        'NAME': os.getenv("DATABASE_NAME", 'postgres'),
-        'USER': os.getenv("DATABASE_USER", 'postgres'),
-        'PASSWORD': os.getenv("DATABASE_PASSWORD", 'mysecretpassword'),
-        'HOST': os.getenv("DATABASE_HOST", 'localhost'),
-        'PORT': os.getenv("DATABASE_PORT", '5432'),
+    "default": {
+        "ENGINE": os.getenv("DATABASE_ENGINE", "django.db.backends.postgresql"),
+        "NAME": os.getenv("DATABASE_NAME", "postgres"),
+        "USER": os.getenv("DATABASE_USER", "postgres"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD", "mysecretpassword"),
+        "HOST": os.getenv("DATABASE_HOST", "localhost"),
+        "PORT": os.getenv("DATABASE_PORT", "5432"),
     }
 }
 
