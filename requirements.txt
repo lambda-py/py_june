@@ -22,6 +22,7 @@ pycodestyle==2.11.1
 pyflakes==3.2.0
 pytest==7.4.4
 pytest-django==4.7.0
+python-dotenv==1.0.0
 six==1.16.0
 sqlparse==0.4.4
 types-bleach==6.1.0.1

@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-+f2n=$#j6b8g0@ecl74#+p4%llt2d+$^jjip@+-y_&1a!p25(z"
+SECRET_KEY = os.getenv("SECRET_KEY", "secret")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "192.168.0.126"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", ["localhost"])
 
 # Application definition
 
@@ -88,12 +89,12 @@ WSGI_APPLICATION = "py_june.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'mysecretpassword',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': os.getenv("DATABASE_ENGINE", "django.db.backends.postgresql"),
+        'NAME': os.getenv("DATABASE_NAME", 'postgres'),
+        'USER': os.getenv("DATABASE_USER", 'postgres'),
+        'PASSWORD': os.getenv("DATABASE_PASSWORD", 'mysecretpassword'),
+        'HOST': os.getenv("DATABASE_HOST", 'localhost'),
+        'PORT': os.getenv("DATABASE_PORT", '5432'),
     }
 }
 
