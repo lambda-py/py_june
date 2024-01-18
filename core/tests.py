@@ -56,17 +56,13 @@ class HomePageTest(TestDataMixin, TestCase):
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(
-            response.context["answer_question_url"], "/en-us/posts/test-post-2/"
-        )
+        self.assertEqual(response.context["answer_question_url"], "/posts/test-post-2/")
 
     def test_answer_question_url_last_post(self):
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(
-            response.context["answer_question_url"], "/en-us/posts/test-post/"
-        )
+        self.assertEqual(response.context["answer_question_url"], "/posts/test-post/")
 
     def test_answer_question_url_no_posts(self):
         Post.objects.all().delete()
