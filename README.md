@@ -18,22 +18,23 @@ from other users.
 
 ## Setup
 1. Install `pyenv` for managing python versions https://github.com/pyenv/pyenv?tab=readme-ov-file#installation
-2. Install python version used in project  
+1. Install `docker` for running database in container https://docs.docker.com/engine/install/
+1. Install python version used in project  
     `pyenv install $(cat .python-version)`
-3. Create virtual environment  
+1. Create virtual environment  
     `python -m venv venv`
-4. Activate virtual environment  
+1. Activate virtual environment  
     `source venv/bin/activate`
-5. Install dependencies  
+1. Install dependencies  
     `pip install -r requirements.txt`
-6. Run migrations  
-    `python manage.py migrate`
-7. Load test data  
-    `python manage.py loaddata categories.json`
-8. Run server  
+1. Run database in container  
+    `make startdb`
+1. Run migrations  
+    `make setupdb`
+1. Run server
     `python manage.py runserver`
-9. Open in browser http://localhost:8000
-10. Create superuser for access to admin panel http://localhost:8000/admin  
+1. Open in browser http://localhost:8000
+1. Create superuser for access to admin panel http://localhost:8000/admin  
     `python manage.py createsuperuser`
 
 ## Before commit
