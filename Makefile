@@ -41,7 +41,7 @@ precommit: autofmt lint test
 startdb:
 	@echo "Starting postgres container..."
 	@echo "Data will be stored in ./data"
-	docker run --name postgres-container -e POSTGRES_PASSWORD=mysecretpassword -d -p 5432:5432 -v ./data:/var/lib/postgresql/data postgres:latest
+	docker run --name postgres-container -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v ./data:/var/lib/postgresql/data postgres:latest
 
 .PHONY: setupdb
 setupdb:
