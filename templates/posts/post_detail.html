@@ -6,7 +6,7 @@
 {% block link %}
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+  <link rel="stylesheet" href="{% static 'css/post-details.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -20,105 +20,110 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row">
-    <div class="col s4 offset-s10">
-      {% if request.user.is_authenticated == False %}
-        <a href="{% url 'categories:detail' category_slug=post.category.slug %}"
-           class="waves-effect waves-light btn">{% trans "Back" %}
-        </a>
-      {% endif %}
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col s12 offset-s7">
-      {% if request.user.is_authenticated and request.user.id == post.author.id %}
-        <a href="{% url 'categories:detail' category_slug=post.category.slug %}"
-           class="waves-effect waves-light btn">{% trans "Back" %}</a>
-        <a href="{% url 'posts:update' post_slug=post.slug %}"
-           class="waves-effect waves-light btn">{% trans "Edit" %}</a>
-        <a href="{% url 'posts:delete' post_slug=post.slug %}"
-           class="waves-effect waves-light btn red darken-2">{% trans "Delete" %}</a>
-      {% endif %}
-    </div>
-  </div>
-
-  <div id="category-details">
+  <div id="post-details">
     <div class="row">
-      <div class="col s10">
-        <h1>{{ post.title }}</h1>
-        <hr>
-        <h2>{{ post.content|safe }}</h2>
-      </div>
-      <div class="input-field col s2 ">
-        <ul>
-          <li>
-            <i class="tiny material-icons">person</i>
-            {{ post.author }}
-          </li>
-          <li>
-            <i class="tiny material-icons">access_time</i>
-            {{ post.updated_at|date:"SHORT_DATETIME_FORMAT" }}
-          </li>
-        </ul>
+      <div class="col s12">
+        <div class="col s3 m3 l2 post-user-info">
+          <ul>
+            <li>
+              <i class="tiny material-icons">access_time</i>
+              {{ post.updated_at|date:"d/m H:i" }}
+            </li>
+            <li>
+              <i class="tiny material-icons">
+                {% if post.author.is_staff %}
+                  verified_user
+                {% else %}
+                  person_outline
+                {% endif %}
+              </i>
+              {{ post.author }}
+            </li>
+            <li>
+              posts: {{ post.author.posts.count }}
+            </li>
+            <li>
+              {% if user.is_authenticated and user.id == post.author.id %}
+                <a href="{% url 'posts:update' post_slug=post.slug %}">
+                  <i class="tiny material-icons">edit</i>
+                  {% trans "Edit" %}
+                </a>
+                <a href="{% url 'posts:delete' post_slug=post.slug %}">
+                  <i class="tiny material-icons">delete</i>
+                  {% trans "Delete" %}
+                </a>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+        <div class="col s9 m9 l10">
+          <h1>{{ post.title }}</h1>
+          <hr>
+          <h2>{{ post.content|safe }}</h2>
+        </div>
       </div>
     </div>
 
-
     <div class="row">
-      <div class="col s12 center">
+      <div class="col s12">
         <table class="striped">
           <thead>
           <tr>
+            <th>{% trans 'Replies' %}</th>
             <th></th>
-            <th></th>
-            <th>Answered</th>
-            <th>Button</th>
           </tr>
           </thead>
           <tbody>
           {% for comment in comments %}
             <tr class="comment">
-              <td class="comment-text">
-                {{ comment.content|safe }}
-              </td>
               <td>
-                {% if request.user.is_authenticated and request.user.id == comment.author.id %}
-                  <a href="{% url 'comments:update' post_slug=post.slug comment_pk=comment.id %}">
-                    <i class="tiny material-icons">edit</i>
-                  </a>
-                  <a href="{% url 'comments:delete' post_slug=post.slug comment_pk=comment.id %}">
-                    <i class="tiny material-icons">delete</i>
-                  </a>
-                {% endif %}
-              </td>
-              <td>
+              <div class="col s3 m3 l2">
                 <ul>
                   <li>
                     <i class="tiny material-icons">access_time</i>
-                    {{ comment.updated_at|date:"d/m H:i" }}
+                    {{ post.updated_at|date:"d/m H:i" }}
                   </li>
                   <li>
-                    <i class="tiny material-icons">person</i>
-                    {{ comment.author }}
+                    <i class="tiny material-icons">
+                      {% if post.author.is_staff %}
+                        verified_user
+                      {% else %}
+                        person_outline
+                      {% endif %}
+                    </i>
+                    {{ post.author }}
+                  </li>
+                  <li>
+                    posts: {{ post.author.posts.count }}
+                  </li>
+                  <li>
+                    {% if user.is_authenticated and user.id == post.author.id %}
+                      <a href="{% url 'posts:update' post_slug=post.slug %}">
+                        <i class="tiny material-icons">edit</i>
+                        {% trans "Edit" %}
+                      </a>
+                      <a href="{% url 'posts:delete' post_slug=post.slug %}">
+                        <i class="tiny material-icons">delete</i>
+                        {% trans "Delete" %}
+                      </a>
+                    {% endif %}
                   </li>
                 </ul>
-              </td>
-              <td>
-                {% if request.user.is_authenticated %}
-                  <button
-                    data-comment-text="{{ comment.content }}"
-                    class="waves-effect waves-light btn answer"
-                  >
-                    {% trans "Answer" %}
-                  </button>
-                {% else %}
-                  <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#answer-comment-form"
-                     class="btn disabled">
-                    {% trans "Answer" %}
-                  </a>
-                {% endif %}
-              </td>
+              </div>
+              <div class="col s9 m9 l10 comment-text">
+                <div>
+                  {{ comment.content|safe }}
+                </div>
+                <div class="reply">
+                  {% if user.is_authenticated %}
+                    <a href="#answer-comment-form" data-comment-text="{{ comment.content }}">
+                      <i class="tiny material-icons">reply</i>
+                      {% trans "Reply" %}
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
             </tr>
           {% endfor %}
           </tbody>
@@ -128,7 +133,7 @@
 
     <div class="row">
       <div class="col s12">
-        {% if request.user.is_authenticated %}
+        {% if user.is_authenticated %}
           <form method="post" class="create-comment-form" id="answer-comment-form">
             {% csrf_token %}
             {% crispy form %}

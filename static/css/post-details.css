@@ -1,0 +1,70 @@
+#post-details {
+  h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    margin: 0.5em 0 0 0;
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+
+  table {
+    td {
+      vertical-align: top;
+      padding: 0;
+    }
+  }
+
+  .post-user-info {
+    border: 1px solid var(--primary-color);
+  }
+
+  .reply {
+    text-align: right;
+    margin: 1em 0;
+  }
+
+  a {
+    color: var(--brand-color);
+    text-decoration: underline;
+  }
+}
+
+table.striped > tbody > tr:nth-child(odd) .comment-text {
+  border-left: 3px solid var(--primary-bg-color);
+}
+
+table.striped > tbody > tr:nth-child(even) .comment-text {
+  border-left: 3px solid var(--secondary-bg-color);
+}
+
+.comment-text {
+  padding: 0 1.2rem !important;
+
+  ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+
+    li {
+      display: list-item;
+      list-style-type: disc;
+    }
+  }
+}
+
+.django-ckeditor-widget {
+  display: block !important;
+}
