@@ -2,6 +2,10 @@
 {% load i18n %}
 {% load static %}
 
+{% block link %}
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
 {% block title %}
 {{ context.username }}
 {% endblock %}
