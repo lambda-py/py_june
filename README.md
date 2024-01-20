@@ -58,6 +58,11 @@ Run tests
 3. Compile messages  
    `python manage.py compilemessages -l uk --ignore=venv`
 
+## Front-End
+1. Install sass https://sass-lang.com/install/
+2. Add filewatcher in IDE for compile sass to css
+3. Don't change css files directly, they will be rewritten, change scss files
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -1,40 +1,32 @@
-#category-details, #post-delete, #post-update, #post-form {
-  h1 {
-    margin: 0;
-    font-size: 1.8rem;
-  }
-
-  h2 {
-    margin: 0.5em 0 0 0;
-    font-size: 1.2rem;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 1rem;
-    color: var(--primary-color);
-    text-decoration: underline;
-  }
-
-  ul {
-    margin: 0;
-  }
-
-  table {
-    td:first-child {
-      width: 60%;
-    }
-
-    td:nth-child(2), th:nth-child(2) {
-      text-align: center;
-    }
-  }
-
-  input[type="text"], input[type="number"], textarea {
-    color: var(--primary-color);
-  }
+#category-details h1, #post-delete h1, #post-update h1, #post-form h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+#category-details h2, #post-delete h2, #post-update h2, #post-form h2 {
+  margin: 0.5em 0 0 0;
+  font-size: 1.2rem;
+}
+#category-details h3, #post-delete h3, #post-update h3, #post-form h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+#category-details ul, #post-delete ul, #post-update ul, #post-form ul {
+  margin: 0;
+}
+#category-details table td:first-child, #post-delete table td:first-child, #post-update table td:first-child, #post-form table td:first-child {
+  width: 60%;
+}
+#category-details table td:nth-child(2), #category-details table th:nth-child(2), #post-delete table td:nth-child(2), #post-delete table th:nth-child(2), #post-update table td:nth-child(2), #post-update table th:nth-child(2), #post-form table td:nth-child(2), #post-form table th:nth-child(2) {
+  text-align: center;
+}
+#category-details input[type=text], #category-details input[type=number], #category-details textarea, #post-delete input[type=text], #post-delete input[type=number], #post-delete textarea, #post-update input[type=text], #post-update input[type=number], #post-update textarea, #post-form input[type=text], #post-form input[type=number], #post-form textarea {
+  color: var(--primary-color);
 }
 
 .django-ckeditor-widget {
   display: block !important;
 }
+
+/*# sourceMappingURL=posts.css.map */

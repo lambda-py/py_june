@@ -5,7 +5,9 @@
  *
  * Made By MaterializeCSS.com
  */
+
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+
 :root {
   --primary-color: #c1cad2;
   --primary-bg-color: #181d27;
@@ -54,7 +56,7 @@ td:first-child {
   min-height: 200px;
   line-height: 0;
   height: auto;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, .9);
 }
 
 .parallax-container .section {
@@ -63,9 +65,10 @@ td:first-child {
 
 .icon-block {
   padding: 0 15px;
-}
-.icon-block h5 {
-  color: var(--brand-color);
+
+  & h5 {
+    color: var(--brand-color);
+  }
 }
 
 .icon-block .material-icons {
@@ -88,113 +91,135 @@ footer.page-footer {
 
 .container {
   font-family: "Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
-}
-.container h1 {
-  font-size: 2rem;
-  color: var(--brand-color);
-}
-.container h2 {
-  font-size: 1.5rem;
-}
-.container h3 {
-  font-size: 1.2rem;
-}
-.container h4 {
-  font-size: 1rem;
-}
-.container #logo-container {
-  font-size: 1.5rem;
-}
-.container .btn {
-  background-color: var(--brand-color);
-  color: var(--btn-color);
-  text-transform: none;
-  font-size: 1.2rem;
-  font-weight: 700;
-  border-radius: 5px;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  letter-spacing: 0;
-  height: auto;
-  line-height: normal;
-}
-.container .btn-small {
-  font-size: 1em;
-  padding: 0.5em 1em;
-}
-.container .icon-block span {
-  position: relative;
-  bottom: -7px;
-  font-size: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    color: var(--brand-color);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  #logo-container {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    background-color: var(--brand-color);
+    color: var(--btn-color);
+    text-transform: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0;
+    height: auto;
+    line-height: normal;
+  }
+
+  .btn-small {
+    font-size: 1em;
+    padding: 0.5em 1em;
+  }
+
+  .icon-block span {
+    position: relative;
+    bottom: -7px;
+    font-size: 2rem;
+  }
 }
 
 .page-footer {
   background-color: var(--brand-second-color);
-}
-.page-footer .footer-copyright {
-  background-color: var(--brand-bg-color);
-  text-align: center;
-}
-.page-footer .footer-copyright a {
-  color: var(--brand-color);
-  text-decoration: underline;
+
+  .footer-copyright {
+    background-color: var(--brand-bg-color);
+    text-align: center;
+
+    & a {
+      color: var(--brand-color);
+      text-decoration: underline;
+    }
+  }
 }
 
-.home #row-info {
-  margin: 1rem 0;
-}
-.home #row-info li {
-  margin-bottom: 0.75rem;
-}
-.home #slogan-container {
-  background-color: var(--secondary-bg-color);
-}
-.home #slogan {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--brand-color);
-}
-.home h2 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--brand-color);
-  margin: 1.2rem 0 1rem 0;
-}
-.home h3 {
-  color: var(--btn-color);
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-.home h4 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin: 0;
-}
-.home .btn {
-  background-color: var(--brand-color);
-  color: var(--btn-color);
-  text-transform: none;
-  font-size: 1.2rem;
-  font-weight: 700;
-  border-radius: 5px;
-  padding: 1em 50px 1.1em;
-  text-align: center;
-  text-decoration: none;
-  letter-spacing: 0;
-  height: auto;
-  line-height: normal;
-}
-.home #last-posts, .home #need-help {
-  background-color: var(--secondary-bg-color);
-}
-.home .read-more {
-  text-align: right;
-  margin-right: 1em;
-}
-.home .read-more a {
-  color: var(--brand-color);
-  text-decoration: underline;
+.home {
+  #row-info {
+    margin: 1rem 0;
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  #slogan-container {
+    background-color: var(--secondary-bg-color);
+  }
+
+  #slogan {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brand-color);
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--brand-color);
+    margin: 1.2rem 0 1rem 0;
+  }
+
+  h3 {
+    color: var(--btn-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .btn {
+    background-color: var(--brand-color);
+    color: var(--btn-color);
+    text-transform: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 1em 50px 1.1em;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0;
+    height: auto;
+    line-height: normal;
+  }
+
+  #last-posts, #need-help {
+    background-color: var(--secondary-bg-color);
+  }
+
+  .read-more {
+    text-align: right;
+    margin-right: 1em;
+
+    a {
+      color: var(--brand-color);
+      text-decoration: underline;
+    }
+  }
 }
 
 .login-page {
@@ -214,6 +239,7 @@ footer.page-footer {
   height: 100%;
   display: inline-block;
   color: #000;
+
 }
 
 .login-window {
@@ -229,6 +255,7 @@ footer.page-footer {
   background: transparent;
   backdrop-filter: blur(50px);
   border: 2px solid rgba(255, 255, 255, 0.5);
+
 }
 
 .signup-window {
@@ -307,32 +334,38 @@ footer a {
   text-decoration: underline;
 }
 
-#forum-content h2, #forum-content h3 {
-  margin: 1.2rem 0 0.8rem 0;
-}
-#forum-content table {
-  margin-bottom: 2rem;
-}
-#forum-content table ul {
-  margin: 0 0 1rem 0;
-}
-#forum-content table td, #forum-content table th {
-  text-align: center;
-}
-#forum-content table th {
-  padding: 0.5rem;
-}
-#forum-content table td:first-child, #forum-content table td:last-child, #forum-content table th:first-child, #forum-content table th:last-child {
-  text-align: left;
-}
-#forum-content table .category-title {
-  color: var(--brand-color);
-  text-decoration: underline;
+#forum-content {
+  h2, h3 {
+    margin: 1.2rem 0 0.8rem 0;
+  }
+
+  table {
+    margin-bottom: 2rem;
+
+    ul {
+      margin: 0 0 1rem 0;
+    }
+
+    td, th {
+      text-align: center;
+    }
+
+    th {
+      padding: 0.5rem;
+    }
+
+    td:first-child, td:last-child, th:first-child, th:last-child {
+      text-align: left;
+    }
+
+    .category-title {
+      color: var(--brand-color);
+      text-decoration: underline;
+    }
+  }
 }
 
 #user-activities table tr td:first-child {
   width: 10em;
   vertical-align: top;
 }
-
-/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,40 @@
+#category-details, #post-delete, #post-update, #post-form {
+  h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    margin: 0.5em 0 0 0;
+    font-size: 1.2rem;
+  }
+  
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+
+  ul {
+    margin: 0;
+  }
+
+  table {
+    td:first-child {
+      width: 60%;
+    }
+
+    td:nth-child(2), th:nth-child(2) {
+      text-align: center;
+    }
+  }
+
+  input[type="text"], input[type="number"], textarea {
+    color: var(--primary-color);
+  }
+}
+
+.django-ckeditor-widget {
+  display: block !important;
+}

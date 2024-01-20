@@ -1,45 +1,34 @@
-#post-details {
-  h1 {
-    margin: 0;
-    font-size: 1.8rem;
-  }
-
-  h2 {
-    margin: 0.5em 0 0 0;
-    font-size: 1.2rem;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 1rem;
-    color: var(--primary-color);
-    text-decoration: underline;
-  }
-
-  table {
-    td {
-      vertical-align: top;
-      padding: 0;
-    }
-  }
-
-  .post-user-info {
-    border: 1px solid var(--primary-color);
-  }
-
-  .reply {
-    text-align: right;
-    margin: 1em 0;
-  }
-
-  a {
-    color: var(--brand-color);
-    text-decoration: underline;
-  }
-
-  blockquote {
-    border-left: 5px solid var(--primary-color);
-  }
+#post-details h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+#post-details h2 {
+  margin: 0.5em 0 0 0;
+  font-size: 1.2rem;
+}
+#post-details h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+#post-details table td {
+  vertical-align: top;
+  padding: 0;
+}
+#post-details .post-user-info {
+  border: 1px solid var(--primary-color);
+}
+#post-details .reply {
+  text-align: right;
+  margin: 1em 0;
+}
+#post-details a {
+  color: var(--brand-color);
+  text-decoration: underline;
+}
+#post-details blockquote {
+  border-left: 5px solid var(--primary-color);
 }
 
 table.striped > tbody > tr:nth-child(odd) .comment-text {
@@ -52,23 +41,23 @@ table.striped > tbody > tr:nth-child(even) .comment-text {
 
 .comment-text {
   padding: 0 1.2rem !important;
-
-  ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
-
-    li {
-      display: list-item;
-      list-style-type: disc;
-    }
-  }
+}
+.comment-text ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.comment-text ul li {
+  display: list-item;
+  list-style-type: disc;
 }
 
 .django-ckeditor-widget {
   display: block !important;
 }
+
+/*# sourceMappingURL=post-details.css.map */
