@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
+from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -31,7 +32,7 @@ def get_user_avatar_url(user: ForumUser) -> str:
         if social_account.provider == "github":
             return social_account.extra_data.get("avatar_url")
 
-    return "https://i.pravatar.cc/150"
+    return static("images/Avatar-default.512.png")
 
 
 class CreatePostView(LoginRequiredMixin, View):
