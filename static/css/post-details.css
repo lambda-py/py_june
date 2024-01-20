@@ -36,6 +36,10 @@
     color: var(--brand-color);
     text-decoration: underline;
   }
+
+  blockquote {
+    border-left: 5px solid var(--primary-color);
+  }
 }
 
 table.striped > tbody > tr:nth-child(odd) .comment-text {

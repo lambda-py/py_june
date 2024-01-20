@@ -148,7 +148,7 @@ CKEDITOR_CONFIGS = {
     "default": {
         "toolbar": [
             ["Bold", "Italic", "Underline", "Strike"],
-            ["NumberedList", "BulletedList"],
+            ["NumberedList", "BulletedList", "Blockquote"],
             ["RemoveFormat"],
             ["CodeSnippet"],
         ],

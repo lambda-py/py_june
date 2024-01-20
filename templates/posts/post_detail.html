@@ -1,5 +1,4 @@
 {% extends 'content.html' %}
-{% load crispy_forms_tags %}
 {% load static %}
 {% load i18n %}
 
@@ -60,7 +59,7 @@
         <div class="col s9 m9 l10">
           <h1>{{ post.title }}</h1>
           <hr>
-          <h2>{{ post.content|safe }}</h2>
+          <div>{{ post.content|safe }}</div>
         </div>
       </div>
     </div>
@@ -136,7 +135,9 @@
         {% if user.is_authenticated %}
           <form method="post" class="create-comment-form" id="answer-comment-form">
             {% csrf_token %}
-            {% crispy form %}
+            {{ form.media }}
+            {{ form.as_p }}
+          <input class="btn " type="submit" value="{% trans 'Submit' %}">
           </form>
         {% else %}
           <h2>You must be logged in to post comments</h2>
