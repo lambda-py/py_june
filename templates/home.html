@@ -132,9 +132,14 @@
                     </ul>
                   </td>
                   <td>
-                    <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#{{ comment.id }}">
-                      {{ comment.content|truncatewords:30 }}
+                    {{ comment.content|safe|truncatewords:30 }}
+                    <div class="read-more">
+                    <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#comment-id-{{ comment.id }}">
+                      {% trans 'read more' %}
+                      <i class="tiny material-icons">arrow_forward</i>
                     </a>
+                      
+                    </div>
                   </td>
                 </tr>
               {% endfor %}

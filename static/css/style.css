@@ -210,6 +210,16 @@ footer.page-footer {
   #last-posts, #need-help {
     background-color: var(--secondary-bg-color);
   }
+
+  .read-more {
+    text-align: right;
+    margin-right: 1em;
+
+    a {
+      color: var(--brand-color);
+      text-decoration: underline;
+    }
+  }
 }
 
 .login-page {
@@ -355,16 +365,7 @@ footer a {
   }
 }
 
-#last-posts, #most-hot, #need-help, #user-activities {
-  a {
-    color: var(--primary-color);
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-}
-
 #user-activities table tr td:first-child {
   width: 10em;
+  vertical-align: top;
 }
