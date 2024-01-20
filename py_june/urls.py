@@ -18,13 +18,11 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import include, path
 
-
 urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("", include("core.urls")),
     path("forum/", include("categories.urls")),
-    path("users/", include("users.urls")),
     path("posts/", include("posts.urls")),
     path("comments/", include("comments.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
