@@ -36,8 +36,8 @@
                   person_outline
                 {% endif %}
               </i>
-              {{ post.author }}
-              <img src="{{ avatar_url }}" alt="{{ post.author }}" width="150px">
+              {{ post.author }}<br>
+              <img src="{{ post.author.get_avatar_url }}" alt="{{ post.author }}" width="150px">
             </li>
             <li>
               posts: {{ post.author.posts.count }}
@@ -89,28 +89,29 @@
                   <ul>
                     <li>
                       <i class="tiny material-icons">access_time</i>
-                      {{ post.updated_at|date:"d/m H:i" }}
+                      {{ comment.updated_at|date:"d/m H:i" }}
                     </li>
                     <li>
                       <i class="tiny material-icons">
-                        {% if post.author.is_staff %}
+                        {% if comment.author.is_staff %}
                           verified_user
                         {% else %}
                           person_outline
                         {% endif %}
                       </i>
-                      {{ post.author }}
+                      {{ comment.author }}<br>
+                      <img src="{{ comment.author.get_avatar_url }}" alt="{{ comment.author }}" width="150px">
                     </li>
                     <li>
-                      posts: {{ post.author.posts.count }}
+                      posts: {{ comment.author.posts.count }}
                     </li>
                     <li>
-                      {% if user.is_authenticated and user.id == post.author.id %}
+                      {% if user.is_authenticated and user.id == comment.author.id %}
                         <a href="{% url 'posts:update' post_slug=post.slug %}">
                           <i class="tiny material-icons">edit</i>
                           {% trans "Edit" %}
                         </a>
-                        <a href="{% url 'posts:delete' post_slug=post.slug %}">
+                        <a href="{% url 'posts:delete' post_slug=comment.post.slug %}">
                           <i class="tiny material-icons">delete</i>
                           {% trans "Delete" %}
                         </a>
