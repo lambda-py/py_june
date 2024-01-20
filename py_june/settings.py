@@ -204,7 +204,7 @@ ALLOWED_ATTRIBUTES = {}
 ALLOWED_STYLES = []
 STRIP = True
 
-# Allow profiles to post every 5 minutes
+# Allow users to post every 5 minutes
 POST_TIME_OUT = 5 * 60
 
 # Social account allauth
