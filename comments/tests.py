@@ -106,36 +106,3 @@ class DeleteCommentTest(TestDataMixin, TestCase):
         self.assertRedirects(
             response, reverse("posts:details", kwargs={"post_slug": self.post.slug})
         )
-
-
-class AnswerCommentTest(TestDataMixin, TestCase):
-    def setUp(self):
-        super().setUp()
-        self.answer_comment_url = reverse(
-            "comments:answer",
-            kwargs={"post_slug": self.post.slug, "comment_pk": self.comment.pk},
-        )
-
-    def test_answer_comment_view_get(self):
-        self.client.force_login(self.user)
-
-        response = self.client.get(self.answer_comment_url)
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "comments/comment_answer.html")
-
-    def test_answer_comment_view_post(self):
-        self.client.force_login(self.user)
-
-        response = self.client.post(
-            self.answer_comment_url,
-            {
-                "content": "Test answer content",
-            },
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(
-            response, reverse("posts:details", kwargs={"post_slug": self.post.slug})
-        )
-        self.assertTrue(Comment.objects.filter(content="Test answer content").exists())

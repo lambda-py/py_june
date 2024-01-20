@@ -1,0 +1,105 @@
+.profile-background {
+  margin-top: 50px;
+  align-items: center;
+  position: relative;
+}
+
+.profile-background-photo {
+  width: auto;
+  max-width: 1280px;
+  height: 100%;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.profile-header {
+  color: rgb(255, 255, 255);
+  margin-top: -7px;
+  position: relative;
+  margin-bottom: 10px;
+  background-color: var(--brand-bg-color);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.profile-username {
+  font-size: larger;
+  position: relative;
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.profile-bio-title {
+  font-size: larger;
+  position: relative;
+  display: block;
+  text-align: center;
+  max-width: 90%;
+  min-width: 50%;
+  left: 5%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.profile-bio {
+  margin-top: -8px;
+  margin-bottom: 10px;
+  font-size: larger;
+  left: 5%;
+  width: auto;
+  max-width: 90%;
+  min-width: 50%;
+  position: relative;
+  display: block;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 10px;
+}
+
+.empty-profile-bio {
+  margin-top: -8px;
+  margin-bottom: 10px;
+  font-size: larger;
+  left: 5%;
+  width: auto;
+  max-width: 90%;
+  min-width: 50%;
+  position: relative;
+  display: block;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 10px;
+}
+
+
+.info-block {
+  min-height: 300px;
+  height: auto;
+  max-height: 600px;
+  color: rgb(255, 255, 255);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  display: block;
+  text-align: center;
+}
+
+.profile-picture {
+  top: -30px;
+  width: 60px;
+  height: 60px;
+  font-size: larger;
+  position: relative;
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}

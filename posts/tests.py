@@ -5,6 +5,22 @@ from core.tests import TestDataMixin
 from posts.models import Post
 
 
+class PostModelTest(TestDataMixin, TestCase):
+    def test_post_model(self):
+        self.assertEqual(self.post.title, "Test Post")
+        self.assertEqual(self.post.content, "Test content")
+        self.assertEqual(self.post.author, self.user)
+        self.assertEqual(self.post.category, self.category)
+        self.assertEqual(self.post.slug, "test-post")
+        self.assertTrue(self.post.is_active)
+
+    def test_post_model_str(self):
+        self.assertEqual(str(self.post), "Test Post")
+
+    def test_post_model_get_absolute_url(self):
+        self.assertEqual(self.post.get_absolute_url(), "/posts/test-post/")
+
+
 class CreatePostViewTest(TestDataMixin, TestCase):
     def setUp(self):
         super().setUp()
@@ -30,7 +46,7 @@ class CreatePostViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.create_view_url, data)
 
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("categories:list"))
+        self.assertRedirects(response, "/posts/test-title/")
         self.assertEqual(self.category.posts.count(), 1)
 
     def test_create_post_view_post_invalid_data(self):
@@ -93,7 +109,9 @@ class UpdatePostViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.update_post_view_url, data)
 
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("categories:list"))
+        self.assertRedirects(
+            response, reverse("posts:details", kwargs={"post_slug": self.post.slug})
+        )
         update_post = Post.objects.get(pk=self.post.pk)
         self.assertEqual(update_post.title, "Update title")
         self.assertEqual(update_post.content, "Update content")

@@ -1,0 +1,66 @@
+{% extends 'content.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block link %}
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block title %}
+{{ context.username }}
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="profile-page">
+    <div class="container">
+        <div class="profile-background">
+            <img class="profile-background-photo" src="/static/images/butterfly.png">
+        </div>
+        
+        <div class="profile-header">
+            <img class="profile-picture" src="/static/images/profile_pic.jpg" alt="Ваше фото">
+            <h6 class="profile-username">@{{ context.username }}</h6>
+            {% if context.bio %}
+                <h6 class="profile-bio-title">Bio:</h6>
+                <code class="profile-bio">{{ context.bio }}</code>
+            {% else %}
+                <code class="empty-profile-bio">No bio</code>
+            {% endif %}
+        </div>
+
+        <div class="row" id="row-info">
+            <div class="col s12 m4">
+                <div class="center info-block">
+                    <h2>
+                        {% trans "Posts Count" %}
+                    </h2>
+                    <h1>
+                        {{ context.posts_count }}
+                    </h1>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="center info-block">
+                    <h2>
+                        {% trans "Comments Count" %}
+                    </h2>
+                    <h1>
+                        {{ context.comments_count }}
+                    </h1>
+                </div>
+            </div>
+            
+            <div class="col s12 m4">
+                <div class="center info-block">
+                    <h2>
+                        User Info
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

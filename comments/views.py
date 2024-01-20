@@ -5,13 +5,12 @@ from django.views import View
 
 from posts.models import Post
 
-from .forms import AnswerCommentForm, CommentForm
+from .forms import CommentForm
 from .models import Comment
 
 
 class CreateCommentView(LoginRequiredMixin, View):
     template_name = "comments/comment_form.html"
-    login_url = "/users/login/"
 
     def get(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug)
@@ -55,14 +54,12 @@ class UpdateCommentView(UserPassesTestMixin, View):
     def post(
         self, request: HttpRequest, post_slug: str, comment_pk: int
     ) -> HttpResponse:
-        form = CommentForm(request.POST)
         post = get_object_or_404(Post, slug=post_slug)
         comment = get_object_or_404(Comment, pk=comment_pk)
+        form = CommentForm(request.POST, instance=comment)
 
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.author = self.request.user
-            comment.post_id = post.pk
             comment.save()
             return redirect("posts:details", post_slug=post.slug)
 
@@ -97,41 +94,3 @@ class DeleteCommentView(UserPassesTestMixin, View):
         comment.delete()
 
         return redirect("posts:details", post_slug=post.slug)
-
-
-class AnswerCommentView(LoginRequiredMixin, View):
-    template_name = "comments/comment_answer.html"
-    login_url = "/users/login/"
-
-    def get(
-        self, request: HttpRequest, post_slug: str, comment_pk: int
-    ) -> HttpResponse:
-        post = get_object_or_404(Post, slug=post_slug)
-        comment = get_object_or_404(Comment, pk=comment_pk)
-        form = AnswerCommentForm()
-
-        return render(
-            request,
-            self.template_name,
-            {"form": form, "comment": comment, "post": post},
-        )
-
-    def post(
-        self, request: HttpRequest, post_slug: str, comment_pk: int
-    ) -> HttpResponse:
-        post = get_object_or_404(Post, slug=post_slug)
-        form = AnswerCommentForm(request.POST)
-        comment = get_object_or_404(Comment, pk=comment_pk)
-
-        if form.is_valid():
-            answer = form.save(commit=False)
-            answer.author = self.request.user
-            answer.post_id = post.pk
-            answer.save()
-            return redirect("posts:details", post_slug=post.slug)
-
-        return render(
-            request,
-            self.template_name,
-            {"form": form, "comment": comment, "post": post},
-        )

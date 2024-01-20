@@ -5,7 +5,7 @@
     <a id="logo-container" href="{% url 'home' %}" class="brand-logo">py_june</a>
     <ul class="right hide-on-med-and-down">
       {% if request.LANGUAGE_CODE == 'uk' %}
-        <li><a id="change-language" href="/en-us/">uk</a></li>
+        <li><a id="change-language" href="/">uk</a></li>
       {% else %}
         <li><a id="change-language" href="/uk/">en</a></li>
       {% endif %}
@@ -53,11 +53,11 @@
         </li>
       {% endif %}
       {% if request.LANGUAGE_CODE == 'uk' %}
-        <li><a style="color: #fff;" href="/en-us/">Українська</a></li>
+        <li><a style="color: #fff;" href="/">Українська</a></li>
       {% else %}
         <li><a style="color: #fff;" href="/uk/">English</a></li>
       {% endif %}
     </ul>
-    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">Menu</i></a>
+    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>
 </nav>

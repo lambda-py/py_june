@@ -1,23 +1,37 @@
 {% extends 'content.html' %}
 {% load i18n %}
-
-{% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
-{% trans "Update Post" %}
+  {% trans "Update Post" %}
+{% endblock %}
+
+{% block link %}
+	  <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'js/posts.js' %}"></script>
 {% endblock %}
 
 {% block breadcrumbs %}
-  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a> 
+  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a>
   / <span class="active">{{ post.title }}</span>
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans "Update" %} {{ post.title }}</h1>
-    <form method="post" class="update-post-form">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <button type="submit" class="btn waves-effect waves-light">{% trans "Save Changes" %}</button>
-      <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light">{% trans "Cancel" %}</a>
-    </form>
+  <div class="row" id="post-update">
+    <div class="col s12">
+      <h1>{% trans "Update" %} {{ post.title }}</h1>
+      <form method="post" class="update-post-form">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <input class="btn " type="submit" value="{% trans 'Submit' %}">
+        <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light red darken-2">
+          {% trans "Cancel" %}
+        </a>
+      </form>
+    </div>
+  </div>
 {% endblock %}

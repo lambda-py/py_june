@@ -1,8 +1,9 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 
 class Comment(models.Model):
-    content = models.TextField(max_length=500, blank=True)
+    content = RichTextUploadingField(max_length=2000)
     author = models.ForeignKey(
         "users.ForumUser", on_delete=models.CASCADE, related_name="comments"
     )
@@ -20,4 +21,4 @@ class Comment(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self) -> str:
-        return self.title
+        return self.content[:20]

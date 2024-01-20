@@ -1,21 +1,28 @@
 {% extends 'content.html' %}
 {% load i18n %}
-
-{% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
-{% trans "Create Post" %}
+  {% trans "Create Post" %}
+{% endblock %}
+
+{% block link %}
+  <link rel="stylesheet" href="{% static 'css/posts.css' %}">
 {% endblock %}
 
 {% block breadcrumbs %}
-  <a href="{% url 'categories:detail' category_slug=category.slug %}">{{ category }}</a> 
+  <a href="{% url 'categories:detail' category_slug=category.slug %}">{{ category }}</a>
   / <span class="active">{% trans "Create Post" %}</span>
 {% endblock %}
 
 {% block content %}
+  <div id="post-form">
     <h1>{% trans "Create a new post in" %} {{ category.title }}</h1>
     <form method="post" class="create-post-form">
       {% csrf_token %}
-      {% crispy form %}
+      {{ form.media }}
+      {{ form.as_p }}
+      <input class="btn " type="submit" value="{% trans 'Submit' %}">
     </form>
+  </div>
 {% endblock %}

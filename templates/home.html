@@ -3,15 +3,17 @@
 {% load static %}
 
 {% block title %}
-{% trans "Home" %}
+  {% trans "Home" %}
+{% endblock %}
+
+{% block link %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 {% endblock %}
 
 {% block body %}
   <div class="home">
     <div class="container">
       <div class="section">
-
-        <!--   Icon Section   -->
         <div class="row">
           <div class="col s12 center">
             <h1 id="slogan">{% trans "PY_JUNE - Code, Learn, and Grow Together!" %}</h1>
@@ -21,83 +23,91 @@
     </div>
 
     <div id="index-banner" class="parallax-container">
-      <div class="section no-pad-bot">
-        <div class="container"> 
-          <div class="row center"> 
-            <h3 class="header col s12 light">{% trans "There should be one-- and preferably only one --obvious way to do it." %}</h3>
+      <div class="section">
+        <div class="container">
+          <div class="row center">
+            <h3
+              class="header col s12 light">{% trans "There should be one-- and preferably only one --obvious way to do it." %}</h3>
           </div>
           <div class="row center">
-            <a href="{% url "posts:create" category_slug="general-coding-help" %}" id="download-button"
+            <a href="{% url "posts:create" category_slug="general-coding-help" %}"
                class="btn waves-effect"><h4>{% trans "Ask question" %}</h4></a>
           </div>
-          <br><br>
-
         </div>
       </div>
       <div class="parallax"><img src="{% static 'images/background3.jpg' %}" alt=""></div>
     </div>
 
-
     <div class="container">
       <div class="section">
+        <div class="row" id="row-info">
 
-        <!--   Icon Section   -->
-        <div class="row">
-          <div class="col s12 m4">
+          <div class="col s12 m4" id="last-posts">
             <div class="icon-block">
               <h2>
                 <span><i class="material-icons">flash_on</i></span>
                 {% trans "Last posts" %}
               </h2>
-
-
-              {% for post in last_posts %}
-                <div>
-                  <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
-                </div>
-              {% endfor %}
+              <ul>
+                {% for post in last_posts %}
+                  <li>
+                    <i class="tiny material-icons">access_time</i> {{ post.created_at|date:"d/m" }} -
+                    <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
 
-          <div class="col s12 m4">
+          <div class="col s12 m4" id="most-hot">
             <div class="icon-block">
               <h2>
                 <span><i class="material-icons">trending_up</i></span>
                 {% trans "Most hot" %}
               </h2>
-
-                {% for post in most_hot%}
-                  <div>
-                  <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
-                  </div>
+              <ul>
+                {% for post in most_hot %}
+                  <li>
+                    <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
+                    <i class="tiny material-icons">comment</i> {{ post.comment_count }}
+                  </li>
                 {% endfor %}
-              </div>
+              </ul>
             </div>
+          </div>
 
-          <div class="col s12 m4">
+          <div class="col s12 m4" id="need-help">
             <div class="icon-block">
               <h2>
                 <span><i class="material-icons">help_outline</i></span>
-                {% trans "Need help" %} 
+                {% trans "Need help" %}
               </h2>
 
-              {% for post in need_help_posts%}
-                <div>
-                  <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
-                </div>
-              {% endfor %}
+              <ul>
+                {% for post in need_help_posts %}
+                  <li>
+                    <i class="tiny material-icons">access_time</i>
+                    {{ post.created_at|date:"d/m" }} {{ post.created_at|time:"H:i" }} -
+                    <a href="{% url 'posts:details' post_slug=post.slug %}">{{ post.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
+
         </div>
       </div>
     </div>
 
-
     <div class="parallax-container valign-wrapper">
-      <div class="section no-pad-bot">
+      <div class="section">
         <div class="container">
           <div class="row center">
             <h3 class="header col s12 light">{% trans "Beautiful is better than ugly." %}</h3>
+          </div>
+          <div class="row center">
+            <a href="{{ answer_question_url }}"
+               class="btn waves-effect"><h4>{% trans "Answer question" %}</h4></a>
           </div>
         </div>
       </div>
@@ -108,30 +118,65 @@
       <div class="section">
 
         <div class="row">
-          <div class="col s12 center">
+          <div class="col s12" id="user-activities">
             <h2>User activities</h2>
-
+            <table class="striped">
+              <tbody>
               {% for comment in user_activities %}
-              <div class="col s6">
-                {{ comment.content }}
-              </div>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>
+                        <i class="tiny material-icons">access_time</i>
+                        {{ comment.created_at|date:"d/m" }}
+                        {{ comment.created_at|time:"H:i" }}
+                      </li>
+                      <li><i class="tiny material-icons">person</i>
+                        {{ comment.author.username }}</li>
+                    </ul>
+                  </td>
+                  <td>
+                    {{ comment.content|safe }}
+                    <div class="read-more">
+                    <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#comment-id-{{ comment.id }}">
+                      {% trans 'read more' %}
+                      <i class="tiny material-icons">arrow_forward</i>
+                    </a>
+
+                    </div>
+                  </td>
+                </tr>
               {% endfor %}
+              </tbody>
+            </table>
+
           </div>
         </div>
 
       </div>
     </div>
 
-
     <div class="parallax-container valign-wrapper">
-      <div class="section no-pad-bot">
+      <div class="section">
         <div class="container">
           <div class="row center">
             <h3 class="header col s12 light">{% trans "Simple is better than complex." %}</h3>
+          </div>
+          <div class="row center">
+            <a href="https://t.me/+Scsb8134gLtmYzhi" target="_blank"
+               class="btn waves-effect"><h4>{% trans "Chat" %}</h4></a>
           </div>
         </div>
       </div>
       <div class="parallax"><img src="{% static 'images/background3.jpg' %}" alt="Unsplashed background img 3"></div>
     </div>
+
   </div>
+{% endblock %}
+
+{% block script %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/js.min.js"></script>
+  <script>hljs.highlightAll();</script>
 {% endblock %}
