@@ -138,6 +138,13 @@ footer.page-footer {
     bottom: -7px;
     font-size: 2rem;
   }
+  a {
+    color: var(--primary-color);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .page-footer {

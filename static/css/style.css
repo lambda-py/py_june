@@ -128,6 +128,12 @@ footer.page-footer {
   bottom: -7px;
   font-size: 2rem;
 }
+.container a {
+  color: var(--primary-color);
+}
+.container a:hover {
+  text-decoration: underline;
+}
 
 .page-footer {
   background-color: var(--brand-second-color);
