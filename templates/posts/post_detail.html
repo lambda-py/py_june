@@ -3,8 +3,7 @@
 {% load i18n %}
 
 {% block link %}
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
   <link rel="stylesheet" href="{% static 'css/post-details.css' %}">
 {% endblock %}
 
@@ -149,11 +148,9 @@
 {% endblock %}
 
 {% block script %}
-  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/tab/plugin.js"></script>
-  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/plugin.js"></script>
-  <script src="https://cdn.ckeditor.com/4.16.0/standard/plugins/codesnippet/lib/highlight/prism.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/js.min.js"></script>
+  <script>hljs.highlightAll();</script>
   <script src="{% static 'js/post.js' %}"></script>
 {% endblock %}
-```

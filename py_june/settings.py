@@ -154,8 +154,8 @@ CKEDITOR_CONFIGS = {
             ["RemoveFormat"],
             ["CodeSnippet"],
         ],
-        "codeSnippet_theme": "github",  # Set the syntax highlighting theme
-        "extraPlugins": ",".join(["codesnippet"]),
+        "codeSnippet_theme": "monokai_sublime",
+        "extraPlugins": "codesnippet",
         "tabSpaces": 4,  # Set the number of spaces for each tab
         "autoGrow_minHeight": 200,
         "autoGrow_bottomSpace": 10,
