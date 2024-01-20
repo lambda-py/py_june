@@ -25,6 +25,14 @@ def can_user_post(request: HttpRequest) -> bool:
     return True
 
 
+def get_user_avatar_url(user) -> str:
+    for social_account in user.socialaccount_set.all():
+        if social_account.provider == "github":
+            return social_account.extra_data.get("avatar_url")
+
+    return "https://i.pravatar.cc/150"
+
+
 class CreatePostView(LoginRequiredMixin, View):
     template_name = "posts/post_form.html"
 
@@ -71,6 +79,7 @@ class DetailsPostView(View):
                 "post": post,
                 "form": form,
                 "comments": comments,
+                "avatar_url": get_user_avatar_url(post.author),
             },
         )
 

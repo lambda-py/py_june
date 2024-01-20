@@ -37,6 +37,7 @@
                 {% endif %}
               </i>
               {{ post.author }}
+              <img src="{{ avatar_url }}" alt="{{ post.author }}">
             </li>
             <li>
               posts: {{ post.author.posts.count }}
