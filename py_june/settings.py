@@ -167,6 +167,7 @@ CKEDITOR_CONFIGS = {
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.ForumUser"
+LOGIN_URL = "/users/login/"
 
 # crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"

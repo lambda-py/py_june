@@ -46,7 +46,7 @@ class CreatePostViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.create_view_url, data)
 
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("categories:list"))
+        self.assertRedirects(response, "/posts/test-title/")
         self.assertEqual(self.category.posts.count(), 1)
 
     def test_create_post_view_post_invalid_data(self):

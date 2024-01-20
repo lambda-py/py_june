@@ -34,7 +34,6 @@ from users.models import ForumUser
 
 class ProfiletView(LoginRequiredMixin, View):
     template_name = "users/profile.html"
-    login_url = "/users/login/"
 
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)

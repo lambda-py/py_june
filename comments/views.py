@@ -11,7 +11,6 @@ from .models import Comment
 
 class CreateCommentView(LoginRequiredMixin, View):
     template_name = "comments/comment_form.html"
-    login_url = "/users/login/"
 
     def get(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug)

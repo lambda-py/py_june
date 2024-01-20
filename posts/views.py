@@ -18,8 +18,7 @@ from posts.models import Post
 def can_user_post(request: HttpRequest) -> bool:
     user = request.user
     time_out = getattr(settings, "POST_TIME_OUT")
-    last_post_time = user.last_post_time
-    if last_post_time:
+    if last_post_time := user.last_post_time:
         time_diff = timezone.now() - last_post_time
         if time_diff.total_seconds() < time_out:
             return False
@@ -28,7 +27,6 @@ def can_user_post(request: HttpRequest) -> bool:
 
 class CreatePostView(LoginRequiredMixin, View):
     template_name = "posts/post_form.html"
-    login_url = "/users/login/"
 
     def get(self, request: HttpRequest, category_slug: str) -> HttpResponse:
         if can_user_post(request):
@@ -53,7 +51,7 @@ class CreatePostView(LoginRequiredMixin, View):
             post.category = category
             post.save()
             user.save()
-            return redirect("categories:list")
+            return redirect(post.get_absolute_url())
 
         return render(request, self.template_name, {"form": form, "category": category})
 
@@ -86,7 +84,7 @@ class DetailsPostView(View):
             comment.author = self.request.user
             comment.post = post
             comment.save()
-            return redirect("posts:details", post_slug=post.slug)
+            return redirect(post.get_absolute_url())
 
         return render(
             request,
@@ -123,7 +121,7 @@ class UpdatePostView(UserPassesTestMixin, View):
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
-            return redirect("posts:details", post_slug=post.slug)
+            return redirect(post.get_absolute_url())
 
         return render(
             request,
