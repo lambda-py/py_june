@@ -6,6 +6,10 @@
   {% trans "Home" %}
 {% endblock %}
 
+{% block link %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+{% endblock %}
+
 {% block body %}
   <div class="home">
     <div class="container">
@@ -132,13 +136,13 @@
                     </ul>
                   </td>
                   <td>
-                    {{ comment.content|safe|truncatewords:30 }}
+                    {{ comment.content|safe }}
                     <div class="read-more">
                     <a href="{% url 'posts:details' post_slug=comment.post.slug %}?#comment-id-{{ comment.id }}">
                       {% trans 'read more' %}
                       <i class="tiny material-icons">arrow_forward</i>
                     </a>
-                      
+
                     </div>
                   </td>
                 </tr>
@@ -168,4 +172,11 @@
     </div>
 
   </div>
+{% endblock %}
+
+{% block script %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/js.min.js"></script>
+  <script>hljs.highlightAll();</script>
 {% endblock %}
