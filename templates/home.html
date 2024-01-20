@@ -131,8 +131,12 @@
                         {{ comment.created_at|date:"d/m" }}
                         {{ comment.created_at|time:"H:i" }}
                       </li>
-                      <li><i class="tiny material-icons">person</i>
-                        {{ comment.author.username }}</li>
+                      <li>
+                        <i class="tiny material-icons">person</i>
+                        {{ comment.author.username }}<br>
+                        <img src="{{ comment.author.get_avatar_url }}" alt="{{ comment.author.username }}"
+                             width="150px">
+                      </li>
                     </ul>
                   </td>
                   <td>
