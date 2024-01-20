@@ -16,46 +16,46 @@
             {% trans "Logout" %}
           </a>
         </li>
-        <form id="logoutForm" method="post" action="{% url 'users:logout' %}" style="display: none;">
+        <form id="logoutForm" method="post" action="{% url 'account_logout' %}" style="display: none;">
           {% csrf_token %}
         </form>
       {% else %}
-        <li><a href="{% url 'users:login' %}">{% trans "Login" %}</a></li>
-        <li><a href="{% url 'users:signup' %}">{% trans "Sign up" %}</a></li>
+        <li><a href="{% url 'account_login' %}">{% trans "Login" %}</a></li>
+        <li><a href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
       {% endif %}
     </ul>
 
     <ul id="nav-mobile" class="sidenav">
       <li>
-        <a style="color: #fff;" href="{% url 'categories:list' %}">
+        <a href="{% url 'categories:list' %}">
           {% trans "Forum" %} 
         </a>
       </li>
       {% if user.is_authenticated %}
         <li>
-          <a style="color: #fff;" href="#" onclick="document.getElementById('logoutForm').submit();">
+          <a href="#" onclick="document.getElementById('logoutForm').submit();">
             {% trans "Logout" %}
           </a>
         </li>
-        <form id="logoutForm" method="post" action="{% url 'users:logout' %}" style="display: none;">
+        <form id="logoutForm" method="post" action="{% url 'account_logout' %}" style="display: none;">
           {% csrf_token %}
         </form>
       {% else %}
         <li>
-          <a style="color: #fff;" href="{% url 'users:login' %}">
+          <a href="{% url 'account_login' %}">
             {% trans "Login" %}
           </a>
         </li>
         <li>
-          <a style="color: #fff;" href="{% url 'users:signup' %}">
+          <a href="{% url 'account_signup' %}">
             {% trans "Sign up" %}
           </a>
         </li>
       {% endif %}
       {% if request.LANGUAGE_CODE == 'uk' %}
-        <li><a style="color: #fff;" href="/">Українська</a></li>
+        <li><a href="/">Українська</a></li>
       {% else %}
-        <li><a style="color: #fff;" href="/uk/">English</a></li>
+        <li><a href="/uk/">English</a></li>
       {% endif %}
     </ul>
     <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>

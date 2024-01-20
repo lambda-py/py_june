@@ -13,6 +13,7 @@ from comments.forms import CommentForm
 from comments.models import Comment
 from posts.forms import PostForm
 from posts.models import Post
+from users.models import ForumUser
 
 
 def can_user_post(request: HttpRequest) -> bool:
@@ -23,6 +24,14 @@ def can_user_post(request: HttpRequest) -> bool:
         if time_diff.total_seconds() < time_out:
             return False
     return True
+
+
+def get_user_avatar_url(user: ForumUser) -> str:
+    for social_account in user.socialaccount_set.all():
+        if social_account.provider == "github":
+            return social_account.extra_data.get("avatar_url")
+
+    return "https://i.pravatar.cc/150"
 
 
 class CreatePostView(LoginRequiredMixin, View):
@@ -71,6 +80,7 @@ class DetailsPostView(View):
                 "post": post,
                 "form": form,
                 "comments": comments,
+                "avatar_url": get_user_avatar_url(post.author),
             },
         )
 

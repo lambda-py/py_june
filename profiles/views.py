@@ -14,7 +14,7 @@ from users.models import ForumUser
 # TODO Pj-97 Create `settings` page for user
 
 # class CreateProfileView(LoginRequiredMixin, View):
-#     template_name = "users/profile.html"
+#     template_name = "profiles/profile.html"
 
 #     def get(self, request: HttpRequest) -> HttpResponse:
 #         form = ProfileForm()
@@ -33,7 +33,7 @@ from users.models import ForumUser
 
 
 class ProfiletView(LoginRequiredMixin, View):
-    template_name = "users/profile.html"
+    template_name = "profiles/profile.html"
 
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)

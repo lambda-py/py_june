@@ -42,17 +42,25 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "bleach",
+    "allauth_ui",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.instagram",
+    "widget_tweaks",
     "crispy_forms",
     "crispy_bootstrap4",
+    # TODO PJ-75
+    "ckeditor",
+    "ckeditor_uploader",
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "categories.apps.CategoriesConfig",
     "posts.apps.PostsConfig",
     "comments.apps.CommentsConfig",
     "profiles.apps.ProfilesConfig",
-    # TODO PJ-75
-    "ckeditor",
-    "ckeditor_uploader",
 ]
 
 MIDDLEWARE = [
@@ -64,6 +72,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "py_june.urls"
@@ -71,7 +80,10 @@ ROOT_URLCONF = "py_june.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [
+            BASE_DIR / "templates",
+            # BASE_DIR / 'templates' / 'allauth',
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -167,7 +179,7 @@ CKEDITOR_CONFIGS = {
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.ForumUser"
-LOGIN_URL = "/users/login/"
+LOGIN_URL = "/accounts/login/"
 
 # crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
@@ -194,3 +206,24 @@ STRIP = True
 
 # Allow users to post every 5 minutes
 POST_TIME_OUT = 5 * 60
+
+# Social account allauth
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = "none"
+LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGOUT_ON_GET = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    "github": {
+        "APP": {
+            "client_id": os.getenv("GITHUB_CLIENT_ID"),
+            "secret": os.getenv("GITHUB_SECRET"),
+            "key": "",
+        }
+    }
+}
