@@ -13,6 +13,7 @@ from comments.forms import CommentForm
 from comments.models import Comment
 from posts.forms import PostForm
 from posts.models import Post
+from users.models import ForumUser
 
 
 def can_user_post(request: HttpRequest) -> bool:
@@ -25,7 +26,7 @@ def can_user_post(request: HttpRequest) -> bool:
     return True
 
 
-def get_user_avatar_url(user) -> str:
+def get_user_avatar_url(user: ForumUser) -> str:
     for social_account in user.socialaccount_set.all():
         if social_account.provider == "github":
             return social_account.extra_data.get("avatar_url")
