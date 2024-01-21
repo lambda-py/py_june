@@ -332,7 +332,7 @@ label {
 }
 
 footer a {
-  color: white;
+  color: white !important;
   text-decoration: underline;
 }
 
@@ -375,4 +375,8 @@ footer a {
 #user-activities table tr td:first-child {
   width: 10em;
   vertical-align: top;
+}
+
+#nav-mobile li>a, nav a{
+  color: white !important;
 }
