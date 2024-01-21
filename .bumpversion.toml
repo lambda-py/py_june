@@ -4,7 +4,3 @@ commit = true
 tag = true
 tag_name = "v{new_version}"
 message = "Bump version: {current_version} → {new_version}"
-
-[tool.bumpversion.file_py_june_settings_py]
-search = 'VERSION = "{current_version}"'
-replace = 'VERSION = "{new_version}"'
