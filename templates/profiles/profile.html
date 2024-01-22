@@ -16,11 +16,11 @@
 <div class="profile-page">
     <div class="container">
         <div class="profile-background">
-            <img class="profile-background-photo" src="/static/images/butterfly.png">
+            <img class="profile-background-photo" src="/static/images/default_background_profile.png">
         </div>
         
         <div class="profile-header">
-            <img class="profile-picture" src="/static/images/profile_pic.jpg" alt="Ваше фото">
+            <img class="profile-picture" src="/static/images/Parrot_Logo.png" alt="Ваше фото">
             <h6 class="profile-username">@{{ context.username }}</h6>
             {% if context.bio %}
                 <h6 class="profile-bio-title">Bio:</h6>
@@ -61,6 +61,40 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col s12 center">
+              <table class="striped">
+                <thead>
+                <tr>
+                  <th>{% trans "Title" %}</th>
+                  <th>{% trans "Comments" %}</th>
+                  <th>{% trans "Created At" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for post in context.posts %}
+                <tr>
+                    <td>
+                      <a href="{% url 'posts:details' post_slug=post.slug %}">
+                          <h3>{{ post.title }}</h3>
+                      </a>
+                    </td>
+                    <td>{{ post.post_comments_count }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <i class="tiny material-icons">access_time</i>
+                                {{ post.created_at|date:"d/m H:i" }}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
     </div>
 </div>
 {% endblock %}
