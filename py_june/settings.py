@@ -225,5 +225,12 @@ SOCIALACCOUNT_PROVIDERS = {
             "secret": os.getenv("GITHUB_SECRET"),
             "key": "",
         }
-    }
+    },
+    "google": {
+        "APP": {
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+            "secret": os.getenv("GOOGLE_SECRET"),
+            "key": "",
+        }
+    },
 }
