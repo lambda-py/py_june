@@ -60,4 +60,7 @@ dbshell:
 	@echo "Connecting to postgres container..."
 	docker exec -it postgres-container psql -U postgres
 
-
+.PHONY: startes
+startes:
+	@echo "Start elasticsearch container..."
+	docker run --name elasticsearch -d -p 9200:9200 -m 2GB elasticsearch:8.12.0

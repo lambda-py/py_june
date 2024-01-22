@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.instagram",
+    "django_elasticsearch_dsl",
     "widget_tweaks",
     "crispy_forms",
     "crispy_bootstrap4",
@@ -225,5 +226,12 @@ SOCIALACCOUNT_PROVIDERS = {
             "secret": os.getenv("GITHUB_SECRET"),
             "key": "",
         }
+    }
+}
+
+# Elasticsearch config
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": "http://localhost:9200",
     }
 }

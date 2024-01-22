@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import DeleteView
+from elasticsearch_dsl.search import Search
 
 from categories.models import Category
 from comments.forms import CommentForm
@@ -138,3 +139,13 @@ class DeletePostView(UserPassesTestMixin, DeleteView):
 
     def test_func(self) -> bool:
         return self.get_object().author == self.request.user
+
+
+def search_func():
+    search = Search().query("match", title="Test")
+    results = search.execute()
+    return results
+
+
+result = search_func()
+print(result)
