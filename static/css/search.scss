@@ -1,0 +1,29 @@
+#search-form{
+  width: 70%;
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+}
+.content {
+    flex: 1 0 auto;
+}
+table {
+    td:first-child {
+      width: 60%;
+    }
+
+    td:nth-child(2), th:nth-child(2) {
+      text-align: center;
+    }
+  }
+
+input[type="text"], input[type="number"], textarea {
+  color: var(--primary-color);
+
+  background-color: #bbccdd;
+  margin-bottom: 12px;
+}
+
