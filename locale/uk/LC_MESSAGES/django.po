@@ -232,3 +232,10 @@ msgstr "Реєстрація"
 #: posts/view.py:41
 msgid "You can only post every 5 minutes."
 msgstr "Ви можете створювати пост раз в 5 хвилин."
+
+#: templates/search/search_result.html:5
+#: templates/search/search_result.html:11
+#: templates/search/search_result.html:13
+#: templates/search/search_result.html:14
+msgid "Search"
+msgstr "Пошук"
