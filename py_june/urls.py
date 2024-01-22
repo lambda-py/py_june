@@ -26,6 +26,6 @@ urlpatterns = i18n_patterns(
     path("posts/", include("posts.urls")),
     path("comments/", include("comments.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
-    # path("profile/", include("profiles.urls")),
+    path("profile/", include("profiles.urls")),
     prefix_default_language=False,
 )
