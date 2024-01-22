@@ -232,5 +232,5 @@ SOCIALACCOUNT_PROVIDERS = {
             "secret": os.getenv("GOOGLE_SECRET"),
             "key": "",
         }
-    }
+    },
 }
