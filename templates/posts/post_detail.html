@@ -22,6 +22,9 @@
   .comment-form{
     display: none;
   }
+  .answer-form{
+    display: none;
+  }
 </style>
   <div id="post-details">
     <div class="row">
@@ -79,8 +82,8 @@
     <div class="comment-form" id="commentForm">
       <form method="post" class="create-comment-form">
         {% csrf_token %}
-        {{ form1.media }}
-        {{ form1.as_p }}
+        {{ form.media }}
+        {{ form.as_p }}
         <input class="btn " type="submit" value="{% trans 'Submit' %}">
       </form>
     </div>
@@ -145,38 +148,21 @@
                     {% endif %}
                   </div>
                 </div>
-
-                <div class="comment-form" id="answerForm">
+                <div class="answer-form" id="answerForm">
                   <form method="post" class="create-comment-form">
                     {% csrf_token %}
-                    {{ form2.media }}
-                    {{ form2.as_p }}
+                    {{ form.media }}
+                    {{ form.as_p }}
                     <input class="btn " type="submit" value="{% trans 'Submit' %}">
                   </form>
                 </div>
-
+              </td>
             </tr>
           {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
-
-<!--    <div class="row">-->
-<!--      <div class="col s12">-->
-<!--        {% if user.is_authenticated %}-->
-<!--          <form method="post" class="create-comment-form">-->
-<!--            {% csrf_token %}-->
-<!--            {{ form.media }}-->
-<!--            {{ form.as_p }}-->
-<!--            <input class="btn " type="submit" value="{% trans 'Submit' %}">-->
-<!--          </form>-->
-<!--        {% else %}-->
-<!--          <h2>You must be logged in to post comments</h2>-->
-<!--        {% endif %}-->
-<!--      </div>-->
-<!--    </div>-->
-
   </div>
 {% endblock %}
 

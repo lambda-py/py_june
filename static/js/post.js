@@ -8,21 +8,21 @@ document.addEventListener("DOMContentLoaded", function (){
             commentForm.style.display = "block";
         }
     });
-});
 
 
-document.addEventListener("DOMContentLoaded", function (){
     let answerButton = document.querySelectorAll(".answerBtn");
 
     answerButton.forEach(function (button){
         button.addEventListener("click", function (){
         let comment = button.closest(".comment")
-        let answerForm = comment.querySelector(".answerForm");
+        let answerForm = comment.querySelector(".answer-form");
 
-        if (answerForm.style.display === "block") {
-            answerForm.style.display = "none";
-        } else {
-            answerForm.style.display = "block";
+        if (answerForm){
+            if (answerForm.style.display === "block") {
+                answerForm.style.display = "none";
+            } else {
+                answerForm.style.display = "block";
+            }
         }
         });
     });

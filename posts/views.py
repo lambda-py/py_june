@@ -69,8 +69,7 @@ class DetailsPostView(View):
             self.template_name,
             {
                 "post": post,
-                "form1": form,
-                "form2": form,
+                "form": form,
                 "comments": comments,
             },
         )
@@ -91,8 +90,7 @@ class DetailsPostView(View):
             request,
             self.template_name,
             {
-                "form1": form,
-                "form2": form,
+                "form": form,
                 "post": post,
                 "comments": comments,
             },
