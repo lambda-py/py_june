@@ -29,4 +29,13 @@
   display: block !important;
 }
 
+.active-page {
+  color: var(--brand-color);
+  background-color: var(--brand-bg-color);
+}
+
+.inactive-page {
+  color: var(--primary-color);
+  background-color: var(--brand-bg-color);
+}
 /*# sourceMappingURL=posts.css.map */
