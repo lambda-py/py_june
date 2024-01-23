@@ -1,15 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
 /*! tailwindcss v3.0.18 | MIT License | https://tailwindcss.com*/*,
 :root {
     --primary-color: #c1cad2;
     --primary-bg-color: #181d27;
     --secondary-bg-color: #0e1117;
-    --brand-bg-color: #0c4b33;
+    --brand-bg-color: #0c4b33;  
     --brand-color: #44b78b;
     --brand-second-color: #187f58;
     --btn-color: #0e1117;
 }
 
 body {
+   font-family:"Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
    background-color: var(--primary-bg-color);
    color: var(--primary-color);
    display: flex;
@@ -61,7 +63,7 @@ code,
 kbd,
 pre,
 samp {
- font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+ font-family:"Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
  font-size:1em
 }
 small {
@@ -90,7 +92,7 @@ input,
 optgroup,
 select,
 textarea {
- font-family:inherit;
+ font-family: "Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
  font-size:100%;
  line-height:inherit;
  color:inherit;
