@@ -74,6 +74,15 @@
 
     <div class="row">
       <div class="col s12">
+        <div>
+          <ul>
+                {% for num in page_obj.paginator.page_range%}
+                <li class="{% if page_obj.number == num %}active{% endif %} waves-effect">
+                  <h3><a href="?page={{ num }}">{{ num }}</a>,</h3>
+                </li>
+                {% endfor %}
+              </ul>
+        </div>
         <table class="striped">
           <thead>
           <tr>
