@@ -33,6 +33,16 @@
   input[type="text"], input[type="number"], textarea {
     color: var(--primary-color);
   }
+
+  .active-page {
+    background-color: var(--brand-bg-color);
+    font-weight: normal;
+    padding: 0 5px;
+  }
+
+  .inactive-page {
+    font-weight: normal;
+  }
 }
 
 .django-ckeditor-widget {
