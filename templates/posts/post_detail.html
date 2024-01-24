@@ -74,24 +74,30 @@
 
     <div class="row">
       <div class="col s12">
-        <div>
-          <ul>
-                {% for num in page_obj.paginator.page_range%}
-                <li class="{% if page_obj.number == num %}active{% endif %} waves-effect">
-                  <h3><a href="?page={{ num }}">{{ num }}</a>,</h3>
-                </li>
-                {% endfor %}
-              </ul>
-        </div>
         <table class="striped">
           <thead>
           <tr>
             <th>{% trans 'Replies' %}</th>
-            <th></th>
+            <th class="col s6 offset-s3">
+              {% if page_obj.paginator.num_pages > 1 %}
+                {% if page_obj.has_previous %}
+                  <a class="page-num" href="?page={{ page_obj.previous_page_number }}"><<</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                  <div
+                    class="{% if page_obj.number == num %}active-page{% else %}inactive-page{% endif %} waves-effect">
+                    <a class="page-num" href="?page={{ num }}">{{ num }}</a>
+                  </div>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                  <a class="page-num" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+                {% endif %}
+              {% endif %}
+            </th>
           </tr>
           </thead>
           <tbody>
-          {% for comment in comments %}
+          {% for comment in page_obj %}
             <tr class="comment" id="comment-id-{{ comment.id }}">
               <td>
                 <div class="col s3 m3 l2">
@@ -132,15 +138,17 @@
                   <div>
                     {{ comment.content|safe }}
                   </div>
-                  <div class="reply">
-                    {% if user.is_authenticated %}
-                      <a href="#answer-comment-form" data-comment-text="{{ comment.content }}">
-                        <i class="tiny material-icons">reply</i>
-                        {% trans "Reply" %}
-                      </a>
-                    {% endif %}
-                  </div>
                 </div>
+              <td>
+                <div class="reply">
+                  {% if user.is_authenticated %}
+                    <a href="#answer-comment-form" data-comment-text="{{ comment.content }}">
+                      <i class="tiny material-icons">reply</i>
+                      {% trans "Reply" %}
+                    </a>
+                  {% endif %}
+                </div>
+              </td>
             </tr>
           {% endfor %}
           </tbody>
