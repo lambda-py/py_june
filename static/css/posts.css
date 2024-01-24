@@ -24,18 +24,17 @@
 #category-details input[type=text], #category-details input[type=number], #category-details textarea, #post-delete input[type=text], #post-delete input[type=number], #post-delete textarea, #post-update input[type=text], #post-update input[type=number], #post-update textarea, #post-form input[type=text], #post-form input[type=number], #post-form textarea {
   color: var(--primary-color);
 }
+#category-details .active-page, #post-delete .active-page, #post-update .active-page, #post-form .active-page {
+  background-color: var(--brand-bg-color);
+  font-weight: normal;
+  padding: 0 5px;
+}
+#category-details .inactive-page, #post-delete .inactive-page, #post-update .inactive-page, #post-form .inactive-page {
+  font-weight: normal;
+}
 
 .django-ckeditor-widget {
   display: block !important;
 }
 
-.active-page {
-  color: var(--brand-color);
-  background-color: var(--brand-bg-color);
-}
-
-.inactive-page {
-  color: var(--primary-color);
-  background-color: var(--brand-bg-color);
-}
 /*# sourceMappingURL=posts.css.map */

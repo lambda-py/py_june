@@ -19,7 +19,7 @@
   margin-top: -7px;
   position: relative;
   margin-bottom: 10px;
-  background-color: transparent;
+  background-color: var(--brand-bg-color);
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   border: 2px solid rgba(255, 255, 255, 0.5);
