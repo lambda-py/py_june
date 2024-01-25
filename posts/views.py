@@ -65,7 +65,9 @@ class DetailsPostView(View):
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         form = CommentForm()
 
-        paginator = Paginator(comments, getattr(settings, "COMMENTS_PAGINATION_PER_PAGE"))
+        paginator = Paginator(
+            comments, getattr(settings, "COMMENTS_PAGINATION_PER_PAGE")
+        )
 
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
