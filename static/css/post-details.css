@@ -19,6 +19,14 @@
 #post-details .post-user-info {
   border: 1px solid var(--primary-color);
 }
+#post-details .active-page {
+  background-color: var(--brand-bg-color);
+  font-weight: normal;
+  padding: 0 5px;
+}
+#post-details .inactive-page{
+ font-weight: normal;
+}
 #post-details .reply {
   text-align: right;
   margin: 1em 0;
