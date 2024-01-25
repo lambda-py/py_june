@@ -4,7 +4,6 @@
 
 {% block link %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -12,8 +11,6 @@
 {% endblock %}
 
 {% block body %}
-<button id="scrollToTopBtn" onclick="scrollToTop()">{% trans "Top" %}</button>
-
   <div class="container content">
     <div class="row">
       <div class="col s12">
@@ -64,8 +61,4 @@
       </div>
     </div>
   </div>
-{% endblock %}
-
-{% block script %}
-  <script src="{% static 'js/main.js' %}"></script>
 {% endblock %}
