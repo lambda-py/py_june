@@ -206,7 +206,11 @@ ALLOWED_STYLES = []
 STRIP = True
 
 # Allow users to post every 5 minutes
-POST_TIME_OUT = 0 * 60
+POST_TIME_OUT = 5 * 60
+
+# Pagination settings
+POSTS_PAGINATION_PER_PAGE = 10
+COMMENTS_PAGINATION_PER_PAGE = 10
 
 # Social account allauth
 AUTHENTICATION_BACKENDS = (
