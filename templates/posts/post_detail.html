@@ -5,6 +5,7 @@
 {% block link %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
   <link rel="stylesheet" href="{% static 'css/post-details.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -18,6 +19,8 @@
 {% endblock %}
 
 {% block content %}
+
+<button id="scrollToTopBtn" onclick="scrollToTop()">{% trans "Top" %}</button>
 
   <div id="post-details">
     <div class="row">
@@ -153,7 +156,6 @@
         {% endif %}
       </div>
     </div>
-
   </div>
 {% endblock %}
 
@@ -163,4 +165,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/js.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script src="{% static 'js/post.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
 {% endblock %}

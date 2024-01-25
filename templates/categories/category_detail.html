@@ -3,7 +3,8 @@
 {% load i18n %}
 
 {% block link %}
-  <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -15,6 +16,8 @@
 {% endblock %}
 
 {% block content %}
+<button id="scrollToTopBtn" onclick="scrollToTop()">{% trans "Top" %}</button>
+
   <div id="category-details">
     <div class="row">
       <div class="col s10">
@@ -82,4 +85,8 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/main.js' %}"></script>
 {% endblock %}

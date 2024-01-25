@@ -1,9 +1,19 @@
-(function($){
-  $(function(){
+// Button scroll to top
+let button = document.getElementById("scrollToTopBtn");
 
-    $('.sidenav').sidenav();
-    $('.parallax').parallax();
+window.onscroll = function (){
+    showHideScrollTopBtn();
+};
+function showHideScrollTopBtn() {
 
-  }); // end of document ready
-})(jQuery); // end of jQuery name space
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        button.style.display = "block";
+    } else {
+        button.style.display = "none";
+    }
+}
 
+function scrollToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}

@@ -345,4 +345,21 @@ footer a {
   color: white !important;
 }
 
+#scrollToTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background-color: #26a69a;
+  color: #ffffcc;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+#scrollToTopBtn:hover {
+  background-color: #0c4b33;
+}
+
 /*# sourceMappingURL=style.css.map */
