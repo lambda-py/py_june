@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -64,13 +65,20 @@ class DetailsPostView(View):
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         form = CommentForm()
 
+        paginator = Paginator(
+            comments, getattr(settings, "COMMENTS_PAGINATION_PER_PAGE")
+        )
+
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
         return render(
             request,
             self.template_name,
             {
                 "post": post,
                 "form": form,
-                "comments": comments,
+                "page_obj": page_obj,
             },
         )
 
