@@ -1,3 +1,12 @@
+(function($){
+  $(function(){
+
+    $('.sidenav').sidenav();
+    $('.parallax').parallax();
+
+  }); // end of document ready
+})(jQuery); // end of jQuery name space
+
 // Button scroll to top
 let button = document.getElementById("scrollToTopBtn");
 
