@@ -239,3 +239,7 @@ msgstr "Ви можете створювати пост раз в 5 хвилин
 #: templates/search/search_result.html:14
 msgid "Search"
 msgstr "Пошук"
+
+#: templates/base.html: 19
+msgid "Top"
+msgstr "Вгору"
