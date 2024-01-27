@@ -61,10 +61,22 @@
           <div>{{ post.content|safe }}</div>
           <div class="reply">
             {% if user.is_authenticated %}
-              <a href="#answer-comment-form" data-comment-text="{{ comment.content }}">
+              <button id="reply-post-btn" class="btn btn-small">
                 <i class="tiny material-icons">reply</i>
                 {% trans "Reply" %}
-              </a>
+              </button>
+            {% endif %}
+          </div>
+          <div class="comment-form" id="post-comment-form" style="display: none">
+            {% if user.is_authenticated %}
+              <form method="post" name="post-comment-form">
+                {% csrf_token %}
+                {{ post_comment_form.media }}
+                {{ post_comment_form.as_p }}
+                <input class="btn " type="submit" value="{% trans 'Submit' %}">
+              </form>
+            {% else %}
+              <a href="{% url 'account_login' %}">Login</a> to be able to comment
             {% endif %}
           </div>
         </div>
@@ -137,15 +149,14 @@
                   <div>
                     {{ comment.content|safe }}
                   </div>
-                </div>
-              <td>
-                <div class="reply">
-                  {% if user.is_authenticated %}
-                    <a href="#answer-comment-form" data-comment-text="{{ comment.content }}">
-                      <i class="tiny material-icons">reply</i>
-                      {% trans "Reply" %}
-                    </a>
-                  {% endif %}
+                  <div class="reply">
+                    {% if user.is_authenticated %}
+                      <button class="reply-comment-btn btn btn-small" data-comment-content="{{ comment.content|safe }}">
+                        <i class="tiny material-icons">reply</i>
+                        {% trans "Reply" %}
+                      </button>
+                    {% endif %}
+                  </div>
                 </div>
               </td>
             </tr>
@@ -154,22 +165,27 @@
         </table>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col s12">
-        {% if user.is_authenticated %}
-          <form method="post" class="create-comment-form" id="answer-comment-form">
-            {% csrf_token %}
-            {{ form.media }}
-            {{ form.as_p }}
-            <input class="btn " type="submit" value="{% trans 'Submit' %}">
-          </form>
-        {% else %}
-          <h2>You must be logged in to post comments</h2>
-        {% endif %}
-      </div>
-    </div>
   </div>
+  
+  {# Don't know how to add only <tr> #}
+  <table id="reply-comment-form">
+    <tr>
+      <td>
+        <div class="comment-form">
+          {% if user.is_authenticated %}
+            <form method="post" name="reply-comment-form">
+              {% csrf_token %}
+              {{ reply_comment_form.media }}
+              {{ reply_comment_form.as_p }}
+              <input class="btn " type="submit" value="{% trans 'Submit' %}">
+            </form>
+          {% else %}
+            <a href="{% url 'account_login' %}">Login</a> to be able to comment
+          {% endif %}
+        </div>
+      </td>
+    </tr>
+  </table>
 {% endblock %}
 
 {% block script %}
@@ -177,5 +193,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/js.min.js"></script>
   <script>hljs.highlightAll();</script>
-  <script src="{% static 'js/post.js' %}"></script>
+  <script src="{% static 'js/post.js' %}" type="text/javascript"></script>
 {% endblock %}

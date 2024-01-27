@@ -18,9 +18,9 @@ from posts.models import Post
 
 def can_user_post(request: HttpRequest) -> bool:
     user = request.user
-    time_out = getattr(settings, "POST_TIME_OUT")
     if last_post_time := user.last_post_time:
         time_diff = timezone.now() - last_post_time
+        time_out = settings.POST_TIME_OUT
         if time_diff.total_seconds() < time_out:
             return False
     return True
@@ -63,11 +63,10 @@ class DetailsPostView(View):
     def get(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
-        form = CommentForm()
+        post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
+        reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
 
-        paginator = Paginator(
-            comments, getattr(settings, "COMMENTS_PAGINATION_PER_PAGE")
-        )
+        paginator = Paginator(comments, settings.COMMENTS_PAGINATION_PER_PAGE)
 
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
@@ -77,7 +76,8 @@ class DetailsPostView(View):
             self.template_name,
             {
                 "post": post,
-                "form": form,
+                "post_comment_form": post_comment_form,
+                "reply_comment_form": reply_comment_form,
                 "page_obj": page_obj,
             },
         )
