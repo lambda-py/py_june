@@ -40,6 +40,12 @@
   blockquote {
     border-left: 5px solid var(--primary-color);
   }
+
+  #reply-post-btn {
+    i {
+      font-size: 1rem;
+    }
+  }
 }
 
 table.striped > tbody > tr:nth-child(odd) .comment-text {

@@ -18,14 +18,6 @@
 {% endblock %}
 
 {% block content %}
-<style>
-  .comment-form{
-    display: none;
-  }
-  .answer-form{
-    display: none;
-  }
-</style>
   <div id="post-details">
     <div class="row">
       <div class="col s12">
@@ -69,23 +61,26 @@
           <div>{{ post.content|safe }}</div>
           <div class="reply">
             {% if user.is_authenticated %}
-              <button  id="replyBtn">
+              <button id="reply-post-btn" class="btn btn-small">
                 <i class="tiny material-icons">reply</i>
                 {% trans "Reply" %}
               </button>
             {% endif %}
           </div>
+          <div class="comment-form" id="post-comment-form" style="display: none">
+            {% if user.is_authenticated %}
+              <form method="post" name="post-comment-form">
+                {% csrf_token %}
+                {{ post_comment_form.media }}
+                {{ post_comment_form.as_p }}
+                <input class="btn " type="submit" value="{% trans 'Submit' %}">
+              </form>
+            {% else %}
+              <a href="{% url 'account_login' %}">Login</a> to be able to comment
+            {% endif %}
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="comment-form" id="commentForm">
-      <form method="post" class="create-comment-form">
-        {% csrf_token %}
-        {{ form.media }}
-        {{ form.as_p }}
-        <input class="btn " type="submit" value="{% trans 'Submit' %}">
-      </form>
     </div>
 
     <div class="row">
@@ -156,20 +151,12 @@
                   </div>
                   <div class="reply">
                     {% if user.is_authenticated %}
-                      <button class="answerBtn">
+                      <button class="reply-comment-btn">
                         <i class="tiny material-icons">reply</i>
                         {% trans "Reply" %}
                       </button>
                     {% endif %}
                   </div>
-                </div>
-                <div class="answer-form" id="answerForm">
-                  <form method="post" class="create-comment-form">
-                    {% csrf_token %}
-                    {{ form.media }}
-                    {{ form.as_p }}
-                    <input class="btn " type="submit" value="{% trans 'Submit' %}">
-                  </form>
                 </div>
               </td>
             </tr>
@@ -178,6 +165,19 @@
         </table>
       </div>
     </div>
+  </div>
+
+  <div class="comment-form" id="reply-comment-form">
+    {% if user.is_authenticated %}
+      <form method="post" name="reply-comment-form">
+        {% csrf_token %}
+        {{ reply_comment_form.media }}
+        {{ reply_comment_form.as_p }}
+        <input class="btn " type="submit" value="{% trans 'Submit' %}">
+      </form>
+    {% else %}
+      <a href="{% url 'account_login' %}">Login</a> to be able to comment
+    {% endif %}
   </div>
 {% endblock %}
 

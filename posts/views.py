@@ -63,7 +63,8 @@ class DetailsPostView(View):
     def get(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
-        form = CommentForm()
+        post_comment_form = CommentForm()
+        reply_comment_form = CommentForm()
 
         paginator = Paginator(
             comments, settings.COMMENTS_PAGINATION_PER_PAGE
@@ -77,7 +78,8 @@ class DetailsPostView(View):
             self.template_name,
             {
                 "post": post,
-                "form": form,
+                "post_comment_form": post_comment_form,
+                "reply_comment_form": reply_comment_form,
                 "page_obj": page_obj,
             },
         )
