@@ -94,11 +94,26 @@
           <thead>
           <tr>
             <th>{% trans 'Replies' %}</th>
-            <th></th>
+            <th class="col s6 offset-s3">
+              {% if page_obj.paginator.num_pages > 1 %}
+                {% if page_obj.has_previous %}
+                  <a class="page-num" href="?page={{ page_obj.previous_page_number }}"><<</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                  <div
+                    class="{% if page_obj.number == num %}active-page{% else %}inactive-page{% endif %} waves-effect">
+                    <a class="page-num" href="?page={{ num }}">{{ num }}</a>
+                  </div>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                  <a class="page-num" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+                {% endif %}
+              {% endif %}
+            </th>
           </tr>
           </thead>
           <tbody>
-          {% for comment in comments %}
+          {% for comment in page_obj %}
             <tr class="comment" id="comment-id-{{ comment.id }}">
               <td>
                 <div class="col s3 m3 l2">

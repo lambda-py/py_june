@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block link %}
-  <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 {% endblock %}
 
 {% block title %}
@@ -34,7 +34,22 @@
         <table class="striped">
           <thead>
           <tr>
-            <th></th>
+            <th>
+              {% if page_obj.paginator.num_pages > 1 %}
+                {% if page_obj.has_previous %}
+                  <a href="?page={{ page_obj.previous_page_number }}"><<</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                  <div
+                    class="{% if page_obj.number == num %}active-page{% else %}inactive-page{% endif %} waves-effect">
+                    <a href="?page={{ num }}">{{ num }}</a>
+                  </div>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                  <a href="?page={{ page_obj.paginator.num_pages }}">>></a>
+                {% endif %}
+              {% endif %}
+            </th>
             <th>{% trans "Comments" %}</th>
             <th>{% trans "Last comment" %}</th>
           </tr>
@@ -65,38 +80,6 @@
           </tbody>
         </table>
       </div>
-    </div>
-
-    <div class="col s12 center">
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-          <li class="waves-effect">
-            <a href="?page=1">
-              <i class="material-icons">first_page</i>
-            </a>
-          </li>
-          <li class="waves-effect">
-            <a href="?page={{ page_obj.previous_page_number }}">
-              <i class="material-icons">chevron_left</i>
-            </a>
-          </li>
-        {% endif %}
-        {% if page_obj.paginator.num_pages > 1 %}
-          <li class="waves-effect"><span>Page {{ page_obj.number }} in {{ page_obj.paginator.num_pages }}</span></li>
-        {% endif %}
-        {% if page_obj.has_next %}
-          <li class="waves-effect">
-            <a href="?page={{ page_obj.next_page_number }}">
-              <i class="material-icons">chevron_right</i>
-            </a>
-          </li>
-          <li class="waves-effect">
-            <a href="?page={{ page_obj.paginator.num_pages }}">
-              <i class="material-icons">last_page</i>
-            </a>
-          </li>
-        {% endif %}
-      </ul>
     </div>
   </div>
 {% endblock %}
