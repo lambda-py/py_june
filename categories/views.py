@@ -49,8 +49,9 @@ def category_detail(request: HttpRequest, category_slug: str) -> HttpResponse:
         Post.objects.filter(category_id=category.id, is_active=True)
         .annotate(comments_count=Count("comments"))
         .prefetch_related("comments")
+        .order_by("-created_at")
     )
-    paginator = Paginator(posts, getattr(settings, "POSTS_PAGINATION_PER_PAGE"))
+    paginator = Paginator(posts, settings.POSTS_PAGINATION_PER_PAGE)
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)

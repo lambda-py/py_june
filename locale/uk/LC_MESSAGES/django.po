@@ -243,3 +243,12 @@ msgstr "Пошук"
 #: templates/base.html: 19
 msgid "Top"
 msgstr "Вгору"
+
+# template/posts/post_detail.html:71
+# template/posts/post_detail.html:84
+msgid "Reply"
+msgstr "Відповісти"
+
+# template/posts/post_detail.html:93
+msgid "Replies"
+msgstr "Коментарі"
