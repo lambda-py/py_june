@@ -151,7 +151,7 @@
                   </div>
                   <div class="reply">
                     {% if user.is_authenticated %}
-                      <button class="reply-comment-btn btn btn-small">
+                      <button class="reply-comment-btn btn btn-small" data-comment-content="{{ comment.content|safe }}">
                         <i class="tiny material-icons">reply</i>
                         {% trans "Reply" %}
                       </button>
@@ -166,19 +166,26 @@
       </div>
     </div>
   </div>
-
-  <div class="comment-form" id="reply-comment-form">
-    {% if user.is_authenticated %}
-      <form method="post" name="reply-comment-form">
-        {% csrf_token %}
-        {{ reply_comment_form.media }}
-        {{ reply_comment_form.as_p }}
-        <input class="btn " type="submit" value="{% trans 'Submit' %}">
-      </form>
-    {% else %}
-      <a href="{% url 'account_login' %}">Login</a> to be able to comment
-    {% endif %}
-  </div>
+  
+  {# Don't know how to add only <tr> #}
+  <table id="reply-comment-form">
+    <tr>
+      <td>
+        <div class="comment-form">
+          {% if user.is_authenticated %}
+            <form method="post" name="reply-comment-form">
+              {% csrf_token %}
+              {{ reply_comment_form.media }}
+              {{ reply_comment_form.as_p }}
+              <input class="btn " type="submit" value="{% trans 'Submit' %}">
+            </form>
+          {% else %}
+            <a href="{% url 'account_login' %}">Login</a> to be able to comment
+          {% endif %}
+        </div>
+      </td>
+    </tr>
+  </table>
 {% endblock %}
 
 {% block script %}
