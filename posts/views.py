@@ -18,9 +18,9 @@ from posts.models import Post
 
 def can_user_post(request: HttpRequest) -> bool:
     user = request.user
-    time_out = getattr(settings, "POST_TIME_OUT")
     if last_post_time := user.last_post_time:
         time_diff = timezone.now() - last_post_time
+        time_out = settings.POST_TIME_OUT
         if time_diff.total_seconds() < time_out:
             return False
     return True
@@ -66,7 +66,7 @@ class DetailsPostView(View):
         form = CommentForm()
 
         paginator = Paginator(
-            comments, getattr(settings, "COMMENTS_PAGINATION_PER_PAGE")
+            comments, settings.COMMENTS_PAGINATION_PER_PAGE
         )
 
         page_number = request.GET.get("page")
