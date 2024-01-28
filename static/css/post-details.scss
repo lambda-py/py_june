@@ -78,3 +78,15 @@ table.striped > tbody > tr:nth-child(even) .comment-text {
 .django-ckeditor-widget {
   display: block !important;
 }
+
+#post-details {
+  .active-page {
+    background-color: var(--brand-bg-color);
+    font-weight: normal;
+    padding: 0 5px;
+  }
+
+  .inactive-page {
+    font-weight: normal;
+  }
+}

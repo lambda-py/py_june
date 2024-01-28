@@ -63,4 +63,13 @@ table.striped > tbody > tr:nth-child(even) .comment-text {
   display: block !important;
 }
 
+#post-details .active-page {
+  background-color: var(--brand-bg-color);
+  font-weight: normal;
+  padding: 0 5px;
+}
+#post-details .inactive-page {
+  font-weight: normal;
+}
+
 /*# sourceMappingURL=post-details.css.map */

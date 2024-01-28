@@ -1,22 +1,18 @@
 .cke_top {
-    border-bottom:1px solid #0c4b33 !important;
-    background: #44b78b !important;
-    padding:6px 8px 2px !important;
+  border-bottom: 1px solid #0c4b33;
+  background: #44b78b;
+  padding: 6px 8px 2px;
 }
 
-.cke_float .cke_top{
-    border:1px solid #d1d1d1 !important;
+.cke_float .cke_top {
+  border: 1px solid #d1d1d1;
 }
 
-.cke_bottom{
-    padding:6px 8px 2px !important;
-    position:relative !important;
-    border-top:1px solid #44b78b !important;
-    background:#0c4b33 !important;
+.cke_bottom {
+  padding: 6px 8px 2px;
+  position: relative;
+  border-top: 1px solid #44b78b;
+  background: #0c4b33;
 }
 
-body{
-    color: #c1cad2;
-    background-color: #181d27;
-    margin: 20px;
-}
+/* TODO PJ-137 change body background to dark */
