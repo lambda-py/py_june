@@ -52,10 +52,9 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "crispy_forms",
     "crispy_bootstrap4",
-    # TODO PJ-75
+    "core.apps.CoreConfig",
     "ckeditor",
     "ckeditor_uploader",
-    "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "categories.apps.CategoriesConfig",
     "posts.apps.PostsConfig",
