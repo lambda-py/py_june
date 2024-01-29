@@ -97,7 +97,7 @@ class DetailsPostView(View):
 
             return redirect(post.get_absolute_url())
 
-        message = "An empty comment cannot be created"
+        error_message = "An empty comment cannot be created"
 
         paginator = Paginator(comments, settings.COMMENTS_PAGINATION_PER_PAGE)
 
@@ -111,7 +111,7 @@ class DetailsPostView(View):
                 "post_comment_form": post_comment_form,
                 "reply_comment_form": reply_comment_form,
                 "post": post,
-                "message": message,
+                "error_message": error_message,
                 "page_obj": page_obj,
             },
         )

@@ -2,17 +2,17 @@ import re
 
 
 def not_empty_comment(content: str) -> bool:
-    # Регулярний вираз для пошуку всіх блоків <blockquote>...</blockquote>
+    # A regular expression to find all blocks <blockquote>...</blockquote>
     pattern = r"<blockquote>(.*?)</blockquote>"
 
-    # Видаляємо весь вміст до останнього блоку <blockquote>
+    # We delete all the content up to the last block <blockquote>
     index = content.rfind("<blockquote>")
     cleaned_text = content[index:]
 
-    # Видаляємо знайдені блоки <blockquote>...</blockquote>
+    # Remove the found blocks <blockquote>...</blockquote>
     cleaned_text = re.sub(pattern, "", cleaned_text, flags=re.DOTALL)
 
-    # Виводимо лише вміст після останнього блоку </blockquote>
+    # We output only the content after the last block </blockquote>
     result = cleaned_text.split("</blockquote>")[-1].strip()
     if result == "<p>&nbsp;</p>":
         return False

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from comments.models import Comment
 from core.tests import TestDataMixin
 from posts.models import Post
 
@@ -82,6 +83,28 @@ class DetailsPostViewTest(TestDataMixin, TestCase):
         response = self.client.get(self.detail_post_view_url)
 
         self.assertEqual(response.status_code, 404)
+
+    def test_detail_post_view_empty_comment(self):
+        self.client.force_login(self.user)
+        data = {
+            "content": "",
+        }
+
+        response = self.client.post(self.detail_post_view_url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("error_message", response.context)
+
+    def test_detail_post_view_reply_post(self):
+        self.client.force_login(self.user)
+        Comment.objects.all().delete()
+        data = {
+            "content": "New content",
+        }
+
+        response = self.client.post(self.detail_post_view_url, data)
+        self.assertEqual(self.post.comments.count(), 1)
+        self.assertEqual(response.status_code, 302)
 
 
 class UpdatePostViewTest(TestDataMixin, TestCase):
