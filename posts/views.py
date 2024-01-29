@@ -86,21 +86,33 @@ class DetailsPostView(View):
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         form = CommentForm(request.POST)
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
+        post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
+        reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
 
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = self.request.user
             comment.post = post
             comment.save()
+
             return redirect(post.get_absolute_url())
+
+        message = "An empty comment cannot be created"
+
+        paginator = Paginator(comments, settings.COMMENTS_PAGINATION_PER_PAGE)
+
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
 
         return render(
             request,
             self.template_name,
             {
-                "form": form,
+                "post_comment_form": post_comment_form,
+                "reply_comment_form": reply_comment_form,
                 "post": post,
-                "comments": comments,
+                "message": message,
+                "page_obj": page_obj,
             },
         )
 
