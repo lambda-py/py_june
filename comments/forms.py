@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from core.ckeditor.widgets import DarkCKEditorWidget
+from core.utils.empty_comment import not_empty_comment
 from core.utils.html_sanitizer import html_sanitizer
 
 from .models import Comment
@@ -29,4 +30,7 @@ class CommentForm(forms.ModelForm):
 
     def clean_content(self) -> str:
         content = self.cleaned_data.get("content")
-        return html_sanitizer(content)
+        if not_empty_comment(content):
+            return html_sanitizer(content)
+        else:
+            raise forms.ValidationError(_("Empty comment"))

@@ -18,6 +18,7 @@
 {% endblock %}
 
 {% block content %}
+  <div>{{ message }}</div>
   <div id="post-details">
     <div class="row">
       <div class="col s12">
@@ -59,7 +60,6 @@
           <h1>{{ post.title }}</h1>
           <hr>
           <div>{{ post.content|safe }}</div>
-          <div>{{ message }}</div>
           <div class="reply">
             {% if user.is_authenticated %}
               <button id="reply-post-btn" class="btn btn-small">
