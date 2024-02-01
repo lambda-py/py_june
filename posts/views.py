@@ -65,6 +65,7 @@ class DetailsPostView(View):
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
+        edit_post_form = PostForm(content_id=3, instance=post)  # type: ignore[arg-type]
 
         paginator = Paginator(comments, settings.COMMENTS_PAGINATION_PER_PAGE)
 
@@ -78,19 +79,28 @@ class DetailsPostView(View):
                 "post": post,
                 "post_comment_form": post_comment_form,
                 "reply_comment_form": reply_comment_form,
+                "edit_post_form": edit_post_form,
                 "page_obj": page_obj,
             },
         )
 
     def post(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
-        form = CommentForm(request.POST)
+        comment_form = CommentForm(request.POST)
+        post_form = PostForm(request.POST)
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
+        edit_post_form = PostForm(content_id=3, instance=post)  # type: ignore[arg-type]
 
-        if form.is_valid():
-            comment = form.save(commit=False)
+        if post_form.is_valid():
+            edit_post = post_form.save(commit=False)
+            edit_post.save()
+
+            return redirect(post.get_absolute_url())
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
             comment.author = self.request.user
             comment.post = post
             comment.save()
@@ -110,6 +120,7 @@ class DetailsPostView(View):
             {
                 "post_comment_form": post_comment_form,
                 "reply_comment_form": reply_comment_form,
+                "edit_post_form": edit_post_form,
                 "post": post,
                 "error_message": error_message,
                 "page_obj": page_obj,

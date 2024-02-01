@@ -41,3 +41,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 })
+
+document.addEventListener("DOMContentLoaded", function (){
+  let editPostBtn = document.getElementById("editPostBtn");
+  let editPostForm = document.getElementById("editPostForm");
+  let postDetail = document.getElementById("postDetail");
+
+  editPostBtn.addEventListener("click", function (){
+    if (editPostForm.style.display === "none"){
+      editPostForm.style.display = "block";
+      postDetail.style.display = "none";
+    } else {
+      editPostForm.style.display = "none";
+      postDetail.style.display = "block";
+    }
+  });
+});
