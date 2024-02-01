@@ -19,6 +19,9 @@
 #post-details .post-user-info {
   border: 1px solid var(--primary-color);
 }
+#post-details .comment-user-info {
+  border: 1px solid var(--primary-color);
+}
 #post-details .reply {
   text-align: right;
   margin: 1em 0;
