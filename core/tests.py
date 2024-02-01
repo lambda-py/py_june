@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from categories.models import Category, MainCategory
 from comments.models import Comment
-from core.utils.not_empty_comment import not_empty_comment
+from core.utils.is_empty_comment import is_empty_comment
 from posts.models import Post
 
 
@@ -73,13 +73,13 @@ class HomePageTest(TestDataMixin, TestCase):
         self.assertEqual(response.context["answer_question_url"], "")
 
 
-class TestNotEmptyComment(TestCase):
+class TestIsEmptyComment(TestCase):
     def setUp(self):
         self.test_content1 = "<blockquote><blockquote><p>1</p></blockquote><p>1</p></blockquote><p>&nbsp;</p>"
         self.test_content2 = "<blockquote><blockquote><p>1</p></blockquote><p>1</p></blockquote><p>Hello</p>"
         self.test_content3 = "<p>Hello</p>"
 
     def test(self):
-        self.assertEqual(not_empty_comment(self.test_content1), False)
-        self.assertEqual(not_empty_comment(self.test_content2), True)
-        self.assertEqual(not_empty_comment(self.test_content3), True)
+        self.assertEqual(is_empty_comment(self.test_content1), True)
+        self.assertEqual(is_empty_comment(self.test_content2), False)
+        self.assertEqual(is_empty_comment(self.test_content3), False)

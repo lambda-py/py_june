@@ -1,7 +1,7 @@
 import re
 
 
-def not_empty_comment(content: str) -> bool:
+def is_empty_comment(content: str) -> bool:
     # A regular expression to find all blocks <blockquote>...</blockquote>
     pattern = r"<blockquote>(.*?)</blockquote>"
 
@@ -15,6 +15,6 @@ def not_empty_comment(content: str) -> bool:
     # We output only the content after the last block </blockquote>
     result = cleaned_text.split("</blockquote>")[-1].strip()
     if result == "<p>&nbsp;</p>":
-        return False
-    else:
         return True
+    else:
+        return False
