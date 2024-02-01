@@ -134,11 +134,11 @@
                     </li>
                     <li>
                       {% if user.is_authenticated and user.id == comment.author.id %}
-                        <a href="{% url 'posts:update' post_slug=post.slug %}">
+                        <a href="{% url 'comments:update' post_slug=post.slug comment_pk=comment.pk%}">
                           <i class="tiny material-icons">edit</i>
                           {% trans "Edit" %}
                         </a>
-                        <a href="{% url 'posts:delete' post_slug=comment.post.slug %}">
+                        <a href="{% url 'comments:delete' post_slug=comment.post.slug comment_pk=comment.pk%}">
                           <i class="tiny material-icons">delete</i>
                           {% trans "Delete" %}
                         </a>
