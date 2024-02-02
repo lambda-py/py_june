@@ -11,43 +11,44 @@
 {% endblock %}
 
 {% block body %}
-
-<div id=search-form>
-  <div class="row">
-    <div class="col s12 center">
-      <h2>{% trans "Search" %}</h2>
-      <form method="get" action="{% url 'search:search'%}">
-        <input type="text" name="q" value="{{ request.GET.q}}" placeholder="{% trans 'Search' %}">
-        <button  class="waves-effect waves-light btn" type="submit" >{% trans Search %}</button>
-      </form>
-    </div>
-  </div>
-
-  {% if request.GET.q %}
+<div class="container">
+  <div id=search-form>
     <div class="row">
-      <div class="col s12 ">
-        <table class="striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for post in query%}
-              <tr>
-                <td>
-                  <a href="{% url 'posts:details' post_slug=post.slug%}">
-                    <h3>{{ post.title }}</h3>
-                  </a>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <div class="col s12 center">
+        <h2>{% trans "Search" %}</h2>
+        <form method="get" action="{% url 'search:search'%}">
+          <input type="text" name="q" value="{{ request.GET.q}}" placeholder="{% trans 'Search' %}">
+          <button  class="waves-effect waves-light btn" type="submit" >{% trans "Search" %}</button>
+        </form>
       </div>
     </div>
-    {% endif %}
+  
+    {% if request.GET.q %}
+      <div class="row">
+        <div class="col s12 ">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for post in query%}
+                <tr>
+                  <td>
+                    <a href="{% url 'posts:details' post_slug=post.slug%}">
+                      <h3>{{ post.title }}</h3>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% endif %}
+  </div>
 </div>
 {% endblock %}
