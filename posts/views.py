@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
+from django.forms.models import model_to_dict
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -117,37 +119,31 @@ class DetailsPostView(View):
         )
 
 
-class UpdatePostView(UserPassesTestMixin, View):
+class UpdatePostView(View):
     template_name = "posts/post_update.html"
 
-    def test_func(self) -> bool:
-        post_slug = self.kwargs.get("post_slug")
-        post = get_object_or_404(Post, slug=post_slug)
+    def test_func(self, post) -> bool:
         return post.author == self.request.user
 
-    def get(self, request: HttpRequest, post_slug: str) -> HttpResponse:
+    def get(self, request: HttpRequest, post_slug: str) -> JsonResponse:
         post = get_object_or_404(Post, slug=post_slug)
-        form = PostForm(instance=post)
-        return render(
-            request,
-            self.template_name,
-            {"form": form, "post": post},
-        )
+        if not self.test_func(post):
+            raise PermissionDenied()
+        return JsonResponse(model_to_dict(post))
 
-    def post(self, request: HttpRequest, post_slug: str) -> HttpResponse:
+    def post(self, request: HttpRequest, post_slug: str) -> JsonResponse:
         post = get_object_or_404(Post, slug=post_slug)
+        if not self.test_func(post):
+            raise PermissionDenied()
+
         form = PostForm(request.POST, instance=post)
-
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
-            return redirect(post.get_absolute_url())
+            return JsonResponse({"success": True})
 
-        return render(
-            request,
-            self.template_name,
-            {"form": form, "post": post},
-        )
+        else:
+            return JsonResponse({"success": False}, status=400)
 
 
 class DeletePostView(UserPassesTestMixin, DeleteView):

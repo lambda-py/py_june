@@ -41,3 +41,26 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 })
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  let editPost = document.getElementById("editPost");
+  let editPostBtn = document.getElementById("editPostBtn");
+  let postContent = document.getElementById("postContent");
+
+  editPostBtn.addEventListener("click", function () {
+    if (editPost.style.display === "none") {
+      editPost.style.display = "block";
+      postContent.style.display = "none";
+    } else {
+      editPost.style.display = "none";
+      postContent.style.display = "block";
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  let postDetailCon = document.getElementById("post-details");
+  let postSlug = postDetailCon.getAttribute("data-post-slug");
+});

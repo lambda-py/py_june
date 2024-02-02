@@ -19,7 +19,7 @@
 
 {% block content %}
   <div>{{ error_message }}</div>
-  <div id="post-details">
+  <div id="post-details" data-post-slug={{ post.slug }}>
     <div class="row">
       <div class="col s12">
         <div class="col s3 m3 l2 post-user-info">
@@ -44,10 +44,10 @@
             </li>
             <li>
               {% if user.is_authenticated and user.id == post.author.id %}
-                <a href="{% url 'posts:update' post_slug=post.slug %}">
+                <button id="editPostBtn">
                   <i class="tiny material-icons">edit</i>
                   {% trans "Edit" %}
-                </a>
+                </button>
                 <a href="{% url 'posts:delete' post_slug=post.slug %}">
                   <i class="tiny material-icons">delete</i>
                   {% trans "Delete" %}
@@ -56,7 +56,14 @@
             </li>
           </ul>
         </div>
-        <div class="col s9 m9 l10">
+
+
+        <div class="col s9 m9 l10" id="editPost" style="display:none;">
+          {% include "posts/post_update.html" %}
+        </div>
+
+
+        <div class="col s9 m9 l10" id="postContent">
           <h1>{{ post.title }}</h1>
           <hr>
           <div>{{ post.content|safe }}</div>
@@ -81,6 +88,7 @@
             {% endif %}
           </div>
         </div>
+
       </div>
     </div>
 
