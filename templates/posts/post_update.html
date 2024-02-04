@@ -2,11 +2,12 @@
 {% load static %}
 
 <h1>{% trans "Update" %} {{ post.title }}</h1>
-<form method="post" class="update-post-form">
+<hr>
+<form method="post" id="editPostForm" class="update-post-form">
     {% csrf_token %}
     {{ form.media }}
     {{ form.as_p }}
-    <input class="btn " type="submit" value="{% trans 'Submit' %}">
+    <input class="btn" type="submit" id="saveFormBtn" value="{% trans 'Submit' %}">
     <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light red darken-2">
       {% trans "Cancel" %}
     </a>

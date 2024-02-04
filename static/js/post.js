@@ -44,23 +44,77 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  let editPost = document.getElementById("editPost");
-  let editPostBtn = document.getElementById("editPostBtn");
-  let postContent = document.getElementById("postContent");
+    let editPost = document.getElementById("editPost");
+    let editPostBtn = document.getElementById("editPostBtn");
+    let postContent = document.getElementById("postContent");
+    let postDetailCon = document.getElementById("post-details");
+    let postSlug = postDetailCon.getAttribute("data-post-slug");
 
-  editPostBtn.addEventListener("click", function () {
-    if (editPost.style.display === "none") {
-      editPost.style.display = "block";
-      postContent.style.display = "none";
-    } else {
-      editPost.style.display = "none";
-      postContent.style.display = "block";
+
+    editPostBtn.addEventListener("click", function () {
+        if (editPost.style.display === "none") {
+            editPost.style.display = "block";
+            postContent.style.display = "none";
+            fetchForm();
+        } else {
+            editPost.style.display = "none";
+            postContent.style.display = "block";
+        }
+    });
+
+    function fetchForm() {
+        let url = "/posts/update/" + postSlug + "/";
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            let formHtml = data.form_html;
+            editPost.innerHTML = formHtml;
+
+            document.getElementById("saveFormBtn").addEventListener("click", function (event) {
+                event.preventDefault();
+                let editData = new FormData(document.getElementById("editPostForm"));
+
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    body: editData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload()
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending form:", error);
+                });
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching form:", error);
+        });
     }
-  });
-});
 
-
-document.addEventListener("DOMContentLoaded", function () {
-  let postDetailCon = document.getElementById("post-details");
-  let postSlug = postDetailCon.getAttribute("data-post-slug");
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 });

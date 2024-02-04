@@ -2,9 +2,10 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django.forms.models import model_to_dict
+from django.middleware.csrf import get_token
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -129,7 +130,10 @@ class UpdatePostView(View):
         post = get_object_or_404(Post, slug=post_slug)
         if not self.test_func(post):
             raise PermissionDenied()
-        return JsonResponse(model_to_dict(post))
+        form = PostForm(instance=post)
+        form_html = render_to_string("posts/post_update.html", {"form": form, "post": post})
+        csrf_token = get_token(request)
+        return JsonResponse({"form_html": form_html, "csrf_token": csrf_token})
 
     def post(self, request: HttpRequest, post_slug: str) -> JsonResponse:
         post = get_object_or_404(Post, slug=post_slug)

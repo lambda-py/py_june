@@ -19,7 +19,7 @@
 
 {% block content %}
   <div>{{ error_message }}</div>
-  <div id="post-details" data-post-slug={{ post.slug }}>
+  <div id="post-details" data-post-slug="{{ post.slug }}" data-csrf-token={% csrf_token %}
     <div class="row">
       <div class="col s12">
         <div class="col s3 m3 l2 post-user-info">
@@ -59,7 +59,7 @@
 
 
         <div class="col s9 m9 l10" id="editPost" style="display:none;">
-          {% include "posts/post_update.html" %}
+
         </div>
 
 
