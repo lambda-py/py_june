@@ -132,8 +132,7 @@ class UpdatePostView(View):
             raise PermissionDenied()
         form = PostForm(instance=post)
         form_html = render_to_string("posts/post_update.html", {"form": form, "post": post})
-        csrf_token = get_token(request)
-        return JsonResponse({"form_html": form_html, "csrf_token": csrf_token})
+        return JsonResponse({"form_html": form_html})
 
     def post(self, request: HttpRequest, post_slug: str) -> JsonResponse:
         post = get_object_or_404(Post, slug=post_slug)
@@ -150,11 +149,23 @@ class UpdatePostView(View):
             return JsonResponse({"success": False}, status=400)
 
 
-class DeletePostView(UserPassesTestMixin, DeleteView):
-    model = Post
-    slug_url_kwarg = "post_slug"
+class DeletePostView(View):
     template_name = "posts/post_delete.html"
-    success_url = reverse_lazy("categories:list")
 
-    def test_func(self) -> bool:
-        return self.get_object().author == self.request.user
+    def test_func(self, post) -> bool:
+        return post.author == self.request.user
+
+    def get(self, request: HttpRequest, post_slug: str) -> JsonResponse:
+        post = get_object_or_404(Post, slug=post_slug)
+        if not self.test_func(post):
+            raise PermissionDenied()
+        delete_html = render_to_string("posts/post_delete.html", {"post": post})
+        return JsonResponse({"delete_html": delete_html})
+
+    def post(self, request: HttpRequest, post_slug: str) -> JsonResponse:
+        post = get_object_or_404(Post, slug=post_slug)
+        if not self.test_func(post):
+            raise PermissionDenied()
+
+        post.delete()
+        return JsonResponse({"success": True})

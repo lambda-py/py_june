@@ -1,32 +1,22 @@
-{% extends 'content.html' %}
 {% load i18n %}
 {% load static %}
-
-{% load crispy_forms_tags %}
-
-{% block title %}
-  {% trans "Delete Post" %}
-{% endblock %}
 
 {% block link %}
   <link rel="stylesheet" href="{% static 'css/posts.css' %}">
 {% endblock %}
 
-{% block breadcrumbs %}
-  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a>
-  / <span class="active">{{ post.title }}</span>
-{% endblock %}
+<div id="post-delete">
+<h1>{% trans "Delete" %} {{ post.title }}</h1>
+<hr>
+<form method="post" id="deletePostForm" class="delete-post-form">
+  {% csrf_token %}
+  <p>{% trans "Are you sure you want to delete post" %} "{{ post.title }}" ?</p>
+  {{ form.media }}
+  {{ form.as_p }}
+  <input class="btn" type="submit" id="saveDeleteFormBtn" value="{% trans "Confirm" %}">
+  <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light">
+      {% trans "Cancel" %}
+  </a>
+</form>
+</div>
 
-{% block content %}
-  <div id="post-delete">
-    <h1>{% trans "Delete" %} {{ post.title }}</h1>
-    <form method="post" class="delete-post-form">
-      {% csrf_token %}
-      <p>{% trans "Are you sure you want to delete post" %} "{{ post.title }}" ?</p>
-      {{ form|crispy }}
-      <button type="submit" class="btn red waves-effect waves-light">{% trans "Confirm" %}</button>
-      <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light"
-      >{% trans "Cancel" %}</a>
-    </form>
-  </div>
-{% endblock %}

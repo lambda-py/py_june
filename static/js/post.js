@@ -49,20 +49,37 @@ document.addEventListener("DOMContentLoaded", function() {
     let postContent = document.getElementById("postContent");
     let postDetailCon = document.getElementById("post-details");
     let postSlug = postDetailCon.getAttribute("data-post-slug");
+    let deletePost = document.getElementById("deletePost");
+    let deletePostBtn = document.getElementById("deletePostBtn");
 
 
     editPostBtn.addEventListener("click", function () {
         if (editPost.style.display === "none") {
             editPost.style.display = "block";
             postContent.style.display = "none";
-            fetchForm();
+            deletePost.style.display = "none";
+            fetchEditForm();
         } else {
             editPost.style.display = "none";
             postContent.style.display = "block";
+            deletePost.style.display = "none";
         }
     });
 
-    function fetchForm() {
+    deletePostBtn.addEventListener("click", function () {
+        if (deletePost.style.display === "none") {
+            deletePost.style.display = "block";
+            editPost.style.display = "none";
+            postContent.style.display = "none";
+            fetchDeleteForm();
+        } else {
+            editPost.style.display = "none";
+            postContent.style.display = "block";
+            deletePost.style.display = "none";
+        }
+    });
+
+    function fetchEditForm() {
         let url = "/posts/update/" + postSlug + "/";
         fetch(url, {
             method: "GET",
@@ -102,6 +119,50 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("Error fetching form:", error);
         });
     }
+
+    function fetchDeleteForm(){
+        let url = "/posts/delete/" + postSlug + "/";
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            let deleteformHtml = data.delete_html;
+            deletePost.innerHTML = deleteformHtml;
+
+            document.getElementById("saveDeleteFormBtn").addEventListener("click", function (event) {
+                event.preventDefault();
+                let deleteData = new FormData(document.getElementById("deletePostForm"));
+
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    body: deleteData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "/forum/"
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching form:", error);
+                });
+            });
+
+        })
+        .catch(error => {
+            console.error("Error fetching form:", error);
+        });
+
+    }
+
 
     function getCookie(name) {
         let cookieValue = null;

@@ -1,12 +1,15 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from core.ckeditor.widgets import DarkCKEditorWidget
 from core.utils.html_sanitizer import html_sanitizer
 
 from .models import Post
 
 
 class PostForm(forms.ModelForm):
+    content = forms.CharField(widget=DarkCKEditorWidget())
+
     class Meta:
         model = Post
         fields = ["title", "content"]

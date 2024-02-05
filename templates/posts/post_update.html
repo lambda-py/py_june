@@ -1,6 +1,11 @@
 {% load i18n %}
 {% load static %}
 
+{% block link %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <link rel="stylesheet" href="{% static 'css/post-details.css' %}">
+{% endblock %}
+
 <h1>{% trans "Update" %} {{ post.title }}</h1>
 <hr>
 <form method="post" id="editPostForm" class="update-post-form">

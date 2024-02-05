@@ -48,19 +48,18 @@
                   <i class="tiny material-icons">edit</i>
                   {% trans "Edit" %}
                 </button>
-                <a href="{% url 'posts:delete' post_slug=post.slug %}">
+                <button id="deletePostBtn">
                   <i class="tiny material-icons">delete</i>
                   {% trans "Delete" %}
-                </a>
+                </button>
               {% endif %}
             </li>
           </ul>
         </div>
 
 
-        <div class="col s9 m9 l10" id="editPost" style="display:none;">
-
-        </div>
+        <div class="col s9 m9 l10" id="editPost" style="display:none;"></div>
+        <div class="col s9 m9 l10" id="deletePost" style="display:none;"></div>
 
 
         <div class="col s9 m9 l10" id="postContent">
