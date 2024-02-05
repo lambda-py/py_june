@@ -31,6 +31,8 @@ msgid "Post"
 msgstr "Пост"
 
 #: posts/models.py:25 templates/categories/category_list.html:20
+#: templates/posts/posts_detail.html:43
+#: templates/posts/posts_detail.html:133
 msgid "Posts"
 msgstr "Пости"
 
@@ -244,11 +246,13 @@ msgstr "Пошук"
 msgid "Top"
 msgstr "Вгору"
 
-# template/posts/post_detail.html:71
-# template/posts/post_detail.html:84
+#: template/posts/post_detail.html:67
+#: template/posts/post_detail.html:71
+#: template/posts/post_detail.html:84
+#: template/posts/posts_detail.html:157
 msgid "Reply"
 msgstr "Відповісти"
 
-# template/posts/post_detail.html:93
+#: template/posts/post_detail.html:93
 msgid "Replies"
 msgstr "Коментарі"
