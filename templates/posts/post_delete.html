@@ -5,18 +5,19 @@
   <link rel="stylesheet" href="{% static 'css/posts.css' %}">
 {% endblock %}
 
+
 <div id="post-delete">
-<h1>{% trans "Delete" %} {{ post.title }}</h1>
-<hr>
-<form method="post" id="deletePostForm" class="delete-post-form">
-  {% csrf_token %}
-  <p>{% trans "Are you sure you want to delete post" %} "{{ post.title }}" ?</p>
-  {{ form.media }}
-  {{ form.as_p }}
-  <input class="btn" type="submit" id="saveDeleteFormBtn" value="{% trans "Confirm" %}">
-  <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light">
-      {% trans "Cancel" %}
-  </a>
-</form>
+    <h1>{% trans "Delete" %} {{ post.title }}</h1>
+    <hr>
+    <form method="post" id="deletePostForm" class="delete-post-form">
+      {% csrf_token %}
+      <p>{% trans "Are you sure you want to delete post" %} "{{ post.title }}" ?</p>
+      {{ form.media }}
+      {{ form.as_p }}
+      <input class="btn" type="submit" id="saveDeleteFormBtn" value="{% trans "Confirm" %}">
+      <a href="{% url 'posts:details' post_slug=post.slug %}" class="btn waves-effect waves-light red">
+          {% trans "Cancel" %}
+      </a>
+    </form>
 </div>
 

@@ -22,7 +22,7 @@ msgstr ""
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #: comments/forms.py:20 templates/comments/comment_delete.html:21
-#: templates/posts/post_delete.html:21
+#: templates/posts/post_delete.html:17
 msgid "Confirm"
 msgstr "Підтвердити"
 
@@ -85,6 +85,8 @@ msgstr "Ви впевнені що хочете видалити комента�
 #: templates/comments/comment_delete.html:23
 #: templates/comments/comment_update.html:18
 #: templates/posts/post_delete.html:22 templates/posts/post_update.html:18
+#: temlates/posts/post_update.html:17
+#: temlates/posts/post_deleter.html:19
 msgid "Cancel"
 msgstr "Відмінити"
 
@@ -185,7 +187,7 @@ msgstr ""
 msgid "Delete Post"
 msgstr "Видалити пост"
 
-#: templates/posts/post_delete.html:16 templates/posts/post_detail.html:39
+#: templates/posts/post_delete.html:10 templates/posts/post_detail.html:39
 msgid "Delete"
 msgstr "Видалити"
 
@@ -209,7 +211,7 @@ msgstr "Створити новий пост в"
 msgid "Update Post"
 msgstr "Оновити пост"
 
-#: templates/posts/post_update.html:22
+#: templates/posts/post_update.html:9
 msgid "Update"
 msgstr "Оновити"
 
