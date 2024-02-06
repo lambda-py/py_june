@@ -83,4 +83,8 @@ table.striped > tbody > tr:nth-child(even) .comment-text {
   color: var(--secondary-bg-color)
 }
 
+#deletePostForm form div{
+  display: none;
+}
+
 /*# sourceMappingURL=post-details.css.map */
