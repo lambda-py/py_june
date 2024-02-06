@@ -1,0 +1,12 @@
+#category-details .active-page {
+  background-color: var(--brand-bg-color);
+  font-weight: normal;
+  padding: 0 5px;
+}
+#category-details .inactive-page {
+  font-weight: normal;
+}
+#category-details a {
+  color: var(--brand-color);
+  text-decoration: underline;
+}

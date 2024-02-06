@@ -40,7 +40,7 @@
               <img src="{{ post.author.get_avatar_url }}" alt="{{ post.author }}" width="150px">
             </li>
             <li>
-              posts: {{ post.author.posts.count }}
+                {% trans "Posts" %}: {{ post.author.posts.count }}
             </li>
             <li>
               {% if user.is_authenticated and user.id == post.author.id %}
@@ -93,37 +93,38 @@
         </div>
       </div>
     </div>
+    <hr>
 
 
     <div class="row">
-      <div class="col s12">
+      <div class="col s12 center">
         <table class="striped">
           <thead>
           <tr>
-            <th>{% trans 'Replies' %}</th>
-            <th class="col s6 offset-s3">
+            <th>
               {% if page_obj.paginator.num_pages > 1 %}
                 {% if page_obj.has_previous %}
-                  <a class="page-num" href="?page={{ page_obj.previous_page_number }}"><<</a>
+                  <a href="?page={{ page_obj.previous_page_number }}"><<</a>
                 {% endif %}
                 {% for num in page_obj.paginator.page_range %}
                   <div
                     class="{% if page_obj.number == num %}active-page{% else %}inactive-page{% endif %} waves-effect">
-                    <a class="page-num" href="?page={{ num }}">{{ num }}</a>
+                    <a href="?page={{ num }}">{{ num }}</a>
                   </div>
                 {% endfor %}
                 {% if page_obj.has_next %}
-                  <a class="page-num" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+                  <a href="?page={{ page_obj.paginator.num_pages }}">>></a>
                 {% endif %}
               {% endif %}
             </th>
+            <th>{% trans 'Replies' %}</th>
           </tr>
           </thead>
           <tbody>
           {% for comment in page_obj %}
             <tr class="comment" id="comment-id-{{ comment.id }}">
               <td>
-                <div class="col s3 m3 l2">
+                <div class="col s8 m6 l6 comment-user-info">
                   <ul>
                     <li>
                       <i class="tiny material-icons">access_time</i>
@@ -141,7 +142,7 @@
                       <img src="{{ comment.author.get_avatar_url }}" alt="{{ comment.author }}" width="150px">
                     </li>
                     <li>
-                      posts: {{ comment.author.posts.count }}
+                      {% trans "Posts" %}: {{ comment.author.posts.count }}
                     </li>
                     <li>
                       {% if user.is_authenticated and user.id == comment.author.id %}
@@ -157,7 +158,9 @@
                     </li>
                   </ul>
                 </div>
-                <div class="col s9 m9 l10 comment-text">
+              </td>
+              <td>
+                <div class="col s10 m10 l12 comment-text">
                   <div>
                     {{ comment.content|safe }}
                   </div>
