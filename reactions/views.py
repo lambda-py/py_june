@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -8,7 +9,7 @@ from posts.models import Post
 from .models import Reactions
 
 
-class ReactionsView(View):
+class ReactionsView(LoginRequiredMixin, View):
     template_name = "posts/post_detail.html"
 
     def post(self, request: HttpRequest, id: int) -> HttpResponseRedirect:
