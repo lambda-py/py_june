@@ -68,6 +68,13 @@
               </button>
             {% endif %}
           </div>
+          <form action="{% url 'reactions:like_post' post.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn like-btn btn-primary btn-small">
+              <i class="large material-icons" style="color: red;">favorite</i>
+            </button>
+          </form>
+          <div>{{ like }}</div>
           <div class="comment-form" id="post-comment-form" style="display: none">
             {% if user.is_authenticated %}
               <form method="post" name="post-comment-form">

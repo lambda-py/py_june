@@ -14,6 +14,7 @@ from comments.forms import CommentForm
 from comments.models import Comment
 from posts.forms import PostForm
 from posts.models import Post
+from reactions.models import Reactions
 
 
 def can_user_post(request: HttpRequest) -> bool:
@@ -62,6 +63,7 @@ class DetailsPostView(View):
 
     def get(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
+        likes_count = Reactions.objects.filter(post_id=post.id).count()
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
@@ -71,6 +73,7 @@ class DetailsPostView(View):
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
 
+
         return render(
             request,
             self.template_name,
@@ -79,11 +82,13 @@ class DetailsPostView(View):
                 "post_comment_form": post_comment_form,
                 "reply_comment_form": reply_comment_form,
                 "page_obj": page_obj,
+                "like": likes_count,
             },
         )
 
     def post(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
+        likes_count = Reactions.objects.filter(post_id=post.id).count()
         form = CommentForm(request.POST)
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
@@ -113,6 +118,7 @@ class DetailsPostView(View):
                 "post": post,
                 "error_message": error_message,
                 "page_obj": page_obj,
+                "like": likes_count,
             },
         )
 
