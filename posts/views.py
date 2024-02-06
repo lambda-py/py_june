@@ -65,7 +65,8 @@ class DetailsPostView(View):
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
-        edit_post_form = PostForm(instance=post)  # type: ignore[arg-type]
+        edit_post_form = PostForm(content_id=3, instance=post)  # type: ignore[arg-type]
+        delete_post_form = PostForm(content_id=4, instance=post)  # type: ignore[arg-type]
 
         paginator = Paginator(comments, settings.COMMENTS_PAGINATION_PER_PAGE)
 
@@ -80,23 +81,32 @@ class DetailsPostView(View):
                 "post_comment_form": post_comment_form,
                 "reply_comment_form": reply_comment_form,
                 "edit_post_form": edit_post_form,
+                "delete_post_form": delete_post_form,
                 "page_obj": page_obj,
             },
         )
 
     def post(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
-        comment_form = CommentForm(request.POST)
         post_form = PostForm(request.POST, instance=post)
+        comment_form = CommentForm(request.POST)
+        edit_post_form = PostForm(instance=post, content_id=3)# type: ignore[arg-type]
+        delete_post_form = PostForm(instance=post, content_id=4)# type: ignore[arg-type]
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
 
         if post_form.is_valid():
-            edit_post = post_form.save(commit=False)
-            edit_post.save()
-
-            return redirect(post.get_absolute_url())
+            if "delete" in request.POST:
+                post.delete()
+                comments.delete()
+                print("delete post")
+                return redirect("/forum/")
+            else:
+                edit_post = post_form.save(commit=False)
+                edit_post.save()
+                print("edit_post")
+                return redirect(post.get_absolute_url())
 
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -120,6 +130,8 @@ class DetailsPostView(View):
                 "post_comment_form": post_comment_form,
                 "reply_comment_form": reply_comment_form,
                 "post": post,
+                "edit_post_form": edit_post_form,
+                "delete_post_form": delete_post_form,
                 "error_message": error_message,
                 "page_obj": page_obj,
             },
