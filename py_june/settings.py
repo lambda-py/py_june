@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     "comments.apps.CommentsConfig",
     "profiles.apps.ProfilesConfig",
     "search.apps.SearchConfig",
-    "reactions.apps.ReactionsConfig"
+    "reactions.apps.ReactionsConfig",
 ]
 
 MIDDLEWARE = [
