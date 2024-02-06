@@ -90,8 +90,8 @@ class DetailsPostView(View):
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         post_form = PostForm(request.POST, instance=post)
         comment_form = CommentForm(request.POST)
-        edit_post_form = PostForm(instance=post, content_id=3)# type: ignore[arg-type]
-        delete_post_form = PostForm(instance=post, content_id=4)# type: ignore[arg-type]
+        edit_post_form = PostForm(instance=post, content_id=3)  # type: ignore[arg-type]
+        delete_post_form = PostForm(instance=post, content_id=4)  # type: ignore[arg-type]
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
@@ -100,12 +100,10 @@ class DetailsPostView(View):
             if "delete" in request.POST:
                 post.delete()
                 comments.delete()
-                print("delete post")
                 return redirect("/forum/")
             else:
                 edit_post = post_form.save(commit=False)
                 edit_post.save()
-                print("edit_post")
                 return redirect(post.get_absolute_url())
 
         if comment_form.is_valid():
