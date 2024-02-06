@@ -16,11 +16,9 @@ class ReactionsView(View):
         if not Reactions.objects.filter(
             post_id=post.id, user_id=self.request.user.id
         ).exists():
-            Reactions.objects.create(
-                user_id=self.request.user.id, post_id=post.id, slug=post.slug
-            )
+            Reactions.objects.create(user_id=self.request.user.id, post_id=post.id)
         else:
             Reactions.objects.filter(
-                user_id=self.request.user.id, post_id=post.id, slug=post.slug
+                user_id=self.request.user.id, post_id=post.id
             ).delete()
         return HttpResponseRedirect(reverse("posts:details", args={post.slug}))

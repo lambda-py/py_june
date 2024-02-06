@@ -1,9 +1,7 @@
 from django.db import models
 
-from core.models import SlugModel
 
-
-class Reactions(SlugModel):
+class Reactions(models.Model):
     user = models.OneToOneField(
         to="users.ForumUser",
         on_delete=models.CASCADE,
