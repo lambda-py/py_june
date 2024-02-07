@@ -12,10 +12,12 @@ class PostForm(forms.ModelForm):
     content = forms.CharField(widget=DarkCKEditorWidget())
 
     def __init__(self, *args: tuple, **kwargs: dict) -> None:
-        content_id = kwargs.pop("content_id", None)
+        self.content_id = kwargs.pop("content_id", None)
         super().__init__(*args, **kwargs)
-        if content_id:
-            self.fields["content"].widget = DarkCKEditorWidget(attrs={"id": content_id})
+        if self.content_id:
+            self.fields["content"].widget = DarkCKEditorWidget(
+                attrs={"id": self.content_id}
+            )
 
     class Meta:
         model = Post
