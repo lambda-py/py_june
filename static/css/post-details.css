@@ -75,4 +75,16 @@ table.striped > tbody > tr:nth-child(even) .comment-text {
   font-weight: normal;
 }
 
+#post-details input[type="text"] {
+  color: var(--primary-color)
+}
+
+#deletePostForm a {
+  color: var(--secondary-bg-color)
+}
+
+#deletePostForm form div{
+  display: none;
+}
+
 /*# sourceMappingURL=post-details.css.map */

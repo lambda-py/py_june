@@ -12,7 +12,7 @@ class CommentForm(forms.ModelForm):
     content = forms.CharField(widget=DarkCKEditorWidget())
 
     def __init__(self, *args: tuple, **kwargs: dict) -> None:
-        content_id = kwargs.pop("content_id", None)
+        self.content_id = kwargs.pop("content_id", None)
         super().__init__(*args, **kwargs)
         # Change id of the widget to avoid conflicts with other widgets on the page
         # Use them in the template to iterate over them
@@ -20,8 +20,10 @@ class CommentForm(forms.ModelForm):
         #         post_comment_form = CommentForm(content_id=1)
         #         reply_comment_form = CommentForm(content_id=2)
         # Perhaps there is a better way to do this
-        if content_id:
-            self.fields["content"].widget = DarkCKEditorWidget(attrs={"id": content_id})
+        if self.content_id:
+            self.fields["content"].widget = DarkCKEditorWidget(
+                attrs={"id": self.content_id}
+            )
 
     class Meta:
         model = Comment

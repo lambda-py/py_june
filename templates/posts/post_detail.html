@@ -44,19 +44,39 @@
             </li>
             <li>
               {% if user.is_authenticated and user.id == post.author.id %}
-                <a href="{% url 'posts:update' post_slug=post.slug %}">
+                <button id="editPostBtn">
                   <i class="tiny material-icons">edit</i>
                   {% trans "Edit" %}
-                </a>
-                <a href="{% url 'posts:delete' post_slug=post.slug %}">
+                </button>
+                <button id="deletePostBtn">
                   <i class="tiny material-icons">delete</i>
                   {% trans "Delete" %}
-                </a>
+                </button>
               {% endif %}
             </li>
           </ul>
         </div>
-        <div class="col s9 m9 l10">
+
+        <div class="col s9 m9 l10" id="editPostForm" style="display: none;">
+          <form method="post" name="post-edit-form">
+            {% csrf_token %}
+            {{ edit_post_form.media }}
+            {{ edit_post_form.as_p }}
+            <input class="btn " type="submit" value="{% trans 'Submit' %}">
+          </form>
+        </div>
+
+        <div class="col s9 m9 l10" id="deletePostForm" style="display: none;">
+          <form method="post">
+            {% csrf_token %}
+            <p>{% trans "Are you sure you want to delete post" %} "{{ post.title }}" ?</p>
+            {{ delete_post_form }}
+            <button class="btn waves-effect waves-light" type="submit" name="delete">{% trans 'Confirm' %}</button>
+            <a href="{% url 'posts:details' post_slug=post.slug %}" class="red btn waves-effect waves-light">{% trans "Cancel" %}</a>
+          </form>
+        </div>
+
+        <div class="col s9 m9 l10" id="postDetail" style="display: block;">
           <h1>{{ post.title }}</h1>
           <hr>
           <div>{{ post.content|safe }}</div>
@@ -97,6 +117,7 @@
       </div>
     </div>
     <hr>
+
 
     <div class="row">
       <div class="col s12 center">

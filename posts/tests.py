@@ -1,8 +1,10 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from comments.forms import CommentForm
 from comments.models import Comment
 from core.tests import TestDataMixin
+from posts.forms import PostForm
 from posts.models import Post
 
 
@@ -105,6 +107,21 @@ class DetailsPostViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.detail_post_view_url, data)
         self.assertEqual(self.post.comments.count(), 1)
         self.assertEqual(response.status_code, 302)
+
+    def test_detail_post_view_forms(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.detail_post_view_url)
+        self.assertContains(response, "Test Post")
+
+        self.assertIsInstance(response.context["edit_post_form"], PostForm)
+        self.assertIsInstance(response.context["delete_post_form"], PostForm)
+        self.assertIsInstance(response.context["post_comment_form"], CommentForm)
+        self.assertIsInstance(response.context["reply_comment_form"], CommentForm)
+
+        self.assertEqual(response.context["edit_post_form"].content_id, 3)
+        self.assertEqual(response.context["delete_post_form"].content_id, 4)
+        self.assertEqual(response.context["post_comment_form"].content_id, 1)
+        self.assertEqual(response.context["reply_comment_form"].content_id, 2)
 
 
 class UpdatePostViewTest(TestDataMixin, TestCase):

@@ -41,3 +41,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 })
+
+document.addEventListener("DOMContentLoaded", function (){
+  let editPostBtn = document.getElementById("editPostBtn");
+  let editPostForm = document.getElementById("editPostForm");
+  let deletePostForm = document.getElementById("deletePostForm");
+  let deletePostBtn = document.getElementById("deletePostBtn");
+  let postDetail = document.getElementById("postDetail");
+
+  editPostBtn.addEventListener("click", function (){
+    if (editPostForm.style.display === "none"){
+      editPostForm.style.display = "block";
+      postDetail.style.display = "none";
+      deletePostForm.style.display = "none";
+    } else {
+      editPostForm.style.display = "none";
+      postDetail.style.display = "block";
+      deletePostForm.style.display = "none";
+    }
+  });
+
+  deletePostBtn.addEventListener("click", function () {
+    if (deletePostForm.style.display === "none"){
+      deletePostForm.style.display = "block";
+      postDetail.style.display = "none";
+      editPostForm.style.display = "none";
+    } else {
+      editPostForm.style.display = "none";
+      postDetail.style.display = "block";
+      deletePostForm.style.display = "none";
+    }
+  });
+});
