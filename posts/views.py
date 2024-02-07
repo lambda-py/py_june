@@ -91,10 +91,6 @@ class DetailsPostView(View):
 
     def post(self, request: HttpRequest, post_slug: str) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
-        likes_count = Reactions.objects.filter(post_id=post.id).count()
-        is_liked = Reactions.objects.filter(
-            post_id=post.id, user_id=self.request.user.id
-        )
         form = CommentForm(request.POST)
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
@@ -124,8 +120,6 @@ class DetailsPostView(View):
                 "post": post,
                 "error_message": error_message,
                 "page_obj": page_obj,
-                "like": likes_count,
-                "is_liked": is_liked,
             },
         )
 
