@@ -6,6 +6,7 @@ from categories.models import Category, MainCategory
 from comments.models import Comment
 from core.utils.is_empty_comment import is_empty_comment
 from posts.models import Post
+from reactions.models import Reactions
 
 
 class TestDataMixin:
@@ -33,6 +34,10 @@ class TestDataMixin:
         self.comment = Comment.objects.create(
             content="Test Comment content",
             author=self.user,
+            post_id=self.post.pk,
+        )
+        self.reaction = Reactions.objects.create(
+            user_id=self.user.id,
             post_id=self.post.pk,
         )
 

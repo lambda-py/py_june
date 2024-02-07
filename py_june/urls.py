@@ -29,5 +29,6 @@ urlpatterns = i18n_patterns(
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("profile/", include("profiles.urls")),
     path("search/", include("search.urls")),
+    path("", include("reactions.urls")),
     prefix_default_language=False,
 )
