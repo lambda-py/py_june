@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
+from django.db.models import Count
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -14,7 +15,7 @@ from comments.forms import CommentForm
 from comments.models import Comment
 from posts.forms import PostForm
 from posts.models import Post
-from reactions.models import Reactions
+from reactions.models import CommentsReactions, Reactions
 
 
 def can_user_post(request: HttpRequest) -> bool:
@@ -90,6 +91,8 @@ class DetailsPostView(View):
                 "page_obj": page_obj,
                 "like": likes_count,
                 "is_liked": is_liked,
+                # "comment_like": comments_likes_count,
+                # "is_comment_liked": is_comment_liked,
             },
         )
 

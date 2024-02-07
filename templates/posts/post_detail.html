@@ -187,6 +187,19 @@
                   <div>
                     {{ comment.content|safe }}
                   </div>
+                  <form action="{% url 'reactions:like_comment' comment.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" style="border: none; background-color: transparent;">
+                      {% if is_comment_liked %}
+                        <i class="small material-icons" style="color: red;">favorite</i>
+                      {% else %}
+                        <i class="small material-icons" style="color: #fff;">favorite_border</i>
+                      {% endif %}
+                      <div class="likes-count" style="color: #fff;">
+                        {{ comment_like }}
+                      </div>
+                    </button>
+                  </form>
                   <div class="reply">
                     {% if user.is_authenticated %}
                       <button class="reply-comment-btn btn btn-small" data-comment-content="{{ comment.content|safe }}">
