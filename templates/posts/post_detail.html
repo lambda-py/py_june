@@ -196,7 +196,9 @@
                         <i class="small material-icons" style="color: #fff;">favorite_border</i>
                       {% endif %}
                       <div class="likes-count" style="color: #fff;">
-                        {{ comment_like }}
+                        {% for comm in comment_like %}
+                          {{ comm.like }}
+                        {% endfor %}
                       </div>
                     </button>
                   </form>

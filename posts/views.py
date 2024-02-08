@@ -83,8 +83,6 @@ class DetailsPostView(View):
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
 
-        print(comments[4].like)
-
         return render(
             request,
             self.template_name,
@@ -97,7 +95,7 @@ class DetailsPostView(View):
                 "page_obj": page_obj,
                 "like": likes_count,
                 "is_liked": is_liked,
-                "comment_like": comments[4].like,
+                "comment_like": comments,
                 # "is_comment_liked": is_comment_liked,
             },
         )
