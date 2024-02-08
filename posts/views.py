@@ -68,7 +68,11 @@ class DetailsPostView(View):
         is_liked = Reactions.objects.filter(
             post_id=post.id, user_id=self.request.user.id
         )
-        comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
+        comments = (
+            Comment.objects.filter(post_id=post.id)
+            .annotate(like=Count("comments_reactions"))
+            .order_by("-updated_at")
+        )
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
         edit_post_form = PostForm(content_id=3, instance=post)  # type: ignore[arg-type]
@@ -78,6 +82,8 @@ class DetailsPostView(View):
 
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
+
+        print(comments[4].like)
 
         return render(
             request,
@@ -91,7 +97,7 @@ class DetailsPostView(View):
                 "page_obj": page_obj,
                 "like": likes_count,
                 "is_liked": is_liked,
-                # "comment_like": comments_likes_count,
+                "comment_like": comments[4].like,
                 # "is_comment_liked": is_comment_liked,
             },
         )
