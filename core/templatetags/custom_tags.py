@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, render
 
 from comments.forms import CommentForm
 from comments.models import Comment
-from core.utils.get_comment_inst import get_comment_inst
 from posts.models import Post
 
 register = template.Library()
