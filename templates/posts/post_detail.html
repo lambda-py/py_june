@@ -1,4 +1,5 @@
 {% extends 'content.html' %}
+{% load custom_tags %}
 {% load static %}
 {% load i18n %}
 
@@ -169,20 +170,26 @@
                     </li>
                     <li>
                       {% if user.is_authenticated and user.id == comment.author.id %}
-                        <a href="{% url 'comments:update' post_slug=post.slug comment_pk=comment.pk%}">
+                        <button class="edit-comment-btn">
                           <i class="tiny material-icons">edit</i>
                           {% trans "Edit" %}
-                        </a>
-                        <a href="{% url 'comments:delete' post_slug=comment.post.slug comment_pk=comment.pk%}">
+                        </button>
+                        <button id="deleteCommentBtn">
                           <i class="tiny material-icons">delete</i>
                           {% trans "Delete" %}
-                        </a>
+                        </button>
                       {% endif %}
                     </li>
                   </ul>
                 </div>
               </td>
               <td>
+
+                <div class="col s10 m10 l12 editCommentForm" style="display: none">
+                  {% render_comment_update_form comment %}
+
+                </div>
+
                 <div class="col s10 m10 l12 comment-text">
                   <div>
                     {{ comment.content|safe }}
@@ -196,6 +203,8 @@
                     {% endif %}
                   </div>
                 </div>
+
+
               </td>
             </tr>
           {% endfor %}

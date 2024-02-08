@@ -48,6 +48,8 @@ document.addEventListener("DOMContentLoaded", function (){
   let deletePostForm = document.getElementById("deletePostForm");
   let deletePostBtn = document.getElementById("deletePostBtn");
   let postDetail = document.getElementById("postDetail");
+  let editCommentButtons = document.querySelectorAll(".edit-comment-btn");
+
 
   editPostBtn.addEventListener("click", function (){
     if (editPostForm.style.display === "none"){
@@ -71,5 +73,18 @@ document.addEventListener("DOMContentLoaded", function (){
       postDetail.style.display = "block";
       deletePostForm.style.display = "none";
     }
+  });
+
+  editCommentButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      let comment = button.closest(".comment");
+      let editCommentForm = comment.querySelector(".editCommentForm");
+
+      if (editCommentForm.style.display === "none"){
+        editCommentForm.style.display = "block";
+      } else {
+        editCommentForm.style.display = "none";
+      }
+    });
   });
 });

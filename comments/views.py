@@ -31,25 +31,17 @@ class CreateCommentView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form, "post": post})
 
 
-class UpdateCommentView(UserPassesTestMixin, View):
+class UpdateCommentView(View):
     template_name = "comments/comment_update.html"
-
-    def test_func(self) -> bool:
-        comment_pk = self.kwargs.get("comment_pk")
-        comment = get_object_or_404(Comment, pk=comment_pk)
-        return comment.author == self.request.user
 
     def get(
         self, request: HttpRequest, post_slug: str, comment_pk: int
     ) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug)
         comment = get_object_or_404(Comment, pk=comment_pk)
-        form = CommentForm(instance=comment)
-        return render(
-            request,
-            self.template_name,
-            {"form": form, "post": post, "comment": comment},
-        )
+        edit_comment_form = CommentForm(instance=comment)
+        return redirect("posts:details", post_slug=post.slug)
+
 
     def post(
         self, request: HttpRequest, post_slug: str, comment_pk: int
