@@ -91,3 +91,38 @@ resource "aws_security_group" "django_sg" {
     Name = "DjangoSecurityGroup"
   }
 }
+
+# RDS Subnet Group
+resource "aws_db_subnet_group" "rds_subnet" {
+  name       = "rds_subnet_group"
+  subnet_ids = [aws_subnet.django_public_subnet.id]
+
+  tags = {
+    Name = "MyDBSubnetGroup"
+  }
+}
+
+# Security Group for RDS
+resource "aws_security_group" "rds_sg" {
+  name        = "rds_sg"
+  description = "Security group for RDS PostgreSQL"
+  vpc_id      = aws_vpc.django_vpc.id
+
+  ingress {
+    from_port   = 5432  # PostgreSQL port
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # CIDR blocks that should be allowed to access the database
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "rds_security_group"
+  }
+}
