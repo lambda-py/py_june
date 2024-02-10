@@ -13,7 +13,7 @@ output "rds_instance_endpoint" {
 # Optional: Output for RDS Instance Name
 output "rds_instance_name" {
   description = "The name of the RDS database instance."
-  value       = aws_db_instance.django_db.name
+  value       = aws_db_instance.django_db.db_name
 }
 
 # Optional: Output for Security Group ID used by EC2 Instance
