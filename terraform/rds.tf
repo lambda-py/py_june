@@ -4,7 +4,7 @@ resource "aws_db_instance" "django_db" {
   engine               = "postgres"  # Specify the database engine
   engine_version       = "13.3"  # Use the appropriate version for your needs
   instance_class       = "db.t3.micro"  # Choose the instance class
-  name                 = var.db_name
+  db_name              = var.db_name
   username             = var.db_username
   password             = var.db_password
   parameter_group_name = "default.postgres13"
