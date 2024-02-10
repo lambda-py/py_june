@@ -169,7 +169,7 @@
                     </li>
                     <li>
                       {% if user.is_authenticated and user.id == comment.author.id %}
-                        <button class="edit-comment-btn" data-comment-edit-content="{{ comment.content|safe }}">
+                        <button class="edit-comment-btn">
                           <i class="tiny material-icons">edit</i>
                           {% trans "Edit" %}
                         </button>
