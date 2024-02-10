@@ -8,14 +8,12 @@ resource "aws_instance" "django_app" {
   # Specify the subnet ID to launch the instance in a specific subnet within your VPC
   subnet_id = aws_subnet.django_public_subnet.id
 
-  # Block device mappings - optional, customize if you need additional storage
-  block_device_mappings {
-    device_name = "/dev/sda1"
-    ebs {
-      volume_size = 20  # Volume size in GB
-      volume_type = "gp2"  # General Purpose SSD
-      delete_on_termination = true
-    }
+  # ebs block - optional, customize if you need additional storage
+  ebs_block_device {
+    device_name = "/dev/sdm"
+    volume_size = 20
+    volume_type = "gp2"
+    delete_on_termination = true
   }
 
   # User data script to install and configure necessary software upon instance initialization
