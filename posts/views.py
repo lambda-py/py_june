@@ -68,6 +68,7 @@ class DetailsPostView(View):
             post_id=post.id, user_id=self.request.user.id
         )
         comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
+        comment_edit_forms = {comment.id: CommentForm(content_id=5, instance=comment) for comment in comments}
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
         edit_post_form = PostForm(content_id=3, instance=post)  # type: ignore[arg-type]
@@ -87,6 +88,7 @@ class DetailsPostView(View):
                 "reply_comment_form": reply_comment_form,
                 "edit_post_form": edit_post_form,
                 "delete_post_form": delete_post_form,
+                "comment_edit_forms": comment_edit_forms,
                 "page_obj": page_obj,
                 "like": likes_count,
                 "is_liked": is_liked,

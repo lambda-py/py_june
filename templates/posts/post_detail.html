@@ -183,6 +183,7 @@
                 </div>
               </td>
               <td>
+
                 <div class="col s10 m10 l12 comment-text">
                   <div>
                     {{ comment.content|safe }}
@@ -196,6 +197,18 @@
                     {% endif %}
                   </div>
                 </div>
+
+              {% for comment_id, comment_edit_form in comment_edit_forms.items %}
+                {% if comment_id == comment.id %}
+                <div>
+                  <form method="post">
+                    {% csrf_token %}
+                    {{ comment_edit_form }}
+                  </form>
+                </div>
+              {% endif %}
+              {% endfor %}
+
               </td>
             </tr>
           {% endfor %}
