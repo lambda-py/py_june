@@ -10,10 +10,10 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-variable "ubuntu_yammy_ami" {
+variable "ubuntu_focal_ami" {
   description = "The AMI ID for the EC2 instance."
   type        = string
-  default     = "ami-0b72d6fdeb8505311"
+  default     = "ami-08d0e3f9e0d3a5fb1"
 }
 
 variable "db_instance_type" {

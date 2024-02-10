@@ -1,5 +1,5 @@
 resource "aws_instance" "django_app" {
-  ami           = var.ubuntu_yammy_ami
+  ami           = var.ubuntu_focal_ami
   instance_type = var.instance_type
 
   # Associate the instance with a security group
