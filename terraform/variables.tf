@@ -63,8 +63,8 @@ variable "availability_zones" {
 # CIDR blocks allowed for SSH access to instances within the security group.
 # Adjust this according to your security requirements.
 # TODO change to server ip. Open to the world; it's recommended to be more restrictive
-variable "allowed_ssh_cidr" {
-  description = "CIDR blocks allowed to SSH to the instances. Be restrictive here for security."
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
-}
+#variable "allowed_ssh_cidr" {
+#  description = "CIDR blocks allowed to SSH to the instances. Be restrictive here for security."
+#  type        = list(string)
+#  default     = ["0.0.0.0/0"]
+#}
