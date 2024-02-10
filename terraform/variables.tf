@@ -36,3 +36,35 @@ variable "db_password" {
   description = "The password for the database user."
   type        = string
 }
+
+# The CIDR block for the VPC
+variable "vpc_cidr" {
+  description = "The CIDR block for the VPC."
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+# The CIDR blocks for the public subnets. This is a list in case you want
+# to define multiple public subnets.
+variable "public_subnet_cidrs" {
+  description = "A list of CIDR blocks for the public subnets."
+  type        = list(string)
+  default     = ["10.0.1.0/24"]  # Adjust according to your needs
+}
+
+# The availability zones in which to place the subnets. This list should align
+# with the 'public_subnet_cidrs' list in length and order.
+variable "availability_zones" {
+  description = "A list of availability zones in which to create subnets."
+  type        = list(string)
+  default     = ["eu-west-3a", "eu-west-3b"]
+}
+
+# CIDR blocks allowed for SSH access to instances within the security group.
+# Adjust this according to your security requirements.
+# TODO change to server ip. Open to the world; it's recommended to be more restrictive
+variable "allowed_ssh_cidr" {
+  description = "CIDR blocks allowed to SSH to the instances. Be restrictive here for security."
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
