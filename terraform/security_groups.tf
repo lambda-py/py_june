@@ -1,55 +1,3 @@
-# Define the VPC
-resource "aws_vpc" "django_vpc" {
-  cidr_block = var.vpc_cidr
-  enable_dns_support = true
-  enable_dns_hostnames = true
-
-  tags = {
-    Name = "DjangoVPC"
-  }
-}
-
-# Create an Internet Gateway for the VPC
-resource "aws_internet_gateway" "django_igw" {
-  vpc_id = aws_vpc.django_vpc.id
-
-  tags = {
-    Name = "DjangoIGW"
-  }
-}
-
-# Create a public subnet
-resource "aws_subnet" "django_public_subnet" {
-  vpc_id            = aws_vpc.django_vpc.id
-  cidr_block        = var.public_subnet_cidrs[0]
-  availability_zone = var.availability_zones[0]
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "DjangoPublicSubnet"
-  }
-}
-
-# Create a Route Table for the public subnet
-resource "aws_route_table" "django_public_rt" {
-  vpc_id = aws_vpc.django_vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.django_igw.id
-  }
-
-  tags = {
-    Name = "DjangoPublicRT"
-  }
-}
-
-# Associate the public Route Table with the public subnet
-resource "aws_route_table_association" "django_a" {
-  subnet_id      = aws_subnet.django_public_subnet.id
-  route_table_id = aws_route_table.django_public_rt.id
-}
-
 # Define a Security Group for the EC2 instance in the VPC
 resource "aws_security_group" "django_sg" {
   name        = "django_sg"
@@ -89,16 +37,6 @@ resource "aws_security_group" "django_sg" {
 
   tags = {
     Name = "DjangoSecurityGroup"
-  }
-}
-
-# RDS Subnet Group
-resource "aws_db_subnet_group" "rds_subnet" {
-  name       = "rds_subnet_group"
-  subnet_ids = [aws_subnet.django_public_subnet.id]
-
-  tags = {
-    Name = "MyDBSubnetGroup"
   }
 }
 
