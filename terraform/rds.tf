@@ -18,7 +18,7 @@ resource "aws_db_instance" "django_db" {
   backup_window           = "03:00-06:00"
 
   # Maintenance
-  maintenance_window         = "Sun:05:00-Sun:08:00"
+  maintenance_window         = "Sun:07:00-Sun:10:00"
   auto_minor_version_upgrade = true
 
   # Deletion protection and multi-AZ
