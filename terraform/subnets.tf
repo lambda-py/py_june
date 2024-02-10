@@ -12,7 +12,7 @@ resource "aws_subnet" "django_public_subnet" {
 
 resource "aws_subnet" "rds_subnet_1" {
   vpc_id            = aws_vpc.django_vpc.id
-  cidr_block        = var.public_subnet_cidrs[0]
+  cidr_block        = var.public_subnet_cidrs[1]
   availability_zone = var.availability_zones[1]
 
   tags = {
