@@ -2,7 +2,7 @@ resource "aws_db_instance" "django_db" {
   allocated_storage    = 20  # The size of the database (in gigabytes)
   storage_type         = "gp2"
   engine               = "postgres"  # Specify the database engine
-  engine_version       = "13.3"  # Use the appropriate version for your needs
+  engine_version       = "15.5"  # Use the appropriate version for your needs
   instance_class       = "db.t3.micro"  # Choose the instance class
   db_name              = var.db_name
   username             = var.db_username
