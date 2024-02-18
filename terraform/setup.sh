@@ -66,7 +66,7 @@ sudo systemctl enable gunicorn
 cat > /etc/nginx/sites-available/app << EOF
 server {
     listen 80;
-    server_name server_domain_or_IP;
+    server_name py-june.dev;
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
