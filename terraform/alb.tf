@@ -54,3 +54,9 @@ resource "aws_lb_target_group" "django_alb_tg" {
     unhealthy_threshold = 3
   }
 }
+
+resource "aws_lb_target_group_attachment" "django_alb_tg_attachment" {
+  target_group_arn = aws_lb_target_group.django_alb_tg.arn
+  target_id        = aws_instance.django_app.id
+  port             = 80
+}
