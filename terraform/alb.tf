@@ -23,6 +23,12 @@ resource "aws_lb" "django_alb" {
 
   enable_deletion_protection = true
 
+  access_logs {
+    bucket  = "s3-logs"
+    prefix  = "alb-logs"
+    enabled = true
+  }
+
   tags = {
     Name = "django-alb"
   }
