@@ -1,6 +1,7 @@
 resource "aws_instance" "django_app" {
   ami           = var.ubuntu_focal_ami
   instance_type = var.instance_type
+  key_name      = var.key_name
 
   # Associate the instance with a security group
   vpc_security_group_ids = [aws_security_group.django_sg.id]

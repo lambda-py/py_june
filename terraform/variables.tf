@@ -68,3 +68,8 @@ variable "allowed_ssh_cidr" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
+
+variable "key_name" {
+  description = "The name of the key pair to use for the instance."
+  type        = string
+}
