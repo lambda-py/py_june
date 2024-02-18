@@ -52,7 +52,7 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/app
-ExecStart=/home/ubuntu/app/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/app/app.sock app.wsgi:application
+ExecStart=/home/ubuntu/app/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/app/app.sock py_june.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
