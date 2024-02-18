@@ -17,9 +17,9 @@ echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 source ~/.bashrc
 
-# Install Python 3.12.1
-pyenv install 3.12.1
-pyenv global 3.12.1
+# Install Python 3.11
+pyenv install 3.11
+pyenv global 3.11
 
 # Verify Python version
 python --version
