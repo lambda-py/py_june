@@ -11,7 +11,7 @@ resource "aws_nat_gateway" "django_nat_gw" {
 
 # EIP for NAT Gateway
 resource "aws_eip" "nat_eip" {
-  vpc = true
+  domain = "vpc"
 }
 
 # Elastic Load Balancer
