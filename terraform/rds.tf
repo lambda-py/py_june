@@ -11,7 +11,7 @@ resource "aws_db_instance" "django_db" {
 
   # Network & Security
   vpc_security_group_ids = [aws_security_group.rds_sg.id]  # Security group for RDS
-  db_subnet_group_name   = aws_db_subnet_group.rds_subnet.name  # DB subnet group
+  db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.name  # DB subnet group
 
   # Backup
   backup_retention_period = 7  # Number of days to retain backups
