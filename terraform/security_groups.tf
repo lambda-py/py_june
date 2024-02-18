@@ -20,12 +20,12 @@ resource "aws_security_group" "django_sg" {
   }
 
   # Optional: Allow SSH access
-#  ingress {
-#    from_port   = 22
-#    to_port     = 22
-#    protocol    = "tcp"
-#    cidr_blocks = var.allowed_ssh_cidr
-#  }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_ssh_cidr
+  }
 
   # Allow all outbound traffic
   egress {
