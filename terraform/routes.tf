@@ -1,3 +1,11 @@
+resource "aws_internet_gateway" "django_igw" {
+  vpc_id = aws_vpc.django_vpc.id
+  tags   = {
+    Name = "DjangoIGW"
+  }
+}
+
+
 # Public Route Table
 resource "aws_route_table" "django_public_rt" {
   vpc_id = aws_vpc.django_vpc.id
@@ -18,12 +26,36 @@ resource "aws_route_table_association" "django_public_rta" {
   route_table_id = aws_route_table.django_public_rt.id
 }
 
+# EIP for NAT Gateway
+resource "aws_eip" "nat_eip" {
+  depends_on = [aws_internet_gateway.django_igw]
+  vpc        = true
+
+  tags = {
+    Name = "DjangoNATGatewayEIP"
+  }
+}
+
+# A NAT Gateway: This allows instances in your private subnet to access
+# the internet for updates and patches, while still keeping them private.
+# (for the private subnet to access internet - eg. ec2 instances downloading softwares from internet)
+resource "aws_nat_gateway" "django_nat_gw" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = aws_subnet.django_public_subnet.id
+
+  tags = {
+    Name = "DjangoNATGateway"
+  }
+
+  depends_on = [aws_internet_gateway.django_igw]
+}
+
 # Private Route Table
 resource "aws_route_table" "django_private_rt" {
   vpc_id = aws_vpc.django_vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.django_nat_gw.id
   }
 

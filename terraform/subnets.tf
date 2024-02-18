@@ -1,4 +1,4 @@
-# Create a public subnet
+# Create a public subnets
 resource "aws_subnet" "django_public_subnet" {
   vpc_id            = aws_vpc.django_vpc.id
   cidr_block        = var.public_subnet_cidrs[0]
@@ -21,6 +21,7 @@ resource "aws_subnet" "django_public_subnet2" {
   }
 }
 
+# Create a private subnets
 resource "aws_subnet" "django_private_subnet" {
   vpc_id            = aws_vpc.django_vpc.id
   cidr_block        = var.private_subnet_cidrs[0]
