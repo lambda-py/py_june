@@ -28,7 +28,7 @@ output "vpc_id" {
   value       = aws_vpc.django_vpc.id
 }
 
-output "elb_dns_name" {
-  description = "The DNS name of the load balancer."
-  value       = aws_elb.django_elb.dns_name
+output "alb_dns_name" {
+  description = "The DNS name of the Application Load Balancer."
+  value       = aws_lb.django_alb.dns_name
 }

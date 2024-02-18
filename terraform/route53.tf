@@ -7,8 +7,8 @@ resource "aws_route53_record" "www" {
   name    = "www.py-june.dev"
   type    = "A"
   alias {
-    name                   = aws_elb.django_elb.dns_name
-    zone_id                = aws_elb.django_elb.zone_id
+    name                   = aws_lb.django_alb.dns_name
+    zone_id                = aws_lb.django_alb.zone_id
     evaluate_target_health = true
   }
 }
