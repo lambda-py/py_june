@@ -1,6 +1,23 @@
+# A NAT Gateway: This allows instances in your private subnet to access
+# the internet for updates and patches, while still keeping them private.
+resource "aws_nat_gateway" "django_nat_gw" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = aws_subnet.django_public_subnet.id
+
+  tags = {
+    Name = "DjangoNATGateway"
+  }
+}
+
+# EIP for NAT Gateway
+resource "aws_eip" "nat_eip" {
+  vpc = true
+}
+
+# Elastic Load Balancer
 resource "aws_elb" "django_elb" {
   name               = "django-elb"
-  availability_zones = var.availability_zones
+  subnets            = [aws_subnet.django_public_subnet.id]
 
   listener {
     instance_port     = 80

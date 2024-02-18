@@ -44,12 +44,16 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
-# The CIDR blocks for the public subnets. This is a list in case you want
-# to define multiple public subnets.
 variable "private_subnet_cidrs" {
-  description = "A list of CIDR blocks for the public subnets."
+  description = "A list of CIDR blocks for the private subnets."
   type        = list(string)
   default     = ["10.0.1.0/24", "10.0.2.0/24"]
+}
+
+variable "public_subnet_cidrs" {
+  description = "A list of CIDR blocks for the public subnets."
+  type        = list(string)
+  default     = ["10.0.3.0/24"]
 }
 
 # The availability zones in which to place the subnets. This list should align
