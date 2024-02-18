@@ -29,7 +29,7 @@ resource "aws_route_table_association" "django_public_rta" {
 # EIP for NAT Gateway
 resource "aws_eip" "nat_eip" {
   depends_on = [aws_internet_gateway.django_igw]
-  vpc        = true
+  domain     = "vpc"
 
   tags = {
     Name = "DjangoNATGatewayEIP"
