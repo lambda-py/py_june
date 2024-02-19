@@ -37,7 +37,9 @@ class CommentReactionsView(LoginRequiredMixin, View):
         post = get_object_or_404(Post, pk=id, is_active=True)
         return redirect("posts:details", post_slug=post.slug)
 
-    def post(self, request: HttpRequest, id: int) -> HttpResponseRedirect:
+    def post(
+        self, request: HttpRequest, post_slug: str, id: int
+    ) -> HttpResponseRedirect:
         user_comment = get_object_or_404(Comment, pk=id, is_active=True)
         if not CommentsReactions.objects.filter(
             comment_id=user_comment.id, user_id=self.request.user.id
@@ -49,4 +51,4 @@ class CommentReactionsView(LoginRequiredMixin, View):
             CommentsReactions.objects.filter(
                 user_id=self.request.user.id, comment_id=user_comment.id
             ).delete()
-        return HttpResponseRedirect(reverse("posts:details"))
+        return redirect("posts:details", post_slug=post_slug)

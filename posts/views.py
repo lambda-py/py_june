@@ -68,11 +68,25 @@ class DetailsPostView(View):
         is_liked = Reactions.objects.filter(
             post_id=post.id, user_id=self.request.user.id
         )
-        comments = (
-            Comment.objects.filter(post_id=post.id)
-            .annotate(like=Count("comments_reactions"))
-            .order_by("-updated_at")
-        )
+        # comments = (
+        #     Comment.objects.filter(post_id=post.id)
+        #     .annotate(like=Count("comments_reactions"))
+        #     .order_by("-updated_at")
+        # )
+
+        comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
+        comment_likes = {
+            comment.id: CommentsReactions.objects.filter(comment_id=comment.id).count()
+            for comment in comments
+        }
+
+        users_like = {
+            comment.id: CommentsReactions.objects.filter(
+                comment_id=comment.id, user_id=self.request.user.id
+            ).count()
+            for comment in comments
+        }
+
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
         edit_post_form = PostForm(content_id=3, instance=post)  # type: ignore[arg-type]
@@ -95,8 +109,8 @@ class DetailsPostView(View):
                 "page_obj": page_obj,
                 "like": likes_count,
                 "is_liked": is_liked,
-                "comment_like": comments,
-                # "is_comment_liked": is_comment_liked,
+                "comment_likes": comment_likes,
+                "users_like": users_like,
             },
         )
 

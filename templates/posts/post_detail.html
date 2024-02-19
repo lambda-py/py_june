@@ -187,17 +187,23 @@
                   <div>
                     {{ comment.content|safe }}
                   </div>
-                  <form action="{% url 'reactions:like_comment' comment.id %}" method="post">
+                  <form action="{% url 'reactions:like_comment' post.slug comment.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" style="border: none; background-color: transparent;">
-                      {% if is_comment_liked %}
-                        <i class="small material-icons" style="color: red;">favorite</i>
-                      {% else %}
-                        <i class="small material-icons" style="color: #fff;">favorite_border</i>
-                      {% endif %}
+                      {% for comment_id, user_like in users_like.items %}
+                          {% if comment_id == comment.id %}
+                              {% if user_like == 1 %}
+                                <i class="small material-icons" style="color: red;">favorite</i>
+                              {% else %}
+                                <i class="small material-icons" style="color: #fff;">favorite_border</i>
+                              {% endif %}
+                          {% endif %}
+                      {% endfor %}
                       <div class="likes-count" style="color: #fff;">
-                        {% for comm in comment_like %}
-                          {{ comm.like }}
+                        {% for likes_id, likes_count in comment_likes.items %}
+                          {% if likes_id == comment.id %}
+                            {{ likes_count }}
+                          {% endif %}
                         {% endfor %}
                       </div>
                     </button>
