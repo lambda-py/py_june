@@ -169,11 +169,11 @@
                     </li>
                     <li>
                       {% if user.is_authenticated and user.id == comment.author.id %}
-                        <button class="edit-comment-btn">
+                        <button class="edit-comment-btn btn btn-small" data-comment-edit-content="{{ comment.content|safe }}">
                           <i class="tiny material-icons">edit</i>
                           {% trans "Edit" %}
                         </button>
-                        <button id="deleteCommentBtn">
+                        <button class="delete-comment-btn btn btn-small" id="deleteCommentBtn">
                           <i class="tiny material-icons">delete</i>
                           {% trans "Delete" %}
                         </button>
@@ -203,7 +203,8 @@
                 <div class="col s10 m10 l12 editCommentForm" style="display: none">
                   <form method="post">
                     {% csrf_token %}
-                    {{ comment_edit_form }}
+                    {{ comment_edit_form.media }}
+                    {{ comment_edit_form.as_p }}
                   </form>
                 </div>
               {% endif %}

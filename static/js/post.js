@@ -40,9 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
-})
 
-document.addEventListener("DOMContentLoaded", function (){
   let editPostBtn = document.getElementById("editPostBtn");
   let editPostForm = document.getElementById("editPostForm");
   let deletePostForm = document.getElementById("deletePostForm");
@@ -88,6 +86,13 @@ document.addEventListener("DOMContentLoaded", function (){
         editCommentForm.style.display = "none";
         commentContent.style.display = "block";
       }
+
+      const editor = CKEDITOR.instances[5];
+      const commentEditContent = this.getAttribute('data-comment-edit-content');
+
+      editor.on('instanceReady', function () {
+        this.setData(`${commentEditContent}`);
+      });
     });
   });
-});
+})
