@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
-from django.db.models import Count, Case, When, IntegerField
+from django.db.models import Case, Count, IntegerField, When
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -69,12 +69,18 @@ class DetailsPostView(LoginRequiredMixin, View):
             post_id=post.id, user_id=self.request.user.id
         )
 
-        comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at").annotate(
-            comment_likes=Count("comments_reactions"),
-            user_like=Count(Case(
-                When(comments_reactions__user_id=self.request.user.id, then=1),
-                output_field=IntegerField()
-            ))
+        comments = (
+            Comment.objects.filter(post_id=post.id)
+            .order_by("-updated_at")
+            .annotate(
+                comment_likes=Count("comments_reactions"),
+                user_like=Count(
+                    Case(
+                        When(comments_reactions__user_id=self.request.user.id, then=1),
+                        output_field=IntegerField(),
+                    )
+                ),
+            )
         )
 
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
