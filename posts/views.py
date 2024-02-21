@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count, Case, When, IntegerField
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -59,7 +59,7 @@ class CreatePostView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form, "category": category})
 
 
-class DetailsPostView(View):
+class DetailsPostView(LoginRequiredMixin, View):
     template_name = "posts/post_detail.html"
 
     def get(self, request: HttpRequest, post_slug: str) -> HttpResponse:
@@ -68,24 +68,14 @@ class DetailsPostView(View):
         is_liked = Reactions.objects.filter(
             post_id=post.id, user_id=self.request.user.id
         )
-        # comments = (
-        #     Comment.objects.filter(post_id=post.id)
-        #     .annotate(like=Count("comments_reactions"))
-        #     .order_by("-updated_at")
-        # )
 
-        comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
-        comment_likes = {
-            comment.id: CommentsReactions.objects.filter(comment_id=comment.id).count()
-            for comment in comments
-        }
-
-        users_like = {
-            comment.id: CommentsReactions.objects.filter(
-                comment_id=comment.id, user_id=self.request.user.id
-            ).count()
-            for comment in comments
-        }
+        comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at").annotate(
+            comment_likes=Count("comments_reactions"),
+            user_like=Count(Case(
+                When(comments_reactions__user_id=self.request.user.id, then=1),
+                output_field=IntegerField()
+            ))
+        )
 
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
@@ -109,8 +99,6 @@ class DetailsPostView(View):
                 "page_obj": page_obj,
                 "like": likes_count,
                 "is_liked": is_liked,
-                "comment_likes": comment_likes,
-                "users_like": users_like,
             },
         )
 

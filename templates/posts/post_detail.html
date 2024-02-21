@@ -190,21 +190,13 @@
                   <form action="{% url 'reactions:like_comment' post.slug comment.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" style="border: none; background-color: transparent;">
-                      {% for comment_id, user_like in users_like.items %}
-                          {% if comment_id == comment.id %}
-                              {% if user_like == 1 %}
-                                <i class="small material-icons" style="color: red;">favorite</i>
-                              {% else %}
-                                <i class="small material-icons" style="color: #fff;">favorite_border</i>
-                              {% endif %}
-                          {% endif %}
-                      {% endfor %}
+                      {% if comment.user_like %}
+                        <i class="small material-icons" style="color: red;">favorite</i>
+                      {% else %}
+                        <i class="small material-icons" style="color: #fff;">favorite_border</i>
+                      {% endif %}
                       <div class="likes-count" style="color: #fff;">
-                        {% for likes_id, likes_count in comment_likes.items %}
-                          {% if likes_id == comment.id %}
-                            {{ likes_count }}
-                          {% endif %}
-                        {% endfor %}
+                        {{ comment.comment_likes }}
                       </div>
                     </button>
                   </form>
