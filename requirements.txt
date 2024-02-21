@@ -35,7 +35,7 @@ pluggy==1.4.0
 psycopg2-binary==2.9.9
 pycodestyle==2.11.1
 pycparser==2.21
-pydantic==2.6.0
+pydantic==2.6.1
 pydantic-settings==2.2.1
 pydantic_core==2.16.1
 pyflakes==3.2.0
