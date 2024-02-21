@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
-from django.db.models import Case, Count, IntegerField, When
+from django.db.models import Case, Count, IntegerField, When, BooleanField
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -68,6 +68,15 @@ class DetailsPostView(LoginRequiredMixin, View):
         is_liked = Reactions.objects.filter(
             post_id=post.id, user_id=self.request.user.id
         )
+
+        # post = Post.objects.filter(slug=post_slug, is_active=True).annotate(
+        #     likes_count=Count("reactions"),
+        #     user_like=Case(
+        #         When(reactions__user_id=self.request.user.id, then=True),
+        #         default=False,
+        #         output_field=BooleanField()
+        #     )
+        # ).first()
 
         comments = (
             Comment.objects.filter(post_id=post.id)

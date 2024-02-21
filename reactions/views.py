@@ -13,6 +13,10 @@ from .models import CommentsReactions, Reactions
 class PostReactionsView(LoginRequiredMixin, View):
     template_name = "posts/post_detail.html"
 
+    def get(self, request: HttpRequest, id: int) -> HttpResponse:
+        post = get_object_or_404(Post, pk=id, is_active=True)
+        return redirect("posts:details", post_slug=post.slug)
+
     def post(self, request: HttpRequest, id: int) -> HttpResponseRedirect:
         post = get_object_or_404(Post, pk=id, is_active=True)
         if not Reactions.objects.filter(
