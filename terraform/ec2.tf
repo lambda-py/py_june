@@ -1,5 +1,5 @@
 resource "aws_instance" "django_app" {
-  ami           = data.aws_ami.ubuntu.id
+  ami           = data.aws_ami.ubuntu_ami.id
   instance_type = var.instance_type
   key_name      = "existing_key_pair_name"
 
@@ -11,17 +11,25 @@ resource "aws_instance" "django_app" {
 
   # ebs block - optional, customize if you need additional storage
   ebs_block_device {
-    device_name = "/dev/sdm"
-    volume_size = 20
-    volume_type = "gp2"
+    device_name           = "/dev/sdm"
+    volume_size           = 20
+    volume_type           = "gp2"
     delete_on_termination = true
   }
 
   # User data script to install and configure necessary software upon instance initialization
-  user_data = file("${path.module}/setup.sh")
-
+  #  user_data = file("${path.module}/setup.sh")
+  user_data = <<-EOF
+     #!/bin/bash
+     sudo su
+     yum update -y
+     yum install httpd -y
+     systemctl start httpd
+     systemctl enable httpd
+     echo "<h1>loading from $(hostname -f)..</h1>" > /var/www/html/index.html
+  EOF
   # Tags for resource identification and management
-  tags = {
+  tags      = {
     Name = "DjangoAppInstance"
   }
 }
