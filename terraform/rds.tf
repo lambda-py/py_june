@@ -1,4 +1,5 @@
 resource "aws_db_instance" "django_db" {
+  identifier           = "django-db"
   allocated_storage    = 20  # The size of the database (in gigabytes)
   storage_type         = "gp2"
   engine               = "postgres"  # Specify the database engine
