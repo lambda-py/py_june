@@ -59,7 +59,7 @@ class CreatePostView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form, "category": category})
 
 
-class DetailsPostView(LoginRequiredMixin, View):
+class DetailsPostView(View):
     template_name = "posts/post_detail.html"
 
     def get(self, request: HttpRequest, post_slug: str) -> HttpResponse:
@@ -68,15 +68,6 @@ class DetailsPostView(LoginRequiredMixin, View):
         is_liked = Reactions.objects.filter(
             post_id=post.id, user_id=self.request.user.id
         )
-
-        # post = Post.objects.filter(slug=post_slug, is_active=True).annotate(
-        #     likes_count=Count("reactions"),
-        #     user_like=Case(
-        #         When(reactions__user_id=self.request.user.id, then=True),
-        #         default=False,
-        #         output_field=BooleanField()
-        #     )
-        # ).first()
 
         comments = (
             Comment.objects.filter(post_id=post.id)
