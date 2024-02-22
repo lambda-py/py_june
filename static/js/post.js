@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let commentContent = comment.querySelector(".comment-text");
       let editCommentForm = comment.querySelector(".editCommentForm");
 
+
       if (editCommentForm.style.display === "none"){
         editCommentForm.style.display = "block";
         commentContent.style.display = "none";
@@ -87,12 +88,13 @@ document.addEventListener("DOMContentLoaded", function () {
         commentContent.style.display = "block";
       }
 
-      const editor = CKEDITOR.instances[5];
-      const commentEditContent = this.getAttribute('data-comment-edit-content');
-
-      editor.on('instanceReady', function () {
-        this.setData(`${commentEditContent}`);
-      });
+      CKEDITOR.replace()
+      // const editor = CKEDITOR.instances[5];
+      // const commentEditContent = this.getAttribute('data-comment-edit-content');
+      //
+      // editor.on('instanceReady', function () {
+      //   this.setData(`${commentEditContent}`);
+      // });
     });
   });
 })
