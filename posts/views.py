@@ -67,7 +67,7 @@ class DetailsPostView(View):
         is_liked = Reactions.objects.filter(
             post_id=post.id, user_id=self.request.user.id
         )
-        comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
+        comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
         comment_edit_form = CommentForm(content_id=5)  # type: ignore[arg-type]
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
@@ -102,7 +102,7 @@ class DetailsPostView(View):
         comment_edit_form = CommentForm(content_id=5)  # type: ignore[arg-type]
         edit_post_form = PostForm(instance=post, content_id=3)  # type: ignore[arg-type]
         delete_post_form = PostForm(instance=post, content_id=4)  # type: ignore[arg-type]
-        comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
+        comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
 
