@@ -1,3 +1,13 @@
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_key" {
+  key_name   = "my_key_pair"
+  public_key = tls_private_key.ssh_key.public_key_openssh
+}
+
 resource "aws_instance" "django_app" {
   ami           = data.aws_ami.ubuntu_ami.id
   instance_type = var.instance_type
