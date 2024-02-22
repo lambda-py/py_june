@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
+from django.db.models import Case, Count, IntegerField, When, BooleanField
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -14,7 +15,7 @@ from comments.forms import CommentForm
 from comments.models import Comment
 from posts.forms import PostForm
 from posts.models import Post
-from reactions.models import Reactions
+from reactions.models import CommentsReactions, Reactions
 
 
 def can_user_post(request: HttpRequest) -> bool:
@@ -67,6 +68,21 @@ class DetailsPostView(View):
         is_liked = Reactions.objects.filter(
             post_id=post.id, user_id=self.request.user.id
         )
+
+        comments = (
+            Comment.objects.filter(post_id=post.id)
+            .order_by("-created_at")
+            .annotate(
+                comment_likes=Count("comments_reactions"),
+                user_like=Count(
+                    Case(
+                        When(comments_reactions__user_id=self.request.user.id, then=1),
+                        output_field=IntegerField(),
+                    )
+                ),
+            )
+        )
+
         comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
         comment_edit_form = CommentForm(content_id=5)  # type: ignore[arg-type]
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
