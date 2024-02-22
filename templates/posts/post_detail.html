@@ -169,7 +169,7 @@
                     </li>
                     <li>
                       {% if user.is_authenticated and user.id == comment.author.id %}
-                        <button class="edit-comment-btn btn btn-small" data-comment-edit-content="{{ comment.content|safe }}">
+                        <button class="edit-comment-btn btn btn-small" data-comment-edit-content="{{ comment.content|safe }}" data-comment-id="{{ comment.id }}">
                           <i class="tiny material-icons">edit</i>
                           {% trans "Edit" %}
                         </button>
@@ -234,7 +234,8 @@
                 {% csrf_token %}
                 {{ comment_edit_form.media }}
                 {{ comment_edit_form.as_p }}
-                <input class="btn " type="submit" value="{% trans 'Submit' %}">
+                <input type="hidden" name="comment-id">
+                <input class="btn " type="submit" name="edit-comment" value="{% trans 'Submit' %}">
               </form>
             </div>
           </td>

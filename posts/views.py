@@ -117,6 +117,14 @@ class DetailsPostView(View):
                 return redirect(post.get_absolute_url())
 
         if comment_form.is_valid():
+            if "edit-comment" in request.POST:
+                comment_id = request.POST.get("comment-id", None)
+                comment = get_object_or_404(Comment, id=comment_id)
+                comment_edit_form = CommentForm(request.POST, instance=comment)
+                edit_comment = comment_edit_form.save(commit=False)
+                edit_comment.save()
+                return redirect(post.get_absolute_url())
+
             comment = comment_form.save(commit=False)
             comment.author = self.request.user
             comment.post = post

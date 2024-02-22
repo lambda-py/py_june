@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         editCommentForm.style.display = "none";
       }
 
+      let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
       let comment = button.closest(".comment");
       let commentText = comment.querySelector(".comment-text");
 
@@ -96,7 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
         commentText.appendChild(editCommentForm);
 
         const editor = CKEDITOR.instances[5];
-        const commentEditContent = this.getAttribute('data-comment-edit-content');
+        const commentEditContent = this.getAttribute("data-comment-edit-content");
+
+        hiddenField.value = this.getAttribute("data-comment-id");
 
         editor.on('instanceReady', function () {
         this.setData(`${commentEditContent}`);
