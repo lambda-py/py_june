@@ -83,7 +83,6 @@ class DetailsPostView(View):
             )
         )
 
-        comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
         comment_edit_form = CommentForm(content_id=5)  # type: ignore[arg-type]
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
