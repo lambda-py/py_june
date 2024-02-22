@@ -197,18 +197,6 @@
                     {% endif %}
                   </div>
                 </div>
-
-              {% for comment_id, comment_edit_form in comment_edit_forms.items %}
-                {% if comment_id == comment.id %}
-                <div class="col s10 m10 l12 editCommentForm" style="display: none">
-                  <form method="post">
-                    {% csrf_token %}
-                    {{ comment_edit_form.as_p }}
-                  </form>
-                </div>
-              {% endif %}
-              {% endfor %}
-
               </td>
             </tr>
           {% endfor %}
@@ -236,7 +224,23 @@
         </div>
       </td>
     </tr>
-  </table>
+
+
+      <table id="edit-comment-form" style="display: none">
+        <tr>
+          <td>
+            <div class="comment-form">
+              <form method="post" name="edit-comment-form">
+                {% csrf_token %}
+                {{ comment_edit_form.media }}
+                {{ comment_edit_form.as_p }}
+                <input class="btn " type="submit" value="{% trans 'Submit' %}">
+              </form>
+            </div>
+          </td>
+        </tr>
+      </table>
+
 {% endblock %}
 
 {% block script %}

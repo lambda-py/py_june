@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let deletePostBtn = document.getElementById("deletePostBtn");
   let postDetail = document.getElementById("postDetail");
   let editCommentButtons = document.querySelectorAll(".edit-comment-btn");
+  let editCommentForm = document.getElementById("edit-comment-form");
 
 
   editPostBtn.addEventListener("click", function (){
@@ -73,28 +74,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  let commentTextContent = "";
+
   editCommentButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      let comment = button.closest(".comment");
-      let commentContent = comment.querySelector(".comment-text");
-      let editCommentForm = comment.querySelector(".editCommentForm");
-
-
-      if (editCommentForm.style.display === "none"){
+      if (editCommentForm.style.display === "none") {
         editCommentForm.style.display = "block";
-        commentContent.style.display = "none";
       } else {
         editCommentForm.style.display = "none";
-        commentContent.style.display = "block";
       }
 
-      CKEDITOR.replace()
-      // const editor = CKEDITOR.instances[5];
-      // const commentEditContent = this.getAttribute('data-comment-edit-content');
-      //
-      // editor.on('instanceReady', function () {
-      //   this.setData(`${commentEditContent}`);
-      // });
+      let comment = button.closest(".comment");
+      let commentText = comment.querySelector(".comment-text");
+
+      if (commentText.querySelector("#edit-comment-form") !== null) {
+        commentText.innerHTML = commentTextContent;
+        commentTextContent = "";
+      } else {
+        commentTextContent = commentText.innerHTML;
+        commentText.innerHTML = "";
+        commentText.appendChild(editCommentForm);
+
+        const editor = CKEDITOR.instances[5];
+        const commentEditContent = this.getAttribute('data-comment-edit-content');
+
+        editor.on('instanceReady', function () {
+        this.setData(`${commentEditContent}`);
+        });
+      }
     });
   });
 })

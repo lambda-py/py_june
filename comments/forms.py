@@ -9,7 +9,7 @@ from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.Textarea()
+    content = forms.CharField(widget=DarkCKEditorWidget())
 
     def __init__(self, *args: tuple, **kwargs: dict) -> None:
         self.content_id = kwargs.pop("content_id", None)
