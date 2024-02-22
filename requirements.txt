@@ -2,7 +2,7 @@ annotated-types==0.6.0
 asgiref==3.7.2
 black==24.2.0
 bleach==6.1.0
-bump-my-version==0.17.3
+bump-my-version==0.17.4
 certifi==2024.2.2
 cffi==1.16.0
 charset-normalizer==3.3.2
