@@ -10,17 +10,6 @@ resource "aws_subnet" "django_public_subnet" {
   }
 }
 
-resource "aws_subnet" "django_public_subnet2" {
-  vpc_id            = aws_vpc.django_vpc.id
-  cidr_block        = var.public_subnet_cidrs[1]
-  availability_zone = var.availability_zones[1]
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "PublicSubnet2"
-  }
-}
-
 # Create a private subnets
 resource "aws_subnet" "django_private_subnet" {
   vpc_id            = aws_vpc.django_vpc.id
@@ -43,7 +32,6 @@ resource "aws_subnet" "rds_private_subnet" {
     Name = "RDSPrivateSubnet"
   }
 }
-
 
 # RDS Subnet Group
 resource "aws_db_subnet_group" "rds_subnet_group" {
