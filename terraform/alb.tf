@@ -6,12 +6,6 @@ resource "aws_lb" "django_alb" {
   subnets            = [aws_subnet.django_public_subnet.id]
   depends_on         = [aws_internet_gateway.django_igw]
 
-  #  access_logs {
-  #    bucket  = aws_s3_bucket.bucket.bucket
-  #    prefix  = "alb-logs"
-  #    enabled = true
-  #  }
-
   tags = {
     Name = "django-alb"
   }
