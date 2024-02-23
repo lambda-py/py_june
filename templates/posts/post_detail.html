@@ -169,20 +169,21 @@
                     </li>
                     <li>
                       {% if user.is_authenticated and user.id == comment.author.id %}
-                        <a href="{% url 'comments:update' post_slug=post.slug comment_pk=comment.pk%}">
+                        <button class="edit-comment-btn btn btn-small" data-comment-edit-content="{{ comment.content|safe }}" data-comment-id="{{ comment.id }}">
                           <i class="tiny material-icons">edit</i>
                           {% trans "Edit" %}
-                        </a>
-                        <a href="{% url 'comments:delete' post_slug=comment.post.slug comment_pk=comment.pk%}">
+                        </button>
+                        <button class="delete-comment-btn btn btn-small" id="deleteCommentBtn">
                           <i class="tiny material-icons">delete</i>
                           {% trans "Delete" %}
-                        </a>
+                        </button>
                       {% endif %}
                     </li>
                   </ul>
                 </div>
               </td>
               <td>
+
                 <div class="col s10 m10 l12 comment-text">
                   <div>
                     {{ comment.content|safe }}
@@ -236,7 +237,24 @@
         </div>
       </td>
     </tr>
-  </table>
+
+
+      <table id="edit-comment-form" style="display: none">
+        <tr>
+          <td>
+            <div class="comment-form">
+              <form method="post" name="edit-comment-form">
+                {% csrf_token %}
+                {{ comment_edit_form.media }}
+                {{ comment_edit_form.as_p }}
+                <input type="hidden" name="comment-id">
+                <input class="btn " type="submit" name="edit-comment" value="{% trans 'Submit' %}">
+              </form>
+            </div>
+          </td>
+        </tr>
+      </table>
+
 {% endblock %}
 
 {% block script %}

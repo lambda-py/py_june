@@ -71,7 +71,7 @@ class DetailsPostView(View):
 
         comments = (
             Comment.objects.filter(post_id=post.id)
-            .order_by("-updated_at")
+            .order_by("-created_at")
             .annotate(
                 comment_likes=Count("comments_reactions"),
                 user_like=Count(
@@ -83,6 +83,7 @@ class DetailsPostView(View):
             )
         )
 
+        comment_edit_form = CommentForm(content_id=5)  # type: ignore[arg-type]
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
         edit_post_form = PostForm(content_id=3, instance=post)  # type: ignore[arg-type]
@@ -102,6 +103,7 @@ class DetailsPostView(View):
                 "reply_comment_form": reply_comment_form,
                 "edit_post_form": edit_post_form,
                 "delete_post_form": delete_post_form,
+                "comment_edit_form": comment_edit_form,
                 "page_obj": page_obj,
                 "like": likes_count,
                 "is_liked": is_liked,
@@ -112,9 +114,10 @@ class DetailsPostView(View):
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         post_form = PostForm(request.POST, instance=post)
         comment_form = CommentForm(request.POST)
+        comment_edit_form = CommentForm(content_id=5)  # type: ignore[arg-type]
         edit_post_form = PostForm(instance=post, content_id=3)  # type: ignore[arg-type]
         delete_post_form = PostForm(instance=post, content_id=4)  # type: ignore[arg-type]
-        comments = Comment.objects.filter(post_id=post.id).order_by("-updated_at")
+        comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
 
@@ -129,6 +132,14 @@ class DetailsPostView(View):
                 return redirect(post.get_absolute_url())
 
         if comment_form.is_valid():
+            if "edit-comment" in request.POST:
+                comment_id = request.POST.get("comment-id", None)
+                comment = get_object_or_404(Comment, id=comment_id)
+                comment_edit_form = CommentForm(request.POST, instance=comment)
+                edit_comment = comment_edit_form.save(commit=False)
+                edit_comment.save()
+                return redirect(post.get_absolute_url())
+
             comment = comment_form.save(commit=False)
             comment.author = self.request.user
             comment.post = post
@@ -149,6 +160,7 @@ class DetailsPostView(View):
             {
                 "post_comment_form": post_comment_form,
                 "reply_comment_form": reply_comment_form,
+                "comment_edit_form": comment_edit_form,
                 "post": post,
                 "edit_post_form": edit_post_form,
                 "delete_post_form": delete_post_form,

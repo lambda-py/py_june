@@ -40,14 +40,15 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
-})
 
-document.addEventListener("DOMContentLoaded", function (){
   let editPostBtn = document.getElementById("editPostBtn");
   let editPostForm = document.getElementById("editPostForm");
   let deletePostForm = document.getElementById("deletePostForm");
   let deletePostBtn = document.getElementById("deletePostBtn");
   let postDetail = document.getElementById("postDetail");
+  let editCommentButtons = document.querySelectorAll(".edit-comment-btn");
+  let editCommentForm = document.getElementById("edit-comment-form");
+
 
   editPostBtn.addEventListener("click", function (){
     if (editPostForm.style.display === "none"){
@@ -72,4 +73,38 @@ document.addEventListener("DOMContentLoaded", function (){
       deletePostForm.style.display = "none";
     }
   });
-});
+
+  let commentTextContent = "";
+
+  editCommentButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      if (editCommentForm.style.display === "none") {
+        editCommentForm.style.display = "block";
+      } else {
+        editCommentForm.style.display = "none";
+      }
+
+      let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
+      let comment = button.closest(".comment");
+      let commentText = comment.querySelector(".comment-text");
+
+      if (commentText.querySelector("#edit-comment-form") !== null) {
+        commentText.innerHTML = commentTextContent;
+        commentTextContent = "";
+      } else {
+        commentTextContent = commentText.innerHTML;
+        commentText.innerHTML = "";
+        commentText.appendChild(editCommentForm);
+
+        const editor = CKEDITOR.instances[5];
+        const commentEditContent = this.getAttribute("data-comment-edit-content");
+
+        hiddenField.value = this.getAttribute("data-comment-id");
+
+        editor.on('instanceReady', function () {
+        this.setData(`${commentEditContent}`);
+        });
+      }
+    });
+  });
+})
