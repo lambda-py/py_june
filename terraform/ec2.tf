@@ -11,7 +11,7 @@ resource "aws_key_pair" "generated_key" {
 resource "aws_instance" "django_app" {
   ami           = data.aws_ami.ubuntu_ami.id
   instance_type = var.instance_type
-  key_name      = "existing_key_pair_name"
+  key_name      = aws_key_pair.generated_key.key_name
 
   # Associate the instance with a security group
   vpc_security_group_ids = [aws_security_group.django_sg.id]

@@ -12,6 +12,14 @@ resource "aws_security_group" "django_sg" {
     security_groups = [aws_security_group.alb_sg.id]
   }
 
+  ingress {
+    description      = "Allow SSH from Bastion Host"
+    protocol         = "tcp"
+    from_port        = 22
+    to_port          = 22
+    security_groups  = [aws_security_group.bastion_sg.id]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -71,14 +79,6 @@ resource "aws_security_group" "alb_sg" {
     to_port          = 443
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
-  }
-
-  ingress {
-    description      = "Allow SSH from Bastion Host"
-    protocol         = "tcp"
-    from_port        = 22
-    to_port          = 22
-    security_groups  = [aws_security_group.bastion_sg.id]
   }
 
   egress {
