@@ -1,9 +1,3 @@
-# Output for EC2 Instance Public IP
-output "ec2_instance_public_ip" {
-  description = "The public IP address of the EC2 instance running the Django application."
-  value       = aws_instance.django_app.public_ip
-}
-
 # Output for RDS Instance Endpoint
 output "rds_instance_endpoint" {
   description = "The connection endpoint for the RDS database instance."
