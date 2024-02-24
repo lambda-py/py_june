@@ -32,3 +32,9 @@ output "alb_dns_name" {
   description = "The DNS name of the Application Load Balancer."
   value       = aws_lb.django_alb.dns_name
 }
+
+output "private_key" {
+  description = "The private key for SSH access"
+  value       = tls_private_key.ssh_key.private_key_pem
+  sensitive   = true
+}
