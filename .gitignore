@@ -163,3 +163,4 @@ staticfiles
 /data/
 **/*.terraform*
 terraform.*
+*.pem
