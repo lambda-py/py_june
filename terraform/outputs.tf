@@ -1,3 +1,8 @@
+output "django_app_private_ip" {
+  description = "The private IP of the Django application"
+  value       = aws_instance.django_app.private_ip
+}
+
 # Output for RDS Instance Endpoint
 output "rds_instance_endpoint" {
   description = "The connection endpoint for the RDS database instance."
@@ -31,4 +36,9 @@ output "private_key" {
   description = "The private key for SSH access"
   value       = tls_private_key.ssh_key.private_key_pem
   sensitive   = true
+}
+
+output "bastion_host_public_ip" {
+  description = "The public IP of the bastion host"
+  value       = aws_instance.bastion_host.public_ip
 }

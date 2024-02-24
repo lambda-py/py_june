@@ -35,3 +35,49 @@ resource "aws_instance" "django_app" {
     Name = "DjangoAppInstance"
   }
 }
+
+resource "aws_security_group" "bastion_sg" {
+  name        = "bastion_sg"
+  description = "Security group for Bastion Host"
+  vpc_id      = aws_vpc.django_vpc.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["95.214.217.183/32"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "BastionHostSecurityGroup"
+  }
+}
+
+resource "aws_instance" "bastion_host" {
+  ami           = data.aws_ami.ubuntu_ami.id
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.generated_key.key_name
+
+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
+  subnet_id              = aws_subnet.django_public_subnet.id
+
+  tags = {
+    Name = "BastionHost"
+  }
+}
+
+resource "aws_security_group_rule" "allow_ssh_from_bastion_to_app" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.bastion_sg.id
+  security_group_id        = aws_security_group.django_sg.id
+}
