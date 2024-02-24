@@ -3,7 +3,7 @@ resource "aws_lb" "django_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = [aws_subnet.django_public_subnet.id]
+  subnets            = [aws_subnet.django_public_subnet.id, aws_subnet.django_public_subnet2.id]
   depends_on         = [aws_internet_gateway.django_igw]
 
   tags = {
