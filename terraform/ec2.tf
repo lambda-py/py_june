@@ -24,10 +24,10 @@ resource "aws_instance" "django_app" {
   user_data = <<-EOF
      #!/bin/bash
      sudo su
-     yum update -y
-     yum install httpd -y
-     systemctl start httpd
-     systemctl enable httpd
+     apt-get update -y
+     apt-get install apache2 -y
+     systemctl start apache2
+     systemctl enable apache2
      echo "<h1>loading from $(hostname -f)..</h1>" > /var/www/html/index.html
   EOF
   # Tags for resource identification and management
