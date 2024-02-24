@@ -66,7 +66,7 @@ resource "aws_instance" "bastion_host" {
   key_name      = aws_key_pair.generated_key.key_name
 
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
-  subnet_id              = aws_subnet.django_public_subnet.id
+  subnet_id              = aws_subnet.alb_public_subnet.id
 
   tags = {
     Name = "BastionHost"
