@@ -1,0 +1,36 @@
+name: Django CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to EC2
+      run: |
+        # Sync project files to EC2
+        rsync -avz --exclude '.git/*' --exclude '.github/*' --exclude 'venv/*' ./ ubuntu@${{ secrets.EC2_HOST }}:/path/to/your/app/
+
+        # SSH commands
+        ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          cd /path/to/your/app
+          source venv/bin/activate
+          pip install -r requirements.txt
+          python manage.py migrate
+          python manage.py collectstatic --noinput
+          sudo systemctl restart gunicorn
+        EOF
+      env:
+        EC2_HOST: ${{ secrets.EC2_HOST }}
