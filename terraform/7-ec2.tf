@@ -35,15 +35,6 @@ resource "aws_instance" "django_app" {
   subnet_id              = aws_subnet.django_public_subnet.id
   vpc_security_group_ids = [aws_security_group.django_sg.id]
 
-  user_data = <<-EOF
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y apache2
-    echo 'Hello World' | sudo tee /var/www/html/index.html
-    sudo systemctl start apache2
-    sudo systemctl enable apache2
-  EOF
-
   tags = {
     Name = "DjangoAppInstance"
   }
