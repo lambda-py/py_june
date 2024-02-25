@@ -49,7 +49,7 @@ resource "aws_instance" "django_app" {
   }
 }
 
-output "django_app_private_ip" {
+output "django_app_public_ip" {
   description = "The private IP of the Django application"
   value       = aws_instance.django_app.public_ip
 }
