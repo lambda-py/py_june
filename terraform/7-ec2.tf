@@ -29,13 +29,22 @@ resource "aws_key_pair" "generated_key" {
 }
 
 resource "aws_instance" "django_app" {
-  ami           = data.aws_ami.ubuntu_ami.id
-  instance_type = "t2.micro"
-  key_name      = aws_key_pair.generated_key.key_name
-  subnet_id     = aws_subnet.django_public_subnet.id
+  ami                    = data.aws_ami.ubuntu_ami.id
+  instance_type          = "t2.micro"
+  key_name               = aws_key_pair.generated_key.key_name
+  subnet_id              = aws_subnet.django_public_subnet.id
   vpc_security_group_ids = [aws_security_group.django_sg.id]
 
-  tags      = {
+  user_data = <<-EOF
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get install -y apache2
+    echo 'Hello World' | sudo tee /var/www/html/index.html
+    sudo systemctl start apache2
+    sudo systemctl enable apache2
+  EOF
+
+  tags = {
     Name = "DjangoAppInstance"
   }
 }
