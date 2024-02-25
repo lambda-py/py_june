@@ -7,7 +7,7 @@ resource "aws_route53_record" "a_record" {
   name    = "py-june.dev"
   type    = "A"
   ttl     = "300"
-  records = ["15.237.176.194"]
+  records = [aws_eip.py-june_eip.public_ip]
 }
 
 resource "aws_route53_record" "www_cname" {
