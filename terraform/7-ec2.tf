@@ -33,7 +33,7 @@ resource "aws_instance" "django_app" {
   instance_type = "t2.micro"
   key_name      = aws_key_pair.generated_key.key_name
   subnet_id     = aws_subnet.django_public_subnet.id
-  security_groups = [aws_security_group.django_sg.name]
+  vpc_security_group_ids = [aws_security_group.django_sg.id]
 
   tags      = {
     Name = "DjangoAppInstance"
