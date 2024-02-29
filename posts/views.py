@@ -88,6 +88,7 @@ class DetailsPostView(View):
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
         edit_post_form = PostForm(content_id=3, instance=post)  # type: ignore[arg-type]
         delete_post_form = PostForm(content_id=4, instance=post)  # type: ignore[arg-type]
+        delete_comment_form = CommentForm(content_id=6)  # type: ignore[arg-type]
 
         paginator = Paginator(comments, settings.COMMENTS_PAGINATION_PER_PAGE)
 
@@ -104,6 +105,7 @@ class DetailsPostView(View):
                 "edit_post_form": edit_post_form,
                 "delete_post_form": delete_post_form,
                 "comment_edit_form": comment_edit_form,
+                "delete_comment_form": delete_comment_form,
                 "page_obj": page_obj,
                 "like": likes_count,
                 "is_liked": is_liked,
@@ -120,6 +122,7 @@ class DetailsPostView(View):
         comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
         post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
         reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
+        delete_comment_form = CommentForm()
 
         if post_form.is_valid():
             if "delete" in request.POST:
@@ -161,6 +164,7 @@ class DetailsPostView(View):
                 "post_comment_form": post_comment_form,
                 "reply_comment_form": reply_comment_form,
                 "comment_edit_form": comment_edit_form,
+                "delete_comment_form": delete_comment_form,
                 "post": post,
                 "edit_post_form": edit_post_form,
                 "delete_post_form": delete_post_form,
