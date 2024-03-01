@@ -6,6 +6,14 @@ function toggleForm(object) {
   }
 }
 
+function reversToggleForm(object) {
+  if (object.style.display === "none") {
+    object.style.display = "block";
+  } else {
+    object.style.display = "none";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   // Toggle post comment form
   let replyPostButton = document.getElementById("reply-post-btn");
@@ -48,6 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let postDetail = document.getElementById("postDetail");
   let editCommentButtons = document.querySelectorAll(".edit-comment-btn");
   let editCommentForm = document.getElementById("edit-comment-form");
+  let deleteCommentButtons = document.querySelectorAll(".delete-comment-btn");
+  let deleteCommentForm = document.querySelectorAll(".delete-comment-form");
 
 
   editPostBtn.addEventListener("click", function (){
@@ -78,11 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   editCommentButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      if (editCommentForm.style.display === "none") {
-        editCommentForm.style.display = "block";
-      } else {
-        editCommentForm.style.display = "none";
-      }
+      toggleForm(editCommentForm);
 
       let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
       let comment = button.closest(".comment");
@@ -105,6 +111,33 @@ document.addEventListener("DOMContentLoaded", function () {
         this.setData(`${commentEditContent}`);
         });
       }
+    });
+  });
+
+  function cancelHandler(cancelButton, form, commentContainer) {
+    return function () {
+      reversToggleForm(form);
+      toggleForm(commentContainer);
+    };
+  }
+
+  deleteCommentButtons.forEach(function (button, index) {
+    button.addEventListener("click", function () {
+      let form = deleteCommentForm[index];
+      let hiddenField = form.querySelector("input[name='comment-id']");
+      let comment = button.closest(".comment");
+      let commentContainer = comment.querySelector(".comment-text");
+      let cancelButton = form.querySelector(".cancel-btn");
+
+      cancelButton.removeEventListener("click", cancelButton.clickHandler);
+
+      hiddenField.value = button.getAttribute("data-comment-id");
+
+      reversToggleForm(commentContainer);
+      toggleForm(form);
+
+      cancelButton.clickHandler = cancelHandler(cancelButton, form, commentContainer);
+      cancelButton.addEventListener("click", cancelButton.clickHandler);
     });
   });
 })

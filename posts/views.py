@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
-from django.db.models import Case, Count, IntegerField, When, BooleanField
+from django.db.models import BooleanField, Case, Count, IntegerField, When
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -145,6 +145,12 @@ class DetailsPostView(View):
             comment.post = post
             comment.save()
 
+            return redirect(post.get_absolute_url())
+
+        if "delete-comment" in request.POST:
+            comment_id = request.POST.get("comment-id", None)
+            comment = get_object_or_404(Comment, id=comment_id)
+            comment.delete()
             return redirect(post.get_absolute_url())
 
         error_message = "An empty comment cannot be created"
