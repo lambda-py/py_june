@@ -173,7 +173,7 @@
                           <i class="tiny material-icons">edit</i>
                           {% trans "Edit" %}
                         </button>
-                        <button class="delete-comment-btn btn btn-small" id="deleteCommentBtn" data-comment-id="{{ comment.id }}">
+                        <button class="delete-comment-btn btn btn-small" id="deleteCommentBtn" data-comment-delete-content="{{ comment.content|safe }}" data-comment-id="{{ comment.id }}">
                           <i class="tiny material-icons">delete</i>
                           {% trans "Delete" %}
                         </button>
@@ -217,11 +217,10 @@
                     <div class="comment-form">
                       <form method="post" name="delete-comment-form">
                         {% csrf_token %}
-                          <p>{% trans "Are you sure you want to delete comment" %}?</p>
-                        {{ delete_comment_form.as_hidden }}
+                        <p>{% trans "Are you sure you want to delete comment" %}?</p>
                         <input type="hidden" name="comment-id">
                         <input class="btn " type="submit" name="delete-comment" value="{% trans 'Confirm' %}">
-                        <input class="btn red" type="button" name="cancel-delete-comment" value="{% trans 'Cancel' %}">
+                        <input class="btn red cancel-btn" type="button" name="cancel-delete-comment" value="{% trans 'Cancel' %}">
                       </form>
                     </div>
                   </td>

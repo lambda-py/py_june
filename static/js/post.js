@@ -120,6 +120,12 @@ document.addEventListener("DOMContentLoaded", function () {
       let hiddenField = form.querySelector("input[name='comment-id']");
       let comment = button.closest(".comment");
       let commentContainer = comment.querySelector(".comment-text");
+      let cancelButton = form.querySelector(".cancel-btn");
+
+      cancelButton.addEventListener("click", function () {
+        reversToggleForm(form);
+        toggleForm(commentContainer);
+      });
 
       hiddenField.value = button.getAttribute("data-comment-id");
 
