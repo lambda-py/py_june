@@ -114,6 +114,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  function cancelHandler(cancelButton, form, commentContainer) {
+    return function () {
+      reversToggleForm(form);
+      toggleForm(commentContainer);
+    };
+  }
+
   deleteCommentButtons.forEach(function (button, index) {
     button.addEventListener("click", function () {
       let form = deleteCommentForm[index];
@@ -122,15 +129,15 @@ document.addEventListener("DOMContentLoaded", function () {
       let commentContainer = comment.querySelector(".comment-text");
       let cancelButton = form.querySelector(".cancel-btn");
 
-      cancelButton.addEventListener("click", function () {
-        reversToggleForm(form);
-        toggleForm(commentContainer);
-      });
+      cancelButton.removeEventListener("click", cancelButton.clickHandler);
 
       hiddenField.value = button.getAttribute("data-comment-id");
 
       reversToggleForm(commentContainer);
       toggleForm(form);
+
+      cancelButton.clickHandler = cancelHandler(cancelButton, form, commentContainer);
+      cancelButton.addEventListener("click", cancelButton.clickHandler);
     });
   });
 })
