@@ -21,11 +21,11 @@ jobs:
     - name: Deploy to EC2
       run: |
         # Sync project files to EC2
-        rsync -avz --exclude '.git/*' --exclude '.github/*' --exclude 'venv/*' ./ ubuntu@${{ secrets.EC2_HOST }}:/path/to/your/app/
+        rsync -avz --exclude '.git/*' --exclude '.github/*' --exclude 'venv/*' ./ ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/
 
         # SSH commands
         ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-          cd /path/to/your/app
+          cd /home/ubuntu/
           source venv/bin/activate
           pip install -r requirements.txt
           python manage.py migrate
