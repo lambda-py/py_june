@@ -85,31 +85,55 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   let commentTextContent = "";
+  let currentEditButton = null;
 
   editCommentButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      toggleForm(editCommentForm);
-
-      let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
+      if (editCommentForm.style.display === "none") {
+        editCommentForm.style.display = "block";
+      }
       let comment = button.closest(".comment");
       let commentText = comment.querySelector(".comment-text");
 
-      if (commentText.querySelector("#edit-comment-form") !== null) {
-        commentText.innerHTML = commentTextContent;
-        commentTextContent = "";
+      if (currentEditButton !== button) {
+        if (currentEditButton) {
+          let previousComment = currerntEditButton.closest(".comment");
+          let previousCommentText = previousComment.querySelector(".comment-text");
+          let editForm = previousCommentText.querySelector("#edit-comment-form");
+
+          if (editForm) {
+            previousCommentText.innerHTML = commentTextContent;
+          }
+        }
+
+        currentEditButton = button;
+
+        let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
+
+
+        if (commentText.querySelector("#edit-comment-form") !== null) {
+          commentText.innerHTML = commentTextContent;
+          commentTextContent = "";
+        } else {
+          commentTextContent = commentText.innerHTML;
+          commentText.innerHTML = "";
+          commentText.appendChild(editCommentForm);
+
+          const editor = CKEDITOR.instances[5];
+          const commentEditContent = this.getAttribute("data-comment-edit-content");
+
+          hiddenField.value = this.getAttribute("data-comment-id");
+
+          editor.on('instanceReady', function () {
+              this.setData(`${commentEditContent}`);
+          });
+        }
       } else {
-        commentTextContent = commentText.innerHTML;
-        commentText.innerHTML = "";
-        commentText.appendChild(editCommentForm);
-
-        const editor = CKEDITOR.instances[5];
-        const commentEditContent = this.getAttribute("data-comment-edit-content");
-
-        hiddenField.value = this.getAttribute("data-comment-id");
-
-        editor.on('instanceReady', function () {
-        this.setData(`${commentEditContent}`);
-        });
+        let editForm = commentText.querySelector("#edit-comment-form");
+        if (editForm) {
+          commentText.innerHTML = commentTextContent;
+          currentEditButton = null;
+        }
       }
     });
   });
