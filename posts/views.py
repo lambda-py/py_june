@@ -120,7 +120,9 @@ class DetailsPostView(View):
         if post_form.is_valid():
             if "delete" in request.POST:
                 post.delete()
-                comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
+                comments = Comment.objects.filter(post_id=post.id).order_by(
+                    "-created_at"
+                )
                 comments.delete()
                 messages.success(request, _("Post was deleted successfully"))
                 return redirect("/forum/")
