@@ -232,8 +232,40 @@ msgid "Registration"
 msgstr "Реєстрація"
 
 #: posts/view.py:41
+msgid "Post was created successfully"
+msgstr "Пост створено успішно"
+
+#: posts/view.py:41
 msgid "You can only post every 5 minutes."
 msgstr "Ви можете створювати пост раз в 5 хвилин."
+
+#: posts/view.py:124
+msgid "Post was deleted successfully"
+msgstr "Пост було видалено успішно"
+
+#: posts/view.py:129
+msgid "Post was changed successfully"
+msgstr "Пост було змінено успішно"
+
+#: posts/view.py:139
+msgid "Comment was changed successfully"
+msgstr "Коментар було змінено успішно"
+
+#: posts/view.py:146
+msgid "Comment was created successfully"
+msgstr "Коментар було створено успішно"
+
+#: posts/view.py:139
+msgid "Comment was deleted successfully"
+msgstr "Коментар було идалено успішно"
+
+#: posts/view.py:157
+msgid "Something went wrong"
+msgstr "Виникла помилка, спробуйте ще раз"
+
+#: posts/view.py:160
+msgid "Comment can't be empty"
+msgstr "Коментар не може бути пустим"
 
 #: templates/search/search_result.html:5
 #: templates/search/search_result.html:11
@@ -256,3 +288,7 @@ msgstr "Відповісти"
 #: template/posts/post_detail.html:93
 msgid "Replies"
 msgstr "Коментарі"
+
+#: template/posts/post_detail.html:230
+msgid "Are you sure you want to delete comment?"
+msgstr "Ви впевнені що хочете видалити коментар?"

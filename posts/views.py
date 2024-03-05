@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
 from django.db.models import BooleanField, Case, Count, IntegerField, When
@@ -32,15 +33,15 @@ class CreatePostView(LoginRequiredMixin, View):
     template_name = "posts/post_form.html"
 
     def get(self, request: HttpRequest, category_slug: str) -> HttpResponse:
+        category = get_object_or_404(Category, slug=category_slug)
         if can_user_post(request):
-            category = get_object_or_404(Category, slug=category_slug)
             form = PostForm()
             return render(
                 request, self.template_name, {"form": form, "category": category}
             )
         else:
-            message = _("You can only post every 5 minutes.")
-            return HttpResponseForbidden(message)
+            messages.success(request, _("You can only post every 5 minutes."))
+            return redirect("categories:detail", category_slug=category.slug)
 
     def post(self, request: HttpRequest, category_slug: str) -> HttpResponse:
         form = PostForm(request.POST)
@@ -54,6 +55,7 @@ class CreatePostView(LoginRequiredMixin, View):
             post.category = category
             post.save()
             user.save()
+            messages.success(request, _("Post was created successfully"))
             return redirect(post.get_absolute_url())
 
         return render(request, self.template_name, {"form": form, "category": category})
@@ -114,21 +116,18 @@ class DetailsPostView(View):
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         post_form = PostForm(request.POST, instance=post)
         comment_form = CommentForm(request.POST)
-        comment_edit_form = CommentForm(content_id=5)  # type: ignore[arg-type]
-        edit_post_form = PostForm(instance=post, content_id=3)  # type: ignore[arg-type]
-        delete_post_form = PostForm(instance=post, content_id=4)  # type: ignore[arg-type]
-        comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
-        post_comment_form = CommentForm(content_id=1)  # type: ignore[arg-type]
-        reply_comment_form = CommentForm(content_id=2)  # type: ignore[arg-type]
 
         if post_form.is_valid():
             if "delete" in request.POST:
                 post.delete()
+                comments = Comment.objects.filter(post_id=post.id).order_by("-created_at")
                 comments.delete()
+                messages.success(request, _("Post was deleted successfully"))
                 return redirect("/forum/")
             else:
                 edit_post = post_form.save(commit=False)
                 edit_post.save()
+                messages.success(request, _("Post was changed successfully"))
                 return redirect(post.get_absolute_url())
 
         if comment_form.is_valid():
@@ -138,42 +137,30 @@ class DetailsPostView(View):
                 comment_edit_form = CommentForm(request.POST, instance=comment)
                 edit_comment = comment_edit_form.save(commit=False)
                 edit_comment.save()
+                messages.success(request, _("Comment was changed successfully"))
                 return redirect(post.get_absolute_url())
 
             comment = comment_form.save(commit=False)
             comment.author = self.request.user
             comment.post = post
             comment.save()
-
+            messages.success(request, _("Comment was created successfully"))
             return redirect(post.get_absolute_url())
 
         if "delete-comment" in request.POST:
             comment_id = request.POST.get("comment-id", None)
             comment = get_object_or_404(Comment, id=comment_id)
             comment.delete()
+            messages.success(request, _("Comment was deleted successfully"))
             return redirect(post.get_absolute_url())
 
-        error_message = "An empty comment cannot be created"
+        if not post_form.is_valid():
+            messages.error(request, _("Something went wrong"))
 
-        paginator = Paginator(comments, settings.COMMENTS_PAGINATION_PER_PAGE)
+        if not comment_form.is_valid():
+            messages.error(request, _("Comment can't be empty"))
 
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-
-        return render(
-            request,
-            self.template_name,
-            {
-                "post_comment_form": post_comment_form,
-                "reply_comment_form": reply_comment_form,
-                "comment_edit_form": comment_edit_form,
-                "post": post,
-                "edit_post_form": edit_post_form,
-                "delete_post_form": delete_post_form,
-                "error_message": error_message,
-                "page_obj": page_obj,
-            },
-        )
+        return redirect(post.get_absolute_url())
 
 
 class UpdatePostView(UserPassesTestMixin, View):
