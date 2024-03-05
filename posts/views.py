@@ -147,6 +147,12 @@ class DetailsPostView(View):
 
             return redirect(post.get_absolute_url())
 
+        if "delete-comment" in request.POST:
+            comment_id = request.POST.get("comment-id", None)
+            comment = get_object_or_404(Comment, id=comment_id)
+            comment.delete()
+            return redirect(post.get_absolute_url())
+
         error_message = "An empty comment cannot be created"
 
         paginator = Paginator(comments, settings.COMMENTS_PAGINATION_PER_PAGE)
