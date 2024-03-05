@@ -1,3 +1,4 @@
+from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
@@ -94,8 +95,10 @@ class DetailsPostViewTest(TestDataMixin, TestCase):
 
         response = self.client.post(self.detail_post_view_url, data)
 
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("error_message", response.context)
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 2)
+        self.assertEqual(str(messages[1]), "Comment can't be empty")
+        self.assertEqual(response.status_code, 302)
 
     def test_detail_post_view_reply_post(self):
         self.client.force_login(self.user)
