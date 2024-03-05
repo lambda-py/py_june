@@ -142,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   // Notification about actions was completed successfully
   let messageBlock = document.getElementById("notification-messages");
-  console.log(messageBlock)
   messageBlock.style.display = "block";
   setTimeout(function () {
     messageBlock.style.display = "none";
