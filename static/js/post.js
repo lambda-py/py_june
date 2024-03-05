@@ -79,9 +79,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   editCommentButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      // if (editCommentForm.style.display === "none") {
-      //   editCommentForm.style.display = "block";
-      // }
+      if (editCommentForm.style.display === "none") {
+        editCommentForm.style.display = "block";
+      }
       let comment = button.closest(".comment");
       let commentText = comment.querySelector(".comment-text");
 
