@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let deleteCommentButtons = document.querySelectorAll(".delete-comment-btn");
   let deleteCommentForm = document.querySelectorAll(".delete-comment-form");
 
-
+// Edit post button form
   editPostBtn.addEventListener("click", function (){
     if (editPostForm.style.display === "none"){
       editPostForm.style.display = "block";
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
       deletePostForm.style.display = "none";
     }
   });
-
+// Delete post button form
   deletePostBtn.addEventListener("click", function () {
     if (deletePostForm.style.display === "none"){
       deletePostForm.style.display = "block";
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
       deletePostForm.style.display = "none";
     }
   });
-
+//Edit comment buttons
   let commentTextContent = "";
 
   editCommentButtons.forEach(function (button) {
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
       let comment = button.closest(".comment");
       let commentText = comment.querySelector(".comment-text");
-
+      // Here we change content of comment to form for editing comment
       if (commentText.querySelector("#edit-comment-form") !== null) {
         commentText.innerHTML = commentTextContent;
         commentTextContent = "";
@@ -113,14 +113,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-
+  // Handler for cancel buttons
   function cancelHandler(cancelButton, form, commentContainer) {
     return function () {
       reversToggleForm(form);
       toggleForm(commentContainer);
     };
   }
-
+  // Delete buttons
   deleteCommentButtons.forEach(function (button, index) {
     button.addEventListener("click", function () {
       let form = deleteCommentForm[index];
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let comment = button.closest(".comment");
       let commentContainer = comment.querySelector(".comment-text");
       let cancelButton = form.querySelector(".cancel-btn");
-
+      // Remove the listener for the button so that everything works when it is pressed repeatedly
       cancelButton.removeEventListener("click", cancelButton.clickHandler);
 
       hiddenField.value = button.getAttribute("data-comment-id");
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       cancelButton.addEventListener("click", cancelButton.clickHandler);
     });
   });
-
+  // Notification about actions was completed successfully
   let messageBlock = document.getElementById("notification-messages");
   console.log(messageBlock)
   messageBlock.style.display = "block";
