@@ -88,6 +88,9 @@
               </button>
             {% endif %}
           </div>
+
+
+          {% if user.is_authenticated %}
           <form action="{% url 'reactions:like_post' post.id %}" method="post">
             {% csrf_token %}
             <button type="submit" style="border: none; background-color: transparent;">
@@ -101,6 +104,18 @@
               </div>
             </button>
           </form>
+          {% else %}
+            <form>
+              <button type="button" style="border: none; background-color: transparent;">
+                <i class="small material-icons" style="color: #fff;">favorite_border</i>
+                <div class="likes-count" style="color: #fff;">
+                  {{ like }}
+                </div>
+              </button>
+            </form>
+          {% endif %}
+
+
           <div class="comment-form" id="post-comment-form" style="display: none">
             {% if user.is_authenticated %}
               <form method="post" name="post-comment-form">
@@ -188,6 +203,8 @@
                   <div>
                     {{ comment.content|safe }}
                   </div>
+
+                  {% if user.is_authenticated %}
                   <form action="{% url 'reactions:like_comment' post.slug comment.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" style="border: none; background-color: transparent;">
@@ -201,6 +218,17 @@
                       </div>
                     </button>
                   </form>
+                  {% else %}
+                    <form>
+                      <button type="button" style="border: none; background-color: transparent;">
+                        <i class="small material-icons" style="color: #fff;">favorite_border</i>
+                        <div class="likes-count" style="color: #fff;">
+                          {{ comment.comment_likes }}
+                        </div>
+                      </button>
+                    </form>
+                  {% endif %}
+
                   <div class="reply">
                     {% if user.is_authenticated %}
                       <button class="reply-comment-btn btn btn-small" data-comment-content="{{ comment.content|safe }}">
