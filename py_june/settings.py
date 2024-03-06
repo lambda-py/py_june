@@ -31,6 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "secret")
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+INTERNAL_IPS = ["127.0.0.1"]
 
 # Application definition
 
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     # TODO PJ-75
     "ckeditor",
     "ckeditor_uploader",
+    "debug_toolbar",
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "categories.apps.CategoriesConfig",
@@ -74,6 +76,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "py_june.urls"
