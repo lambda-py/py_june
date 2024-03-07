@@ -34,7 +34,7 @@ from users.models import ForumUser
 #         return render(request, self.template_name, {"form": form})
 
 
-class ProfiletView(LoginRequiredMixin, View):
+class ProfileView(LoginRequiredMixin, View):
     template_name = "profiles/profile.html"
 
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
@@ -60,8 +60,3 @@ class ProfiletView(LoginRequiredMixin, View):
             "posts": posts,
         }
         return render(request, self.template_name, {"user": user, "context": context})
-
-    def post(self, request: HttpRequest, profile_slug: str) -> HttpResponse:
-        user = get_object_or_404(ForumUser)
-
-        return redirect("profile", post_slug=user.slug)
