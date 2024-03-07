@@ -32,6 +32,7 @@ class PostReactionsView(LoginRequiredMixin, View):
 
 class CommentReactionsView(LoginRequiredMixin, View):
     template_name = "posts/post_detail.html"
+
     def get(self, request: HttpRequest, post_slug: str, id: int) -> HttpResponse:
         post = get_object_or_404(Post, slug=post_slug, is_active=True)
         return redirect("posts:details", post_slug=post.slug)
