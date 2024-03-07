@@ -19,9 +19,6 @@
 #post-details .post-user-info {
   border: 1px solid var(--primary-color);
 }
-#post-details .comment-user-info {
-  border: 1px solid var(--primary-color);
-}
 #post-details .reply {
   text-align: right;
   margin: 1em 0;
@@ -73,18 +70,6 @@ table.striped > tbody > tr:nth-child(even) .comment-text {
 }
 #post-details .inactive-page {
   font-weight: normal;
-}
-
-#post-details input[type="text"] {
-  color: var(--primary-color)
-}
-
-#deletePostForm a {
-  color: var(--secondary-bg-color)
-}
-
-#deletePostForm form div{
-  display: none;
 }
 
 /*# sourceMappingURL=post-details.css.map */
