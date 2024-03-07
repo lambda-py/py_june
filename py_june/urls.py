@@ -30,5 +30,6 @@ urlpatterns = i18n_patterns(
     path("profile/", include("profiles.urls")),
     path("search/", include("search.urls")),
     path("", include("reactions.urls")),
+    path("__debug__/", include("debug_toolbar.urls")),
     prefix_default_language=False,
 )

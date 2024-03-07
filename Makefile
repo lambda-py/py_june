@@ -59,5 +59,3 @@ stopdb:
 dbshell:
 	@echo "Connecting to postgres container..."
 	docker exec -it postgres-container psql -U postgres
-
-
