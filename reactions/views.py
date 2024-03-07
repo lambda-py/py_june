@@ -27,11 +27,15 @@ class PostReactionsView(LoginRequiredMixin, View):
             Reactions.objects.filter(
                 user_id=self.request.user.id, post_id=post.id
             ).delete()
-        return HttpResponseRedirect(reverse("posts:details", args={post.slug}))
+        return redirect("posts:details", post_slug=post.slug)
 
 
 class CommentReactionsView(LoginRequiredMixin, View):
     template_name = "posts/post_detail.html"
+
+    def get(self, request: HttpRequest, post_slug: str, id: int) -> HttpResponse:
+        post = get_object_or_404(Post, slug=post_slug, is_active=True)
+        return redirect("posts:details", post_slug=post.slug)
 
     def post(
         self, request: HttpRequest, post_slug: str, id: int
