@@ -1,3 +1,4 @@
+@charset "UTF-8";
 #post-details h1 {
   margin: 0;
   font-size: 1.8rem;
@@ -16,8 +17,24 @@
   vertical-align: top;
   padding: 0;
 }
+#post-details hr {
+  border-color: var(--primary-bg-color);
+}
+#post-details .post-details-row {
+  background-color: var(--secondary-bg-color);
+}
+#post-details .post-details-сol {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+}
 #post-details .post-user-info {
-  border: 1px solid var(--primary-color);
+  width: 180px;
+}
+#post-details .post-details-info {
+  padding-top: 10px;
+  flex-grow: 1;
+  border-left: 3px solid var(--primary-bg-color);
 }
 #post-details .reply {
   text-align: right;
@@ -32,6 +49,9 @@
 }
 #post-details #reply-post-btn i, #post-details .reply-comment-btn i {
   font-size: 1rem;
+}
+#post-details .section.content {
+  padding-top: 0;
 }
 
 table.striped > tbody > tr:nth-child(odd) .comment-text {

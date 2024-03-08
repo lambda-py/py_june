@@ -3,321 +3,332 @@
 {% load i18n %}
 
 {% block link %}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-  <link rel="stylesheet" href="{% static 'css/post-details.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="{% static 'css/post-details.css' %}">
 {% endblock %}
 
 {% block title %}
-  {{ post.title }}
+    {{ post.title }}
 {% endblock %}
 
 {% block breadcrumbs %}
-  <a href="{% url 'categories:list' %}">PY_JUNE</a> /
-  <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a> /
-  <span class="active">{{ post.title }}</span>
+    <a href="{% url 'categories:list' %}">PY_JUNE</a> /
+    <a href="{% url 'categories:detail' category_slug=post.category.slug %}">{{ post.category }}</a> /
+    <span class="active">{{ post.title }}</span>
 {% endblock %}
 
 {% block content %}
-  {% if messages %}
-    <div id="notification-messages" style="display: none">
-      <ul class="messages">
-        {% for message in messages %}
-          <li>
-            <div>{{ message }}</div>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-  <div id="post-details">
-    <div class="row">
-      <div class="col s12">
-        <div class="col s3 m3 l2 post-user-info">
-          <ul>
-            <li>
-              <i class="tiny material-icons">access_time</i>
-              {{ post.updated_at|date:"d/m H:i" }}
-            </li>
-            <li>
-              <i class="tiny material-icons">
-                {% if post.author.is_staff %}
-                  verified_user
-                {% else %}
-                  person_outline
-                {% endif %}
-              </i>
-              {{ post.author }}<br>
-              <img src="{{ post.author.get_avatar_url }}" alt="{{ post.author }}" width="150px">
-            </li>
-            <li>
-                {% trans "Posts" %}: {{ post.author.posts.count }}
-            </li>
-            <li>
-              {% if user.is_authenticated and user.id == post.author.id %}
-                <button id="editPostBtn">
-                  <i class="tiny material-icons">edit</i>
-                  {% trans "Edit" %}
-                </button>
-                <button id="deletePostBtn">
-                  <i class="tiny material-icons">delete</i>
-                  {% trans "Delete" %}
-                </button>
-              {% endif %}
-            </li>
-          </ul>
-        </div>
-
-        <div class="col s9 m9 l10" id="editPostForm" style="display: none;">
-          <form method="post" name="post-edit-form">
-            {% csrf_token %}
-            {{ edit_post_form.media }}
-            {{ edit_post_form.as_p }}
-            <input class="btn " type="submit" value="{% trans 'Submit' %}">
-          </form>
-        </div>
-
-        <div class="col s9 m9 l10" id="deletePostForm" style="display: none;">
-          <form method="post">
-            {% csrf_token %}
-            <p>{% trans "Are you sure you want to delete post" %} "{{ post.title }}" ?</p>
-            {{ delete_post_form }}
-            <button class="btn waves-effect waves-light" type="submit" name="delete">{% trans 'Confirm' %}</button>
-            <a href="{% url 'posts:details' post_slug=post.slug %}" class="red btn waves-effect waves-light">{% trans "Cancel" %}</a>
-          </form>
-        </div>
-
-        <div class="col s9 m9 l10" id="postDetail" style="display: block;">
-          <h1>{{ post.title }}</h1>
-          <hr>
-          <div>{{ post.content|safe }}</div>
-          <div class="reply">
-            {% if user.is_authenticated %}
-              <button id="reply-post-btn" class="btn btn-small">
-                <i class="tiny material-icons">reply</i>
-                {% trans "Reply" %}
-              </button>
-            {% endif %}
-          </div>
-
-
-          {% if user.is_authenticated %}
-          <form action="{% url 'reactions:like_post' post.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit" style="border: none; background-color: transparent;">
-              {% if is_liked %}
-                <i class="small material-icons" style="color: red;">favorite</i>
-              {% else %}
-                <i class="small material-icons" style="color: #fff;">favorite_border</i>
-              {% endif %}
-              <div class="likes-count" style="color: #fff;">
-                {{ like }}
-              </div>
-            </button>
-          </form>
-          {% else %}
-            <form>
-              <button type="button" style="border: none; background-color: transparent;">
-                <i class="small material-icons" style="color: #fff;">favorite_border</i>
-                <div class="likes-count" style="color: #fff;">
-                  {{ like }}
-                </div>
-              </button>
-            </form>
-          {% endif %}
-
-
-          <div class="comment-form" id="post-comment-form" style="display: none">
-            {% if user.is_authenticated %}
-              <form method="post" name="post-comment-form">
-                {% csrf_token %}
-                {{ post_comment_form.media }}
-                {{ post_comment_form.as_p }}
-                <input class="btn " type="submit" value="{% trans 'Submit' %}">
-              </form>
-            {% else %}
-              <a href="{% url 'account_login' %}">Login</a> to be able to comment
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr>
-
-
-    <div class="row">
-      <div class="col s12 center">
-        <table class="striped">
-          <thead>
-          <tr>
-            <th>
-              {% if page_obj.paginator.num_pages > 1 %}
-                {% if page_obj.has_previous %}
-                  <a href="?page={{ page_obj.previous_page_number }}"><<</a>
-                {% endif %}
-                {% for num in page_obj.paginator.page_range %}
-                  <div
-                    class="{% if page_obj.number == num %}active-page{% else %}inactive-page{% endif %} waves-effect">
-                    <a href="?page={{ num }}">{{ num }}</a>
-                  </div>
+    {% if messages %}
+        <div id="notification-messages" style="display: none">
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>
+                        <div>{{ message }}</div>
+                    </li>
                 {% endfor %}
-                {% if page_obj.has_next %}
-                  <a href="?page={{ page_obj.paginator.num_pages }}">>></a>
-                {% endif %}
-              {% endif %}
-            </th>
-            <th>{% trans 'Replies' %}</th>
-          </tr>
-          </thead>
-          <tbody>
-          {% for comment in page_obj %}
-            <tr class="comment" id="comment-id-{{ comment.id }}">
-              <td>
-                <div class="col s8 m6 l6 comment-user-info">
-                  <ul>
-                    <li>
-                      <i class="tiny material-icons">access_time</i>
-                      {{ comment.updated_at|date:"d/m H:i" }}
-                    </li>
-                    <li>
-                      <i class="tiny material-icons">
-                        {% if comment.author.is_staff %}
-                          verified_user
-                        {% else %}
-                          person_outline
-                        {% endif %}
-                      </i>
-                      {{ comment.author }}<br>
-                      <img src="{{ comment.author.get_avatar_url }}" alt="{{ comment.author }}" width="150px">
-                    </li>
-                    <li>
-                      {% trans "Posts" %}: {{ comment.author.posts.count }}
-                    </li>
-                    <li>
-                      {% if user.is_authenticated and user.id == comment.author.id %}
-                        <button class="edit-comment-btn btn btn-small" data-comment-edit-content="{{ comment.content|safe }}" data-comment-id="{{ comment.id }}">
-                          <i class="tiny material-icons">edit</i>
-                          {% trans "Edit" %}
-                        </button>
-                        <button class="delete-comment-btn btn btn-small" id="deleteCommentBtn" data-comment-delete-content="{{ comment.content|safe }}" data-comment-id="{{ comment.id }}">
-                          <i class="tiny material-icons">delete</i>
-                          {% trans "Delete" %}
-                        </button>
-                      {% endif %}
-                    </li>
-                  </ul>
-                </div>
-              </td>
-              <td>
-
-                <div class="col s10 m10 l12 comment-text">
-                  <div>
-                    {{ comment.content|safe }}
-                  </div>
-
-                  {% if user.is_authenticated %}
-                  <form action="{% url 'reactions:like_comment' post.slug comment.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" style="border: none; background-color: transparent;">
-                      {% if comment.user_like %}
-                        <i class="small material-icons" style="color: red;">favorite</i>
-                      {% else %}
-                        <i class="small material-icons" style="color: #fff;">favorite_border</i>
-                      {% endif %}
-                      <div class="likes-count" style="color: #fff;">
-                        {{ comment.comment_likes }}
-                      </div>
-                    </button>
-                  </form>
-                  {% else %}
-                    <form>
-                      <button type="button" style="border: none; background-color: transparent;">
-                        <i class="small material-icons" style="color: #fff;">favorite_border</i>
-                        <div class="likes-count" style="color: #fff;">
-                          {{ comment.comment_likes }}
-                        </div>
-                      </button>
-                    </form>
-                  {% endif %}
-
-                  <div class="reply">
-                    {% if user.is_authenticated %}
-                      <button class="reply-comment-btn btn btn-small" data-comment-content="{{ comment.content|safe }}">
-                        <i class="tiny material-icons">reply</i>
-                        {% trans "Reply" %}
-                      </button>
-                    {% endif %}
-                  </div>
-                </div>
-
-              <table class="delete-comment-form" style="display: none">
-                <tr>
-                  <td>
-                    <div class="comment-form">
-                      <form method="post" name="delete-comment-form">
-                        {% csrf_token %}
-                        <p>{% trans "Are you sure you want to delete comment?" %}?</p>
-                        <input type="hidden" name="comment-id">
-                        <input class="btn " type="submit" name="delete-comment" value="{% trans 'Confirm' %}">
-                        <input class="btn red cancel-btn" type="button" name="cancel-delete-comment" value="{% trans 'Cancel' %}">
-                      </form>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              </td>
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  
-  {# Don't know how to add only <tr> #}
-  <table id="reply-comment-form">
-    <tr>
-      <td>
-        <div class="comment-form">
-          {% if user.is_authenticated %}
-            <form method="post" name="reply-comment-form">
-              {% csrf_token %}
-              {{ reply_comment_form.media }}
-              {{ reply_comment_form.as_p }}
-              <input class="btn " type="submit" value="{% trans 'Submit' %}">
-            </form>
-          {% else %}
-            <a href="{% url 'account_login' %}">Login</a> to be able to comment
-          {% endif %}
+            </ul>
         </div>
-      </td>
-    </tr>
-  </table>
+    {% endif %}
+    <div id="post-details">
+        <div class="row post-details-row">
+            <div class="col s12 post-details-сol">
+                <div class="col post-user-info">
+                    <ul>
+                        <li>
+                            <i class="tiny material-icons">access_time</i>
+                            {{ post.updated_at|date:"d/m H:i" }}
+                        </li>
+                        <li>
+                            <i class="tiny material-icons">
+                                {% if post.author.is_staff %}
+                                    verified_user
+                                {% else %}
+                                    person_outline
+                                {% endif %}
+                            </i>
+                            {{ post.author }}<br>
+                            <img src="{{ post.author.get_avatar_url }}" alt="{{ post.author }}" width="150px">
+                        </li>
+                        <li>
+                            {% trans "Posts" %}: {{ post.author.posts.count }}
+                        </li>
+                        <li>
+                            {% if user.is_authenticated and user.id == post.author.id %}
+                                <button id="editPostBtn">
+                                    <i class="tiny material-icons">edit</i>
+                                    {% trans "Edit" %}
+                                </button>
+                                <button id="deletePostBtn">
+                                    <i class="tiny material-icons">delete</i>
+                                    {% trans "Delete" %}
+                                </button>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col post-details-info">
+                    <div id="editPostForm" style="display: none;">
+                        <form method="post" name="post-edit-form">
+                            {% csrf_token %}
+                            {{ edit_post_form.media }}
+                            {{ edit_post_form.as_p }}
+                            <input class="btn " type="submit" value="{% trans 'Submit' %}">
+                        </form>
+                    </div>
+
+                    <div id="deletePostForm" style="display: none;">
+                        <form method="post">
+                            {% csrf_token %}
+                            <p>{% trans "Are you sure you want to delete post" %} "{{ post.title }}" ?</p>
+                            {{ delete_post_form }}
+                            <button class="btn waves-effect waves-light" type="submit"
+                                    name="delete">{% trans 'Confirm' %}</button>
+                            <a href="{% url 'posts:details' post_slug=post.slug %}"
+                               class="red btn waves-effect waves-light">{% trans "Cancel" %}</a>
+                        </form>
+                    </div>
+
+                    <div id="postDetail" style="display: block;">
+                        <h1>{{ post.title }}</h1>
+                        <hr>
+                        <div>{{ post.content|safe }}</div>
+                        <div class="reply">
+                            {% if user.is_authenticated %}
+                                <button id="reply-post-btn" class="btn btn-small">
+                                    <i class="tiny material-icons">reply</i>
+                                    {% trans "Reply" %}
+                                </button>
+                            {% endif %}
+                        </div>
 
 
-      <table id="edit-comment-form" style="display: none">
-        <tr>
-          <td>
-            <div class="comment-form">
-              <form method="post" name="edit-comment-form">
-                {% csrf_token %}
-                {{ comment_edit_form.media }}
-                {{ comment_edit_form.as_p }}
-                <input type="hidden" name="comment-id">
-                <input class="btn " type="submit" name="edit-comment" value="{% trans 'Submit' %}">
-              </form>
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'reactions:like_post' post.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" style="border: none; background-color: transparent;">
+                                    {% if is_liked %}
+                                        <i class="small material-icons" style="color: red;">favorite</i>
+                                    {% else %}
+                                        <i class="small material-icons" style="color: #fff;">favorite_border</i>
+                                    {% endif %}
+                                    <div class="likes-count" style="color: #fff;">
+                                        {{ like }}
+                                    </div>
+                                </button>
+                            </form>
+                        {% else %}
+                            <form>
+                                <button type="button" style="border: none; background-color: transparent;">
+                                    <i class="small material-icons" style="color: #fff;">favorite_border</i>
+                                    <div class="likes-count" style="color: #fff;">
+                                        {{ like }}
+                                    </div>
+                                </button>
+                            </form>
+                        {% endif %}
+
+
+                        <div class="comment-form" id="post-comment-form" style="display: none">
+                            {% if user.is_authenticated %}
+                                <form method="post" name="post-comment-form">
+                                    {% csrf_token %}
+                                    {{ post_comment_form.media }}
+                                    {{ post_comment_form.as_p }}
+                                    <input class="btn " type="submit" value="{% trans 'Submit' %}">
+                                </form>
+                            {% else %}
+                                <a href="{% url 'account_login' %}">Login</a> to be able to comment
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
-          </td>
+        </div>
+        <div class="row">
+            <div class="col s12 center">
+                <table class="striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            {% if page_obj.paginator.num_pages > 1 %}
+                                {% if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}"><<</a>
+                                {% endif %}
+                                {% for num in page_obj.paginator.page_range %}
+                                    <div
+                                            class="{% if page_obj.number == num %}active-page{% else %}inactive-page{% endif %} waves-effect">
+                                        <a href="?page={{ num }}">{{ num }}</a>
+                                    </div>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.paginator.num_pages }}">>></a>
+                                {% endif %}
+                            {% endif %}
+                        </th>
+                        <th>{% trans 'Replies' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for comment in page_obj %}
+                        <tr class="comment" id="comment-id-{{ comment.id }}">
+                            <td>
+                                <div class="col s8 m6 l6 comment-user-info">
+                                    <ul>
+                                        <li>
+                                            <i class="tiny material-icons">access_time</i>
+                                            {{ comment.updated_at|date:"d/m H:i" }}
+                                        </li>
+                                        <li>
+                                            <i class="tiny material-icons">
+                                                {% if comment.author.is_staff %}
+                                                    verified_user
+                                                {% else %}
+                                                    person_outline
+                                                {% endif %}
+                                            </i>
+                                            {{ comment.author }}<br>
+                                            <img src="{{ comment.author.get_avatar_url }}" alt="{{ comment.author }}"
+                                                 width="150px">
+                                        </li>
+                                        <li>
+                                            {% trans "Posts" %}: {{ comment.author.posts.count }}
+                                        </li>
+                                        <li>
+                                            {% if user.is_authenticated and user.id == comment.author.id %}
+                                                <button class="edit-comment-btn btn btn-small"
+                                                        data-comment-edit-content="{{ comment.content|safe }}"
+                                                        data-comment-id="{{ comment.id }}">
+                                                    <i class="tiny material-icons">edit</i>
+                                                    {% trans "Edit" %}
+                                                </button>
+                                                <button class="delete-comment-btn btn btn-small" id="deleteCommentBtn"
+                                                        data-comment-delete-content="{{ comment.content|safe }}"
+                                                        data-comment-id="{{ comment.id }}">
+                                                    <i class="tiny material-icons">delete</i>
+                                                    {% trans "Delete" %}
+                                                </button>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+
+                                <div class="col s10 m10 l12 comment-text">
+                                    <div>
+                                        {{ comment.content|safe }}
+                                    </div>
+
+                                    {% if user.is_authenticated %}
+                                        <form action="{% url 'reactions:like_comment' post.slug comment.id %}"
+                                              method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" style="border: none; background-color: transparent;">
+                                                {% if comment.user_like %}
+                                                    <i class="small material-icons" style="color: red;">favorite</i>
+                                                {% else %}
+                                                    <i class="small material-icons"
+                                                       style="color: #fff;">favorite_border</i>
+                                                {% endif %}
+                                                <div class="likes-count" style="color: #fff;">
+                                                    {{ comment.comment_likes }}
+                                                </div>
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <form>
+                                            <button type="button" style="border: none; background-color: transparent;">
+                                                <i class="small material-icons" style="color: #fff;">favorite_border</i>
+                                                <div class="likes-count" style="color: #fff;">
+                                                    {{ comment.comment_likes }}
+                                                </div>
+                                            </button>
+                                        </form>
+                                    {% endif %}
+
+                                    <div class="reply">
+                                        {% if user.is_authenticated %}
+                                            <button class="reply-comment-btn btn btn-small"
+                                                    data-comment-content="{{ comment.content|safe }}">
+                                                <i class="tiny material-icons">reply</i>
+                                                {% trans "Reply" %}
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <table class="delete-comment-form" style="display: none">
+                                    <tr>
+                                        <td>
+                                            <div class="comment-form">
+                                                <form method="post" name="delete-comment-form">
+                                                    {% csrf_token %}
+                                                    <p>{% trans "Are you sure you want to delete comment?" %}?</p>
+                                                    <input type="hidden" name="comment-id">
+                                                    <input class="btn " type="submit" name="delete-comment"
+                                                           value="{% trans 'Confirm' %}">
+                                                    <input class="btn red cancel-btn" type="button"
+                                                           name="cancel-delete-comment" value="{% trans 'Cancel' %}">
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# Don't know how to add only <tr> #}
+    <table id="reply-comment-form">
+        <tr>
+            <td>
+                <div class="comment-form">
+                    {% if user.is_authenticated %}
+                        <form method="post" name="reply-comment-form">
+                            {% csrf_token %}
+                            {{ reply_comment_form.media }}
+                            {{ reply_comment_form.as_p }}
+                            <input class="btn " type="submit" value="{% trans 'Submit' %}">
+                        </form>
+                    {% else %}
+                        <a href="{% url 'account_login' %}">Login</a> to be able to comment
+                    {% endif %}
+                </div>
+            </td>
         </tr>
-      </table>
+    </table>
+
+
+    <table id="edit-comment-form" style="display: none">
+        <tr>
+            <td>
+                <div class="comment-form">
+                    <form method="post" name="edit-comment-form">
+                        {% csrf_token %}
+                        {{ comment_edit_form.media }}
+                        {{ comment_edit_form.as_p }}
+                        <input type="hidden" name="comment-id">
+                        <input class="btn " type="submit" name="edit-comment" value="{% trans 'Submit' %}">
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
 
 
 {% endblock %}
 
 {% block script %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/js.min.js"></script>
-  <script>hljs.highlightAll();</script>
-  <script src="{% static 'js/post.js' %}" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/js.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="{% static 'js/post.js' %}" type="text/javascript"></script>
 {% endblock %}

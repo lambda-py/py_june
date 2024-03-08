@@ -23,8 +23,28 @@
     }
   }
 
+  hr {
+    border-color: var(--primary-bg-color);
+  }
+
+  .post-details-row {
+    background-color: var(--secondary-bg-color);
+  }
+
+  .post-details-сol {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+  }
+
   .post-user-info {
-    border: 1px solid var(--primary-color);
+    width: 180px;
+  }
+
+  .post-details-info {
+    padding-top: 10px;
+    flex-grow: 1;
+    border-left: 3px solid var(--primary-bg-color);
   }
 
   .reply {
@@ -45,6 +65,10 @@
     i {
       font-size: 1rem;
     }
+  }
+
+  .section.content {
+    padding-top: 0;
   }
 }
 
