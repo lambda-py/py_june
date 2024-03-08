@@ -10,6 +10,9 @@
   color: var(--brand-color);
   text-decoration: underline;
 }
+#category-details .create-post-btn-div {
+  margin-top: 68px;
+}
 #category-details .create-post-btn {
   color: var(--btn-color);
   text-decoration: none;
