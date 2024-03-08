@@ -1,0 +1,24 @@
+{% if user.is_authenticated %}
+    <form action="{% url 'reactions:like_post' post.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="like-btn">
+            {% if is_liked %}
+                <i class="small material-icons" style="color: red;">favorite</i>
+            {% else %}
+                <i class="small material-icons" style="color: #fff;">favorite_border</i>
+            {% endif %}
+            <div class="likes-count" style="color: #fff;">
+                {{ like }}
+            </div>
+        </button>
+    </form>
+{% else %}
+    <form>
+        <button type="button" class="like-btn">
+            <i class="small material-icons" style="color: #fff;">favorite_border</i>
+            <div class="likes-count" style="color: #fff;">
+                {{ like }}
+            </div>
+        </button>
+    </form>
+{% endif %}

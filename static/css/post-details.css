@@ -53,6 +53,13 @@
 #post-details .section.content {
   padding-top: 0;
 }
+#post-details .like-btn {
+  border: none;
+  background-color: transparent;
+}
+#post-details .like-btn:hover {
+  cursor: pointer;
+}
 
 table.striped > tbody > tr:nth-child(odd) .comment-text {
   border-left: 3px solid var(--primary-bg-color);

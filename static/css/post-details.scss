@@ -70,6 +70,15 @@
   .section.content {
     padding-top: 0;
   }
+
+  .like-btn {
+    border: none;
+    background-color: transparent;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 table.striped > tbody > tr:nth-child(odd) .comment-text {
