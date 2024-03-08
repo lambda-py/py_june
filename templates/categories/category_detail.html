@@ -35,7 +35,7 @@
         <h2>{{ category.description }}</h2>
       </div>
       <div class="col s2">
-        <a href="{% url 'posts:create' category_slug=category.slug %}" class="waves-effect waves-light btn btn-small">
+        <a href="{% url 'posts:create' category_slug=category.slug %}" class="waves-effect waves-light btn btn-small create-post-btn">
           {% trans "Create Post" %}
         </a>
       </div>

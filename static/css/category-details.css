@@ -10,5 +10,9 @@
   color: var(--brand-color);
   text-decoration: underline;
 }
+#category-details .create-post-btn {
+  color: var(--btn-color);
+  text-decoration: none;
+}
 
 /*# sourceMappingURL=category-details.css.map */
