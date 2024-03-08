@@ -1,4 +1,35 @@
 #category-details {
+  h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    margin: 0.5em 0 0 0;
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+
+  ul {
+    margin: 0;
+  }
+
+  table {
+    td:first-child {
+      width: 60%;
+    }
+
+    td:nth-child(2), th:nth-child(2) {
+      text-align: center;
+    }
+  }
+
   .active-page {
     background-color: var(--brand-bg-color);
     font-weight: normal;
@@ -15,7 +46,7 @@
   }
 
   .create-post-btn-div {
-    margin-top: 68px;
+    margin-top: 7px;
   }
 
   .create-post-btn {

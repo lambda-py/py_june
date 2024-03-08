@@ -1,3 +1,26 @@
+#category-details h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+#category-details h2 {
+  margin: 0.5em 0 0 0;
+  font-size: 1.2rem;
+}
+#category-details h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+#category-details ul {
+  margin: 0;
+}
+#category-details table td:first-child {
+  width: 60%;
+}
+#category-details table td:nth-child(2), #category-details table th:nth-child(2) {
+  text-align: center;
+}
 #category-details .active-page {
   background-color: var(--brand-bg-color);
   font-weight: normal;
@@ -11,7 +34,7 @@
   text-decoration: underline;
 }
 #category-details .create-post-btn-div {
-  margin-top: 68px;
+  margin-top: 7px;
 }
 #category-details .create-post-btn {
   color: var(--btn-color);
