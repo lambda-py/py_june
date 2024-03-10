@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
       editCommentForm.style.display = "block";
       editForm.appendChild(editCommentForm);
       reversToggleForm(editForm);
-      reversToggleForm(commentText);
 
       // we find a hidden field in the form for further storage of the comment id in it
       let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
