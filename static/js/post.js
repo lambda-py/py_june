@@ -89,67 +89,31 @@ document.addEventListener("DOMContentLoaded", function () {
       deletePostForm.style.display = "none";
     }
   });
-  // global variable to store intermediate results
-  let commentTextContent = "";
-  let currentEditButton = null;
+
   // Edit comment buttons
   // find all the edit buttons on the page
   editCommentButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      if (editCommentForm.style.display === "none") {
-        editCommentForm.style.display = "block";
-      }
       // we find the closest comment block to the button and find the comment text block in it
       let comment = button.closest(".comment");
       let commentText = comment.querySelector(".comment-text");
+      let editForm = comment.querySelector(".comment-edit");
+      editCommentForm.style.display = "block";
+      editForm.appendChild(editCommentForm);
+      reversToggleForm(editForm);
 
-      // We check whether it is not the same button that was already pressed before
-      if (currentEditButton !== button) {
-        // If so, close the previous form and display the content
-        if (currentEditButton) {
-          let previousComment = currerntEditButton.closest(".comment");
-          let previousCommentText = previousComment.querySelector(".comment-text");
-          let editForm = previousCommentText.querySelector("#edit-comment-form");
+      // we find a hidden field in the form for further storage of the comment id in it
+      let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
 
-          // If the editing form exists, we display the previous comment
-          if (editForm) {
-            previousCommentText.innerHTML = commentTextContent;
-          }
-        }
-        // open new form
-        currentEditButton = button;
-        // we find a hidden field in the form for further storage of the comment id in it
-        let hiddenField = editCommentForm.querySelector("input[name='comment-id']");
-
-        // We check whether the text block of the comment already contains the content of the edit form
-        if (commentText.querySelector("#edit-comment-form") !== null) {
-          // If so, we save the content of the comment text and clean it
-          commentText.innerHTML = commentTextContent;
-          commentTextContent = "";
-        } else {
-          // If not, save the content of the comment text and insert the editing form
-          commentTextContent = commentText.innerHTML;
-          commentText.innerHTML = "";
-          commentText.appendChild(editCommentForm);
-          // We take the instance of the editor, extract the content of the comment from the button
-          const editor = CKEDITOR.instances[5];
-          const commentEditContent = this.getAttribute("data-comment-edit-content");
-          // We take the id of the comment from the button and assign it to the hidden field
-          hiddenField.value = this.getAttribute("data-comment-id");
-          // We insert the content from the button into the editor
-          editor.on('instanceReady', function () {
-              this.setData(`${commentEditContent}`);
-          });
-        }
-      } else {
-        // If it is the same button that has already been pressed, we check whether the edit form is open
-        let editForm = commentText.querySelector("#edit-comment-form");
-        // If so, we display the content of the comment and clear the current edit button
-        if (editForm) {
-          commentText.innerHTML = commentTextContent;
-          currentEditButton = null;
-        }
-      }
+      // We take the instance of the editor, extract the content of the comment from the button
+      const editor = CKEDITOR.instances[5];
+      const commentEditContent = this.getAttribute("data-comment-edit-content");
+      // We take the id of the comment from the button and assign it to the hidden field
+      hiddenField.value = this.getAttribute("data-comment-id");
+      // We insert the content from the button into the editor
+      editor.on('instanceReady', function () {
+          this.setData(`${commentEditContent}`);
+      });
     });
   });
   // Handler for cancel buttons
