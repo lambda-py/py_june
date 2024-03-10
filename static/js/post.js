@@ -27,11 +27,16 @@ document.addEventListener("DOMContentLoaded", function () {
   let replyCommentButtons = document.querySelectorAll(".reply-comment-btn");
   let replyCommentForm = document.getElementById("reply-comment-form");
 
+
   replyCommentButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       let comment = button.closest(".comment")
-      // Move form after comment
-      comment.after(replyCommentForm);
+      let commentContainer = comment.querySelector(".comment-text")
+      let replyForm = comment.querySelector(".reply-form");
+
+      replyForm.appendChild(replyCommentForm);
+
+      reversToggleForm(replyForm);
 
       // Add comment text to form input
       // Second instance is the reply comment form
@@ -46,8 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
       editor.on('instanceReady', function () {
         this.setData(`<blockquote>${commentContent}</blockquote><br>`);
       });
-    });
+    })
   });
+
 
   let editPostBtn = document.getElementById("editPostBtn");
   let editPostForm = document.getElementById("editPostForm");
