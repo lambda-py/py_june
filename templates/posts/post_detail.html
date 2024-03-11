@@ -44,10 +44,10 @@
                         </li>
                         <li>
                             {% if user.is_authenticated and user.id == post.author.id %}
-                                <button class="btn" id="editPostBtn">
+                                <button class="btn btn-small" id="editPostBtn">
                                     <i class="tiny material-icons">edit</i>
                                 </button>
-                                <button class="btn" id="deletePostBtn">
+                                <button class="btn btn-small" id="deletePostBtn">
                                     <i class="tiny material-icons">delete</i>
                                 </button>
                             {% endif %}
