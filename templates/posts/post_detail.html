@@ -46,11 +46,9 @@
                             {% if user.is_authenticated and user.id == post.author.id %}
                                 <button class="btn" id="editPostBtn">
                                     <i class="tiny material-icons">edit</i>
-                                    {% trans "Edit" %}
                                 </button>
                                 <button class="btn" id="deletePostBtn">
                                     <i class="tiny material-icons">delete</i>
-                                    {% trans "Delete" %}
                                 </button>
                             {% endif %}
                         </li>
