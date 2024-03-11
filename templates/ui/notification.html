@@ -1,0 +1,11 @@
+{% if messages %}
+    <div id="notification-messages" class="overlay" style="display: none">
+        <ul class="notification">
+            {% for message in messages %}
+                <li>
+                    <div>{{ message }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
