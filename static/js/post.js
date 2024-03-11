@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let replyForm = comment.querySelector(".reply-form");
 
       replyForm.appendChild(replyCommentForm);
-
+      hideAllForms();
       reversToggleForm(replyForm);
 
       // Add comment text to form input
@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       editCommentForm.style.display = "block";
       editForm.appendChild(editCommentForm);
+      hideAllForms();
       reversToggleForm(editForm);
 
       // we find a hidden field in the form for further storage of the comment id in it
@@ -137,9 +138,10 @@ document.addEventListener("DOMContentLoaded", function () {
       cancelButton.removeEventListener("click", cancelButton.clickHandler);
 
       hiddenField.value = button.getAttribute("data-comment-id");
-
+      hideAllForms();
       reversToggleForm(commentContainer);
       toggleForm(form);
+
 
       cancelButton.clickHandler = cancelHandler(cancelButton, form, commentContainer);
       cancelButton.addEventListener("click", cancelButton.clickHandler);
@@ -152,5 +154,23 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
       messageBlock.style.display = "none";
     }, 10000);
+  }
+
+  function hideAllForms() {
+    let comments = document.querySelectorAll(".comment");
+
+    comments.forEach(function (comment) {
+      let textComment = comment.querySelector(".comment-text");
+      let replyComment = comment.querySelector(".reply-form");
+      let editComment = comment.querySelector(".comment-edit");
+      let deleteComment = comment.querySelector(".delete-comment-form");
+
+      if (deleteComment || replyComment || editComment) {
+        deleteComment.style.display = "none";
+        replyComment.style.display = "none";
+        editComment.style.display = "none";
+        textComment.style.display = "block";
+      }
+    });
   }
 })
