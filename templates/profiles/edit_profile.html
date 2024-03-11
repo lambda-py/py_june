@@ -14,7 +14,7 @@
 
 {% block body %}
 <div class="edit-profile-page">
-    <div class="row center update-profile-window">
+    <div class="container">
         <form method="post" name="post-edit-form", class="edit-profile-form">
             {% csrf_token %}
             {% crispy form %}
