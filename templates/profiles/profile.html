@@ -15,18 +15,27 @@
 {% block body %}
 <div class="profile-page">
     <div class="container">
-        <div class="profile-background">
-            <img class="profile-background-photo" src="/static/images/default_background_profile.png">
-        </div>
+
         
         <div class="profile-header">
-            <img class="profile-picture" src="/static/images/Parrot_Logo.png" alt="Ваше фото">
+            {% if context.my_profile %}
+                <div class="edit-my-profile">
+                    <a href="{% url 'profile:edit-profile' context.username %}">
+                        <i class="small material-icons">edit</i>
+                    </a>
+                </div>
+            {% endif %}
+            <div class="no-profile-picture">
+                <i class="large material-icons">perm_identity</i>
+            </div>
+            <h6 class="user-first-last-name">{{ context.first_name }} {{ context.last_name }}</h6>
+            <h6 class="birth_date">{{ context.birth_date }}</h6>
             <h6 class="profile-username">@{{ context.username }}</h6>
             {% if context.bio %}
                 <h6 class="profile-bio-title">Bio:</h6>
-                <code class="profile-bio">{{ context.bio }}</code>
+                <div class="profile-bio">{{ context.bio|safe }}</div>
             {% else %}
-                <code class="empty-profile-bio">No bio</code>
+                <div class="empty-profile-bio">No bio</div>
             {% endif %}
         </div>
 

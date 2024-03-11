@@ -15,6 +15,11 @@
       <li><a href="{% url 'categories:list' %}">{% trans "Forum" %}</a></li>
       {% if user.is_authenticated %}
         <li>
+          <a href="{% url 'profile:profile' user.username %}">
+            {% trans "My profile" %}
+          </a>
+        </li>
+        <li>
           <a href="#" onclick="document.getElementById('logoutForm').submit();">
             {% trans "Logout" %}
           </a>
@@ -35,6 +40,11 @@
         </a>
       </li>
       {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'profile:profile' user.username %}">
+            {% trans "My profile" %}
+          </a>
+        </li>
         <li>
           <a href="#" onclick="document.getElementById('logoutForm').submit();">
             {% trans "Logout" %}
