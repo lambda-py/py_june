@@ -135,7 +135,7 @@
                     {% for comment in page_obj %}
                         <tr class="comment" id="comment-id-{{ comment.id }}">
                             <td>
-                                <div class="col s8 m6 l6 comment-user-info">
+                                <div class="col comment-user-info">
                                     <ul>
                                         <li>
                                             <i class="tiny material-icons">access_time</i>
@@ -162,13 +162,11 @@
                                                         data-comment-edit-content="{{ comment.content|safe }}"
                                                         data-comment-id="{{ comment.id }}">
                                                     <i class="tiny material-icons">edit</i>
-                                                    {% trans "Edit" %}
                                                 </button>
                                                 <button class="delete-comment-btn btn btn-small" id="deleteCommentBtn"
                                                         data-comment-delete-content="{{ comment.content|safe }}"
                                                         data-comment-id="{{ comment.id }}">
                                                     <i class="tiny material-icons">delete</i>
-                                                    {% trans "Delete" %}
                                                 </button>
                                             {% endif %}
                                         </li>
@@ -177,7 +175,7 @@
                             </td>
                             <td>
 
-                                <div class="col s10 m10 l12 comment-text">
+                                <div class="col comment-text">
                                     <div>
                                         {{ comment.content|safe }}
                                     </div>
