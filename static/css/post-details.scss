@@ -20,6 +20,10 @@
     td {
       vertical-align: top;
       padding: 0;
+
+      &:first-child {
+        width: 180px;
+      }
     }
   }
 
@@ -37,7 +41,7 @@
     height: auto;
   }
 
-  .post-user-info {
+  .post-user-info{
     width: 180px;
   }
 
@@ -91,6 +95,8 @@ table.striped > tbody > tr:nth-child(even) .comment-text {
 
 .comment-text {
   padding: 0 1.2rem !important;
+  width: 100%;
+  min-height: 290px !important;
 
   ul {
     display: block;

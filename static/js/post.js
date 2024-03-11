@@ -142,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
       reversToggleForm(commentContainer);
       toggleForm(form);
 
-
       cancelButton.clickHandler = cancelHandler(cancelButton, form, commentContainer);
       cancelButton.addEventListener("click", cancelButton.clickHandler);
     });
@@ -172,5 +171,11 @@ document.addEventListener("DOMContentLoaded", function () {
         textComment.style.display = "block";
       }
     });
+  }
+  if (messageBlock) {
+    messageBlock.style.display = "block";
+    setTimeout(function () {
+      messageBlock.style.display = "none";
+    }, 10000);
   }
 })
