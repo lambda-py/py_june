@@ -66,30 +66,31 @@ document.addEventListener("DOMContentLoaded", function () {
   let deleteCommentForm = document.querySelectorAll(".delete-comment-form");
 
 // Edit post button form
-  editPostBtn.addEventListener("click", function (){
-    if (editPostForm.style.display === "none"){
-      editPostForm.style.display = "block";
-      postDetail.style.display = "none";
-      deletePostForm.style.display = "none";
-    } else {
-      editPostForm.style.display = "none";
-      postDetail.style.display = "block";
-      deletePostForm.style.display = "none";
-    }
-  });
+  if (editPostBtn && deletePostBtn) {
+    editPostBtn.addEventListener("click", function (){
+      if (editPostForm.style.display === "none"){
+        editPostForm.style.display = "block";
+        postDetail.style.display = "none";
+        deletePostForm.style.display = "none";
+      } else {
+        editPostForm.style.display = "none";
+        postDetail.style.display = "block";
+        deletePostForm.style.display = "none";
+      }
+    });
 // Delete post button form
-  deletePostBtn.addEventListener("click", function () {
-    if (deletePostForm.style.display === "none"){
-      deletePostForm.style.display = "block";
-      postDetail.style.display = "none";
-      editPostForm.style.display = "none";
-    } else {
-      editPostForm.style.display = "none";
-      postDetail.style.display = "block";
-      deletePostForm.style.display = "none";
-    }
-  });
-
+    deletePostBtn.addEventListener("click", function () {
+      if (deletePostForm.style.display === "none"){
+        deletePostForm.style.display = "block";
+        postDetail.style.display = "none";
+        editPostForm.style.display = "none";
+      } else {
+        editPostForm.style.display = "none";
+        postDetail.style.display = "block";
+        deletePostForm.style.display = "none";
+      }
+    });
+  }
   // Edit comment buttons
   // find all the edit buttons on the page
   editCommentButtons.forEach(function (button) {
@@ -98,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let comment = button.closest(".comment");
       let commentText = comment.querySelector(".comment-text");
       let editForm = comment.querySelector(".comment-edit");
+
       editCommentForm.style.display = "block";
       editForm.appendChild(editCommentForm);
       reversToggleForm(editForm);
@@ -145,8 +147,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   // Notification about actions was completed successfully
   let messageBlock = document.getElementById("notification-messages");
-  messageBlock.style.display = "block";
-  setTimeout(function () {
-    messageBlock.style.display = "none";
-  }, 10000);
+  if (messageBlock) {
+    messageBlock.style.display = "block";
+    setTimeout(function () {
+      messageBlock.style.display = "none";
+    }, 10000);
+  }
 })
