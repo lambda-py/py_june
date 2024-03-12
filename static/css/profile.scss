@@ -1,3 +1,7 @@
+.profile-page {
+  height: 100vh;
+}
+
 .profile-header {
   margin-top: 5%;
   color: rgb(255, 255, 255);
@@ -51,10 +55,10 @@
   display: block;
   padding: 10px;
   overflow-wrap: break-word;
+}
 
-  code {
-    white-space: pre-wrap;
-  }
+.profile-bio code {
+  white-space: pre-wrap;
 }
 
 .empty-profile-bio {

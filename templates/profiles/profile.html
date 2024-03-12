@@ -14,10 +14,9 @@
 
 {% block body %}
 <div class="profile-page">
-    <div class="container">
-
-        
+    <div class="container"> 
         <div class="profile-header">
+
             {% if context.my_profile %}
                 <div class="edit-my-profile">
                     <a href="{% url 'profile:edit-profile' context.username %}">
@@ -25,17 +24,22 @@
                     </a>
                 </div>
             {% endif %}
+
             <div class="no-profile-picture">
                 <i class="large material-icons">perm_identity</i>
             </div>
             <h6 class="user-first-last-name">{{ context.first_name }} {{ context.last_name }}</h6>
-            <h6 class="birth_date">{{ context.birth_date }}</h6>
+
+            {% if context.birth_date %}
+                <h6 class="birth_date">{{ context.birth_date }}</h6>
+            {% endif %}
             <h6 class="profile-username">@{{ context.username }}</h6>
+
             {% if context.bio %}
                 <h6 class="profile-bio-title">Bio:</h6>
                 <div class="profile-bio">{{ context.bio|safe }}</div>
             {% else %}
-                <div class="empty-profile-bio">No bio</div>
+                <h6 class="empty-profile-bio">No bio</h6>
             {% endif %}
         </div>
 
@@ -71,39 +75,45 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col s12 center">
-              <table class="striped">
-                <thead>
-                <tr>
-                  <th>{% trans "Title" %}</th>
-                  <th>{% trans "Comments" %}</th>
-                  <th>{% trans "Created At" %}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for post in context.posts %}
-                <tr>
-                    <td>
-                      <a href="{% url 'posts:details' post_slug=post.slug %}">
-                          <h3>{{ post.title }}</h3>
-                      </a>
-                    </td>
-                    <td>{{ post.post_comments_count }}</td>
-                    <td>
-                        <ul>
-                            <li>
-                                <i class="tiny material-icons">access_time</i>
-                                {{ post.created_at|date:"d/m H:i" }}
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
-              </table>
+        {% if context.posts %}
+            <div class="row">
+                <div class="col s12 center">
+                <table class="striped">
+                    <thead>
+                    <tr>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Comments" %}</th>
+                    <th>{% trans "Created At" %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for post in context.posts %}
+                    <tr>
+                        <td>
+                        <a href="{% url 'posts:details' post_slug=post.slug %}">
+                            <h3>{{ post.title }}</h3>
+                        </a>
+                        </td>
+                        <td>{{ post.post_comments_count }}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <i class="tiny material-icons">access_time</i>
+                                    {{ post.created_at|date:"d/m H:i" }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
             </div>
-          </div>
+        {% else %}
+            <div class="row center">
+                <h1 class="no-posts">The user has not made any posts yet</h1>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
