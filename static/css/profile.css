@@ -1,5 +1,6 @@
 .profile-page {
   height: 100vh;
+  display: inline-table;
 }
 
 .profile-header {
