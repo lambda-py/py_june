@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.test import TestCase
 from django.urls import reverse
 
@@ -14,14 +12,14 @@ class UpdateProfileViewTest(TestDataMixin, TestCase):
             "profile:edit-profile", kwargs={"profile": self.user.username}
         )
 
-    def test_update_post_get(self):
+    def test_update_profile_get(self):
         self.client.force_login(self.user)
         response = self.client.get(self.update_profile_view_url)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "profiles/edit_profile.html")
 
-    def test_update_post_post(self):
+    def test_update_profile_post(self):
         self.client.force_login(self.user)
 
         data = {
