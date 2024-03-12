@@ -52,6 +52,10 @@
   padding: 10px;
 }
 
+.profile-bio code {
+  white-space: pre-wrap;
+}
+
 .empty-profile-bio {
   margin-bottom: 10px;
   font-size: larger;

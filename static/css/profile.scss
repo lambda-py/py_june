@@ -50,6 +50,11 @@
   position: relative;
   display: block;
   padding: 10px;
+  overflow-wrap: break-word;
+
+  code {
+    white-space: pre-wrap;
+  }
 }
 
 .empty-profile-bio {
@@ -99,15 +104,21 @@
 }
 
 .edit-profile-form {
-  width: 70%;
-  color: #000;
-  max-width: 500px;
+  width: 100%;
   text-align: center;
+  margin-top: 2%;
+  margin-bottom: 5%;
 }
 
 .edit-profile-page {
   width: 100%;
-  height: 100%;
-  display: inline-block;  
+  height: 100vh;
+  flex-direction: column;
+  display: flex;
 }
+
+.django-ckeditor-widget {
+  width: 100% !important;
+}
+
 /*# sourceMappingURL=profile.css.map */
