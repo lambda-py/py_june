@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponse
@@ -8,7 +10,6 @@ from django.views import View
 from comments.models import Comment
 from posts.models import Post
 from users.models import ForumUser
-import os
 
 from .forms import EditAvatarProfileForm, EditProfileForm
 
@@ -72,7 +73,7 @@ class EditProfileView(UserPassesTestMixin, View):
         avatar_form = EditAvatarProfileForm(request.POST, request.FILES, instance=user)
 
         current_avatar = user.avatar
-        
+
         if current_avatar:
             if current_avatar != avatar_form.data:
                 os.remove(str(current_avatar))
