@@ -1,0 +1,24 @@
+{% extends 'content.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block link %}
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block title %}
+{{ context.username }}
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="edit-profile-page">
+    <div class="container">
+        <form method="post" name="post-edit-form", class="edit-profile-form">
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+    </div>
+</div>
+{% endblock %}

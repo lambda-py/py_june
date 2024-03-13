@@ -1,31 +1,33 @@
-.profile-background {
-  margin-top: 50px;
-  align-items: center;
-  position: relative;
-}
-
-.profile-background-photo {
-  width: 100%;
-  max-width: 1280px;
-  height: 100%;
-  max-height: 200px;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+.profile-page {
+  height: 100vh;
+  display: inline-table;
 }
 
 .profile-header {
+  margin-top: 5%;
   color: rgb(255, 255, 255);
-  margin-top: -7px;
   position: relative;
   margin-bottom: 10px;
   background-color: transparent;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .profile-username {
+  font-size: larger;
+  position: relative;
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.user-first-last-name {
+  font-size: larger;
+  position: relative;
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.birth_date {
   font-size: larger;
   position: relative;
   display: block;
@@ -41,9 +43,6 @@
   max-width: 90%;
   min-width: 50%;
   left: 5%;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .profile-bio {
@@ -55,23 +54,19 @@
   min-width: 50%;
   position: relative;
   display: block;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
   padding: 10px;
+}
+
+.profile-bio code {
+  white-space: pre-wrap;
 }
 
 .empty-profile-bio {
   margin-bottom: 10px;
   font-size: larger;
-  left: 5%;
   width: auto;
-  max-width: 90%;
-  min-width: 50%;
-  position: relative;
-  display: block;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 15px;
+  justify-content: space-evenly;
+  display: flex;
   padding: 10px;
 }
 
@@ -82,8 +77,6 @@
   color: rgb(255, 255, 255);
   margin-top: 10px;
   margin-bottom: 10px;
-  border-radius: 30px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(5px);
   display: block;
   text-align: center;
@@ -91,15 +84,45 @@
 
 .profile-picture {
   top: -30px;
+  display: block;
   width: 60px;
   height: 60px;
-  font-size: larger;
   position: relative;
-  display: block;
+  display: flex;
   margin-bottom: 10px;
-  text-align: center;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  left: 50%;
+}
+
+.no-profile-picture {
+  top: -30px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+
+.edit-my-profile {
+  position: relative;
+  left: 75%;
+  max-width: 10%;
+}
+
+.edit-profile-form {
+  width: 100%;
+  text-align: center;
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.edit-profile-page {
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+  display: inline-table;
+}
+
+.django-ckeditor-widget {
+  width: 100% !important;
 }
 
 /*# sourceMappingURL=profile.css.map */
