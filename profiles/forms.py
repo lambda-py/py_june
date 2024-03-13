@@ -30,3 +30,11 @@ class EditProfileForm(forms.ModelForm):
             ),
         )
         self.field_order = ["first_name", "last_name", "bio", "birth_date"]
+
+
+class EditAvatarProfileForm(forms.ModelForm):
+    avatar = forms.ImageField()
+
+    class Meta:
+        model = ForumUser
+        fields = ["avatar"]

@@ -15,9 +15,28 @@
 {% block body %}
 <div class="edit-profile-page">
     <div class="container">
-        <form method="post" name="post-edit-form", class="edit-profile-form">
+        <form method="post" name="post-edit-form" class="edit-profile-form" enctype="multipart/form-data">
+            {% if user.avatar %}
+                <div class="row center">
+                    <img src="{{ user.avatar.url }}" class="rounded-circle profile-picture" width="256" height="256">
+                </div>
+            {% else %}
+                <div class="no-profile-picture">
+                    <i class="large material-icons">perm_identity</i>
+                </div>
+            {% endif %}
             {% csrf_token %}
-            {% crispy form %}
+            <div class="change-avatar">
+                {{ avatar_form.as_p }}
+            </div>
+            <div class="change-avatar-button">
+                <label for="id_avatar">
+                    <span  class="btn" name="avatar" aria-hidden="true">Change profile picture</span>
+                    <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;">
+                </label>
+            </div>
+            <br />
+            {% crispy user_form %}
         </form>
     </div>
 </div>

@@ -159,6 +159,8 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+AVATARS_URL = "uploads/profiles/"
+AVATARS_ROOT = os.path.join(BASE_DIR, "profiles")
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 

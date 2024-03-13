@@ -1,9 +1,7 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
@@ -11,7 +9,7 @@ from comments.models import Comment
 from posts.models import Post
 from users.models import ForumUser
 
-from .forms import EditProfileForm
+from .forms import EditAvatarProfileForm, EditProfileForm
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -57,21 +55,29 @@ class EditProfileView(UserPassesTestMixin, View):
 
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)
-        form = EditProfileForm(instance=user)
-        return render(request, self.template_name, {"user": user, "form": form})
+        user_form = EditProfileForm(instance=user)
+        avatar_form = EditAvatarProfileForm(instance=user)
+
+        return render(
+            request,
+            self.template_name,
+            {"user": user, "user_form": user_form, "avatar_form": avatar_form},
+        )
 
     def post(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)
-        form = EditProfileForm(request.POST, instance=user)
 
-        if form.is_valid():
-            user = form.save(commit=False)
+        user_form = EditProfileForm(request.POST, instance=user)
+        avatar_form = EditAvatarProfileForm(request.POST, request.FILES, instance=user)
+
+        if user_form.is_valid() and avatar_form.is_valid():
+            user = user_form.save(commit=False)
+            user.avatar = avatar_form.cleaned_data["avatar"]
             user.save()
-            messages.success(request, _("Profile was updated successfully"))
             return redirect("profile:profile", profile=self.request.user.username)
 
         return render(
             request,
             self.template_name,
-            {"form": form, "user": user},
+            {"user_form": user_form, "avatar_form": avatar_form, "user": user},
         )
