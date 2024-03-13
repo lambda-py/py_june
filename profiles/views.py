@@ -74,9 +74,9 @@ class EditProfileView(UserPassesTestMixin, View):
 
         current_avatar = user.avatar
 
-        if current_avatar:
-            if current_avatar != avatar_form.data:
-                os.remove(str(current_avatar))
+        if current_avatar and "avatar" in request.FILES:
+            if current_avatar != request.FILES["avatar"]:
+                os.remove(current_avatar.path)
 
         if user_form.is_valid() and avatar_form.is_valid():
             user = user_form.save(commit=False)
