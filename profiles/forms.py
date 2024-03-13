@@ -33,7 +33,7 @@ class EditProfileForm(forms.ModelForm):
 
 
 class EditAvatarProfileForm(forms.ModelForm):
-    avatar = forms.ImageField()
+    avatar = forms.ImageField().required = False
 
     class Meta:
         model = ForumUser
