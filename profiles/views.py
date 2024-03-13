@@ -8,6 +8,7 @@ from django.views import View
 from comments.models import Comment
 from posts.models import Post
 from users.models import ForumUser
+import os
 
 from .forms import EditAvatarProfileForm, EditProfileForm
 
@@ -69,6 +70,12 @@ class EditProfileView(UserPassesTestMixin, View):
 
         user_form = EditProfileForm(request.POST, instance=user)
         avatar_form = EditAvatarProfileForm(request.POST, request.FILES, instance=user)
+
+        current_avatar = user.avatar
+        
+        if current_avatar:
+            if current_avatar != avatar_form.data:
+                os.remove(str(current_avatar))
 
         if user_form.is_valid() and avatar_form.is_valid():
             user = user_form.save(commit=False)
