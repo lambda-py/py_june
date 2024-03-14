@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let commentText = comment.querySelector(".comment-text");
       let editForm = comment.querySelector(".comment-edit");
 
-      editCommentForm.style.display = "block";
+      editCommentForm.style.display = "table";
       editForm.appendChild(editCommentForm);
       hideAllForms();
       reversToggleForm(editForm);

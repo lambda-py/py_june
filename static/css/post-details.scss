@@ -21,7 +21,7 @@
       vertical-align: top;
       padding: 0;
 
-      &:first-child {
+      &.comment-user-info-td:first-child {
         width: 180px;
       }
     }
@@ -55,6 +55,12 @@
     text-align: right;
     margin: 1em 0;
   }
+
+  .reply-form, .comment-edit, .comment-form {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
 
   a {
     color: var(--brand-color);

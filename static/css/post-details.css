@@ -17,7 +17,7 @@
   vertical-align: top;
   padding: 0;
 }
-#post-details table td:first-child {
+#post-details table td.comment-user-info-td:first-child {
   width: 180px;
 }
 #post-details hr {
@@ -42,6 +42,10 @@
 #post-details .reply {
   text-align: right;
   margin: 1em 0;
+}
+#post-details .reply-form, #post-details .comment-edit, #post-details .comment-form {
+  width: 100%;
+  margin-bottom: 10px;
 }
 #post-details a {
   color: var(--brand-color);
