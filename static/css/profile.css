@@ -55,6 +55,7 @@
   position: relative;
   display: block;
   padding: 10px;
+  overflow-wrap: break-word;
 }
 
 .profile-bio code {
@@ -127,4 +128,5 @@
 .change-avatar-button {
   margin-bottom: 2%;
 }
+
 /*# sourceMappingURL=profile.css.map */
