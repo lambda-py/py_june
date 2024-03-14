@@ -55,6 +55,7 @@
   position: relative;
   display: block;
   padding: 10px;
+  overflow-wrap: break-word;
 }
 
 .profile-bio code {
@@ -124,5 +125,7 @@
 .django-ckeditor-widget {
   width: 100% !important;
 }
+
+
 
 /*# sourceMappingURL=profile.css.map */
