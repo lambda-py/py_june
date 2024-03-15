@@ -80,3 +80,8 @@ class CategoryDetailViewTest(TestDataMixin, TestCase):
         )
         self.assertEqual(response_page_2.status_code, 200)
         self.assertEqual(len(response_page_2.context["page_obj"]), 5)
+
+        redirect_to_profile = self.client.get(
+            reverse("profile:profile", kwargs={"profile": self.user.username})
+        )
+        self.assertEqual(redirect_to_profile.status_code, 302)
