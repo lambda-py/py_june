@@ -133,7 +133,7 @@
                       </li>
                       <li>
                         <i class="tiny material-icons">person</i>
-                        {{ comment.author.username }}<br>
+                        <a href="{% url 'profile:profile' comment.author.username %}">{{ comment.author.username }}</a><br>
                         <img src="{{ comment.author.get_avatar_url }}" alt="{{ comment.author.username }}"
                              width="150px">
                       </li>

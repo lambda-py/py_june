@@ -83,7 +83,7 @@
                   </li>
                   <li>
                     <i class="tiny material-icons">person</i>
-                    {{ post.comments.last.author }}
+                    <a href="{% url 'profile:profile' post.comments.last.author %}">{{ post.comments.last.author }}</a>
                   </li>
                 </ul>
               </td>

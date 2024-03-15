@@ -36,7 +36,9 @@
                                     person_outline
                                 {% endif %}
                             </i>
-                            {{ post.author }}<br>
+                            <a href="{% url 'profile:profile' post.author %}">
+                                {{ post.author }}
+                            </a><br>
                             <img src="{{ post.author.get_avatar_url }}" alt="{{ post.author }}" width="150px">
                         </li>
                         <li>
@@ -137,7 +139,9 @@
                                                     person_outline
                                                 {% endif %}
                                             </i>
-                                            {{ comment.author }}<br>
+                                            <a href="{% url 'profile:profile' comment.author %}">
+                                                {{ comment.author }}
+                                            </a><br>
                                             <img src="{{ comment.author.get_avatar_url }}" alt="{{ comment.author }}"
                                                  width="150px">
                                         </li>
