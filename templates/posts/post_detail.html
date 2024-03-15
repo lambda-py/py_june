@@ -81,6 +81,9 @@
                         <h1>{{ post.title }}</h1>
                         <hr>
                         <div>{{ post.content|safe }}</div>
+
+                        {% include 'ui/post/post_like.html' %}
+
                         <div class="reply">
                             {% if user.is_authenticated %}
                                 <button id="reply-post-btn" class="btn btn-small">
@@ -89,8 +92,6 @@
                                 </button>
                             {% endif %}
                         </div>
-
-                        {% include 'ui/post/post_like.html' %}
 
                         <div class="comment-form" id="post-comment-form" style="display: none">
                             {% if user.is_authenticated %}
