@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.instagram",
     "widget_tweaks",
     "crispy_forms",
     "crispy_bootstrap4",
