@@ -84,6 +84,8 @@
   .like-btn {
     border: none;
     background-color: transparent;
+    left: 100%;
+    position: sticky;
 
     &:hover {
       cursor: pointer;

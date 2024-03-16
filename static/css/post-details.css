@@ -63,6 +63,8 @@
 #post-details .like-btn {
   border: none;
   background-color: transparent;
+  left: 100%;
+  position: sticky;
 }
 #post-details .like-btn:hover {
   cursor: pointer;
