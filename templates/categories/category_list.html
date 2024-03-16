@@ -48,7 +48,16 @@
                         <li><i class="tiny material-icons">access_time</i>
                           {{ category.last_comment_dt|date:"SHORT_DATETIME_FORMAT" }}
                         </li>
-                        <li><i class="tiny material-icons">edit</i>{{ category.last_comment_username }}</li>
+                        <li>
+                          <i class="tiny material-icons">edit</i>
+                          {% if category.last_comment_username %}
+                            <a href="{% url 'profile:profile' category.last_comment_username %}">
+                              {{ category.last_comment_username }}
+                            </a>
+                          {% else %}
+                            {{ category.last_comment_username }}
+                          {% endif %}
+                        </li>
                       </ul>
                     </td>
                   </tr>

@@ -83,7 +83,14 @@
                   </li>
                   <li>
                     <i class="tiny material-icons">person</i>
-                    {{ post.comments.last.author }}
+                    {% if post.comments.last.author %}
+                      <a href="{% url 'profile:profile' post.comments.last.author %}">
+                        {{ post.comments.last.author }}
+                      </a>
+                    {% else %}
+                      {{ post.comments.last.author }}
+                    {% endif %}
+                    </a>
                   </li>
                 </ul>
               </td>
