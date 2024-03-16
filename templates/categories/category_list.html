@@ -54,8 +54,6 @@
                             <a href="{% url 'profile:profile' category.last_comment_username %}">
                               {{ category.last_comment_username }}
                             </a>
-                          {% else %}
-                            {{ category.last_comment_username }}
                           {% endif %}
                         </li>
                       </ul>
