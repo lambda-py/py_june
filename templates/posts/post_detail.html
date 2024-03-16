@@ -119,7 +119,11 @@
                         <th>
                             {% include 'ui/pagination.html' %}
                         </th>
-                        <th>{% trans 'Replies' %}</th>
+                        <th>
+                            {% if page_obj %}
+                                {% trans 'Replies' %}
+                            {% endif %}
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
