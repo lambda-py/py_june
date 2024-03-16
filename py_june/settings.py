@@ -31,6 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "secret")
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://py-june.dev,https://www.py-june.dev").split(",")
 INTERNAL_IPS = ["127.0.0.1"]
 
 # Application definition
