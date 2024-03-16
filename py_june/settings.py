@@ -230,6 +230,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 SOCIALACCOUNT_PROVIDERS = {
     "github": {
@@ -237,7 +238,6 @@ SOCIALACCOUNT_PROVIDERS = {
             "client_id": os.getenv("GITHUB_CLIENT_ID"),
             "secret": os.getenv("GITHUB_SECRET"),
             "key": "",
-            "redirect_uri": "https://py-june.dev/accounts/github/login/callback/",
         }
     },
     "google": {
