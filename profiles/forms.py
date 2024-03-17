@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
+from PIL import Image
 
 from users.models import ForumUser
 
@@ -38,3 +39,17 @@ class EditAvatarProfileForm(forms.ModelForm):
     class Meta:
         model = ForumUser
         fields = ["avatar"]
+
+    def save(self) -> None:
+        super(EditAvatarProfileForm, self).save()
+
+        x = self.cleaned_data.get("x")
+        y = self.cleaned_data.get("y")
+        w = self.cleaned_data.get("width")
+        h = self.cleaned_data.get("height")
+
+        with Image.open(self.avatar) as img:
+            cropped_image = img.crop((x, y, w + x, h + y))
+            resized_image = cropped_image.resize((256, 256), Image.ANTIALIAS)
+            resized_image.save(self.avatar)
+            return img
