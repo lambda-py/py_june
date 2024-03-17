@@ -19,14 +19,16 @@ class PostReactionsView(LoginRequiredMixin, View):
 
     def post(self, request: HttpRequest, id: int) -> HttpResponseRedirect:
         post = get_object_or_404(Post, pk=id, is_active=True)
-        if not Reactions.objects.filter(
-            post_id=post.id, user_id=self.request.user.id
-        ).exists():
-            Reactions.objects.create(user_id=self.request.user.id, post_id=post.id)
-        else:
-            Reactions.objects.filter(
-                user_id=self.request.user.id, post_id=post.id
-            ).delete()
+
+        if self.request.user != post.author:
+            if not Reactions.objects.filter(
+                post_id=post.id, user_id=self.request.user.id
+            ).exists():
+                Reactions.objects.create(user_id=self.request.user.id, post_id=post.id)
+            else:
+                Reactions.objects.filter(
+                    user_id=self.request.user.id, post_id=post.id
+                ).delete()
         return redirect("posts:details", post_slug=post.slug)
 
 
@@ -41,14 +43,16 @@ class CommentReactionsView(LoginRequiredMixin, View):
         self, request: HttpRequest, post_slug: str, id: int
     ) -> HttpResponseRedirect:
         user_comment = get_object_or_404(Comment, pk=id, is_active=True)
-        if not CommentsReactions.objects.filter(
-            comment_id=user_comment.id, user_id=self.request.user.id
-        ).exists():
-            CommentsReactions.objects.create(
-                user_id=self.request.user.id, comment_id=user_comment.id
-            )
-        else:
-            CommentsReactions.objects.filter(
-                user_id=self.request.user.id, comment_id=user_comment.id
-            ).delete()
+
+        if self.request.user != user_comment.author:
+            if not CommentsReactions.objects.filter(
+                comment_id=user_comment.id, user_id=self.request.user.id
+            ).exists():
+                CommentsReactions.objects.create(
+                    user_id=self.request.user.id, comment_id=user_comment.id
+                )
+            else:
+                CommentsReactions.objects.filter(
+                    user_id=self.request.user.id, comment_id=user_comment.id
+                ).delete()
         return redirect("posts:details", post_slug=post_slug)
