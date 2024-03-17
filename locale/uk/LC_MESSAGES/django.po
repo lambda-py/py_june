@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-17 14:30+0000\n"
+"POT-Creation-Date: 2024-03-17 08:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,54 +21,112 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: comments/forms.py:20 templates/comments/comment_delete.html:21
-#: templates/posts/post_delete.html:21
-msgid "Confirm"
-msgstr "Підтвердити"
+#: comments/forms.py:31 templates/comments/comment_form.html:7
+#: templates/comments/comment_form.html:16
+msgid "Comment"
+msgstr "Коментар"
+
+#: comments/forms.py:36
+#, fuzzy
+#| msgid "Last comment"
+msgid "Empty comment"
+msgstr "Останній коментарій"
+
+#: posts/forms.py:25
+msgid "Title*"
+msgstr ""
+
+#: posts/forms.py:25
+msgid "Content*"
+msgstr ""
 
 #: posts/models.py:24
 msgid "Post"
 msgstr "Пост"
 
-#: posts/models.py:25 templates/categories/category_list.html:20
-#: templates/posts/posts_detail.html:43
-#: templates/posts/posts_detail.html:133
+#: posts/models.py:25 templates/categories/category_list.html:25
+#: templates/posts/post_detail.html:45 templates/posts/post_detail.html:150
 msgid "Posts"
 msgstr "Пости"
 
-#: py_june/settings.py:124
+#: posts/views.py:43
+msgid "You can only post every 5 minutes."
+msgstr "Ви можете створювати пост раз в 5 хвилин."
+
+#: posts/views.py:58
+msgid "Post was created successfully"
+msgstr "Пост створено успішно"
+
+#: posts/views.py:127
+msgid "Post was deleted successfully"
+msgstr "Пост було видалено успішно"
+
+#: posts/views.py:132
+msgid "Post was changed successfully"
+msgstr "Пост було змінено успішно"
+
+#: posts/views.py:142
+msgid "Comment was changed successfully"
+msgstr "Коментар було змінено успішно"
+
+#: posts/views.py:149
+msgid "Comment was created successfully"
+msgstr "Коментар було створено успішно"
+
+#: posts/views.py:156
+msgid "Comment was deleted successfully"
+msgstr "Коментар було идалено успішно"
+
+#: posts/views.py:160
+msgid "Something went wrong"
+msgstr "Виникла помилка, спробуйте ще раз"
+
+#: posts/views.py:163
+msgid "Comment can't be empty"
+msgstr "Коментар не може бути пустим"
+
+#: profiles/views.py:70
+#, fuzzy
+#| msgid "Post was created successfully"
+msgid "Profile was updated successfully"
+msgstr "Пост створено успішно"
+
+#: py_june/settings.py:147
 msgid "English"
 msgstr ""
 
-#: py_june/settings.py:125
+#: py_june/settings.py:148
 msgid "Ukrainian"
 msgstr ""
 
-#: templates/categories/category_detail.html:27
-#: templates/posts/post_form.html:7 templates/posts/post_form.html:12
+#: templates/base.html:18
+msgid "Top"
+msgstr "Вгору"
+
+#: templates/categories/category_detail.html:39
+#: templates/posts/post_form.html:6 templates/posts/post_form.html:15
 msgid "Create Post"
 msgstr "Створити пост"
 
-#: templates/categories/category_detail.html:38
-#: templates/categories/category_list.html:21
+#: templates/categories/category_detail.html:65
+#: templates/categories/category_list.html:26
 #: templates/comments/comment_answer.html:12
-#: templates/comments/comment_form.html:12
+#: templates/comments/comment_form.html:12 templates/profiles/profile.html:85
 msgid "Comments"
 msgstr "Коментарі"
 
-#: templates/categories/category_detail.html:39
-#: templates/categories/category_list.html:22
+#: templates/categories/category_detail.html:66
+#: templates/categories/category_list.html:27
 msgid "Last comment"
 msgstr "Останній коментарій"
 
-#: templates/categories/category_list.html:5 templates/header.html:12
-#: templates/header.html:31
+#: templates/categories/category_list.html:10 templates/header.html:15
+#: templates/header.html:39
 msgid "Forum"
 msgstr "Форум"
 
 #: templates/comments/comment_answer.html:7
 #: templates/comments/comment_answer.html:12
-#: templates/posts/post_detail.html:111 templates/posts/post_detail.html:116
 msgid "Answer"
 msgstr "Відповісти"
 
@@ -84,19 +142,19 @@ msgstr "Видалити коментар для"
 msgid "Are you sure you want to delete comment for"
 msgstr "Ви впевнені що хочете видалити коментар для"
 
+#: templates/comments/comment_delete.html:21
+#: templates/posts/post_delete.html:27 templates/posts/post_detail.html:76
+#: templates/posts/post_detail.html:202
+msgid "Confirm"
+msgstr "Підтвердити"
+
 #: templates/comments/comment_delete.html:23
-#: templates/comments/comment_update.html:18
-#: templates/posts/post_delete.html:22 templates/posts/post_update.html:18
+#: templates/posts/post_delete.html:29 templates/posts/post_detail.html:78
+#: templates/posts/post_detail.html:204 templates/posts/post_update.html:32
 msgid "Cancel"
 msgstr "Відмінити"
 
-#: templates/comments/comment_form.html:7
-#: templates/comments/comment_form.html:16
-msgid "Comment"
-msgstr "Коментар"
-
-#: templates/comments/comment_update.html:7
-#: templates/comments/comment_update.html:22
+#: templates/comments/comment_update.html:6
 msgid "Edit Comment"
 msgstr "Змінити коментар"
 
@@ -124,16 +182,19 @@ msgstr ""
 msgid "Made by"
 msgstr "Зроблено завдяки"
 
-#: templates/header.html:16 templates/header.html:37
+#: templates/header.html:19 templates/header.html:45
+msgid "My profile"
+msgstr ""
+
+#: templates/header.html:24 templates/header.html:50
 msgid "Logout"
 msgstr "Вийти"
 
-#: templates/header.html:23 templates/header.html:46
-#: templates/users/login.html:9
+#: templates/header.html:31 templates/header.html:59
 msgid "Login"
 msgstr "Увійти"
 
-#: templates/header.html:24 templates/header.html:51
+#: templates/header.html:32 templates/header.html:64
 msgid "Sign up"
 msgstr "Зареєструватися"
 
@@ -141,154 +202,128 @@ msgstr "Зареєструватися"
 msgid "Home"
 msgstr "Головна"
 
-#: templates/home.html:15
+#: templates/home.html:19
 msgid "PY_JUNE - Code, Learn, and Grow Together!"
 msgstr "PY_JUNE - Програмуйте, Навчайтеся, та Розвивайтеся Разом!"
 
-#: templates/home.html:26
+#: templates/home.html:30
 msgid "There should be one-- and preferably only one --obvious way to do it."
 msgstr "Має бути один -- і бажано лише один -- очевидний спосіб це зробити."
 
-#: templates/home.html:30
+#: templates/home.html:34
 msgid "Ask question"
 msgstr "Задати питання"
 
-#: templates/home.html:45
+#: templates/home.html:49
 msgid "Last posts"
 msgstr "Останній пост"
 
-#: templates/home.html:62
+#: templates/home.html:66
 msgid "Most hot"
 msgstr "Найпопулярніший"
 
-#: templates/home.html:79
+#: templates/home.html:83
 msgid "Need help"
 msgstr "Потрібна допомога"
 
-#: templates/home.html:102
+#: templates/home.html:106
 msgid "Beautiful is better than ugly."
 msgstr "Красиве краще, ніж потворне."
 
-#: templates/home.html:106
+#: templates/home.html:110
 #, fuzzy
 #| msgid "Ask question"
 msgid "Answer question"
 msgstr "Задати питання"
 
-#: templates/home.html:154
+#: templates/home.html:146
+msgid "read more"
+msgstr ""
+
+#: templates/home.html:167
 msgid "Simple is better than complex."
 msgstr "Просте краще, ніж складне."
 
-#: templates/home.html:158
+#: templates/home.html:171
 msgid "Chat"
 msgstr ""
 
-#: templates/posts/post_delete.html:7
+#: templates/posts/post_delete.html:8
 msgid "Delete Post"
 msgstr "Видалити пост"
 
-#: templates/posts/post_delete.html:16 templates/posts/post_detail.html:39
+#: templates/posts/post_delete.html:22
 msgid "Delete"
 msgstr "Видалити"
 
-#: templates/posts/post_delete.html:19
+#: templates/posts/post_delete.html:25 templates/posts/post_detail.html:73
 msgid "Are you sure you want to delete post"
 msgstr "Ви впевнені що хочете видалити пост"
 
-#: templates/posts/post_detail.html:25 templates/posts/post_detail.html:35
-msgid "Back"
-msgstr "Назад"
+#: templates/posts/post_detail.html:66 templates/posts/post_detail.html:104
+#: templates/posts/post_detail.html:230 templates/posts/post_detail.html:250
+#: templates/posts/post_form.html:25 templates/posts/post_update.html:30
+msgid "Submit"
+msgstr ""
 
-#: templates/posts/post_detail.html:37
-msgid "Edit"
-msgstr "Змінити"
+#: templates/posts/post_detail.html:93 templates/posts/post_detail.html:183
+msgid "Reply"
+msgstr "Відповісти"
 
-#: templates/posts/post_form.html:16
+#: templates/posts/post_detail.html:122
+msgid "Replies"
+msgstr "Коментарі"
+
+#: templates/posts/post_detail.html:199
+msgid "Are you sure you want to delete comment?"
+msgstr "Ви впевнені що хочете видалити коментар?"
+
+#: templates/posts/post_form.html:20
 msgid "Create a new post in"
 msgstr "Створити новий пост в"
 
-#: templates/posts/post_update.html:7
+#: templates/posts/post_update.html:6
 msgid "Update Post"
 msgstr "Оновити пост"
 
-#: templates/posts/post_update.html:22
+#: templates/posts/post_update.html:25
 msgid "Update"
 msgstr "Оновити"
 
-#: templates/users/profile.html:33
+#: templates/profiles/profile.html:50
 #, fuzzy
 #| msgid "Posts"
 msgid "Posts Count"
 msgstr "Пости"
 
-#: templates/users/profile.html:44
+#: templates/profiles/profile.html:61
 #, fuzzy
 #| msgid "Comments"
 msgid "Comments Count"
 msgstr "Коментарі"
 
-#: templates/users/signup.html:9
-msgid "Registration"
-msgstr "Реєстрація"
+#: templates/profiles/profile.html:84
+msgid "Title"
+msgstr ""
 
-#: posts/view.py:41
-msgid "Post was created successfully"
-msgstr "Пост створено успішно"
+#: templates/profiles/profile.html:86
+#, fuzzy
+#| msgid "Create Post"
+msgid "Created At"
+msgstr "Створити пост"
 
-#: posts/view.py:41
-msgid "You can only post every 5 minutes."
-msgstr "Ви можете створювати пост раз в 5 хвилин."
-
-#: posts/view.py:124
-msgid "Post was deleted successfully"
-msgstr "Пост було видалено успішно"
-
-#: posts/view.py:129
-msgid "Post was changed successfully"
-msgstr "Пост було змінено успішно"
-
-#: posts/view.py:139
-msgid "Comment was changed successfully"
-msgstr "Коментар було змінено успішно"
-
-#: posts/view.py:146
-msgid "Comment was created successfully"
-msgstr "Коментар було створено успішно"
-
-#: posts/view.py:139
-msgid "Comment was deleted successfully"
-msgstr "Коментар було идалено успішно"
-
-#: posts/view.py:157
-msgid "Something went wrong"
-msgstr "Виникла помилка, спробуйте ще раз"
-
-#: posts/view.py:160
-msgid "Comment can't be empty"
-msgstr "Коментар не може бути пустим"
-
-#: templates/search/search_result.html:5
-#: templates/search/search_result.html:11
-#: templates/search/search_result.html:13
-#: templates/search/search_result.html:14
+#: templates/search/search_result.html:10
+#: templates/search/search_result.html:18
+#: templates/search/search_result.html:20
+#: templates/search/search_result.html:21
 msgid "Search"
 msgstr "Пошук"
 
-#: templates/base.html: 19
-msgid "Top"
-msgstr "Вгору"
+#~ msgid "Back"
+#~ msgstr "Назад"
 
-#: template/posts/post_detail.html:67
-#: template/posts/post_detail.html:71
-#: template/posts/post_detail.html:84
-#: template/posts/posts_detail.html:157
-msgid "Reply"
-msgstr "Відповісти"
+#~ msgid "Edit"
+#~ msgstr "Змінити"
 
-#: template/posts/post_detail.html:93
-msgid "Replies"
-msgstr "Коментарі"
-
-#: template/posts/post_detail.html:230
-msgid "Are you sure you want to delete comment?"
-msgstr "Ви впевнені що хочете видалити коментар?"
+#~ msgid "Registration"
+#~ msgstr "Реєстрація"
