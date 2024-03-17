@@ -1,2 +1,2 @@
-release: python manage.py migrate && python manage.py compilemessages -l uk
+release: sh release-tasks.sh
 web: gunicorn py_june.wsgi --log-file -
