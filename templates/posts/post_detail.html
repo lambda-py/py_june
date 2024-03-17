@@ -104,7 +104,11 @@
                                     <input class="btn " type="submit" value="{% trans 'Submit' %}">
                                 </form>
                             {% else %}
-                                <a href="{% url 'account_login' %}">Login</a> to be able to comment
+                                <div class="row center">
+                                    <h1>
+                                        <a href="{% url 'account_login' %}">Login</a> to be able to comment
+                                    </h1>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
@@ -234,7 +238,11 @@
                             <input class="btn " type="submit" value="{% trans 'Submit' %}">
                         </form>
                     {% else %}
-                        <a href="{% url 'account_login' %}">Login</a> to be able to comment
+                    <div class="row center">
+                        <h1>
+                            <a href="{% url 'account_login' %}">Login</a> to be able to comment
+                        </h1>
+                    </div>
                     {% endif %}
                 </div>
             </td>
