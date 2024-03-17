@@ -3,11 +3,11 @@
 {% load static %}
 
 {% block link %}
-	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block title %}
-{{ context.username }}
+    {{ context.username }}
 {% endblock %}
 
 {% load crispy_forms_tags %}
@@ -18,7 +18,7 @@
         <form method="post" name="post-edit-form" class="edit-profile-form" enctype="multipart/form-data">
             {% if user.avatar %}
                 <div class="row center">
-                    <img src="{{ user.avatar.url }}" class="rounded-circle profile-picture" width="256" height="256">
+                    <img id="avatar-image" src="{{ user.avatar.url }}" class="rounded-circle profile-picture" width="256" height="256">
                 </div>
             {% else %}
                 <div class="no-profile-picture">
@@ -31,7 +31,7 @@
             </div>
             <div class="change-avatar-button">
                 <label for="id_avatar">
-                    <span  class="btn" name="avatar" aria-hidden="true">Change profile picture</span>
+                    <span class="btn" aria-hidden="true">Change profile picture</span>
                     <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;">
                 </label>
             </div>
@@ -40,4 +40,9 @@
         </form>
     </div>
 </div>
+
+{% block scripts %}
+  <script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+
 {% endblock %}
