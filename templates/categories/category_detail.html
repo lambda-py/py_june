@@ -62,8 +62,12 @@
                 {% endif %}
               {% endif %}
             </th>
-            <th>{% trans "Comments" %}</th>
-            <th>{% trans "Last comment" %}</th>
+            {% if page_obj %}
+              <th>{% trans "Comments" %}</th>
+              <th>{% trans "Last comment" %}</th>
+            {% else %}
+              <h1>No posts yet</h1>
+            {% endif %}
           </tr>
           </thead>
           <tbody>
