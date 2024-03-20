@@ -21,6 +21,9 @@ from reactions.models import CommentsReactions, Reactions
 
 def can_user_post(request: HttpRequest) -> bool:
     user = request.user
+    if user.is_superuser:
+        return True
+
     if last_post_time := user.last_post_time:
         time_diff = timezone.now() - last_post_time
         time_out = settings.POST_TIME_OUT
