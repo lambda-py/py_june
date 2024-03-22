@@ -19,6 +19,8 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)
+        Profile.objects.get_or_create(user=self.request.user)
+        profile = get_object_or_404(Profile, user=self.request.user)
 
         comments_count = Comment.objects.filter(author_id=user.id).count()
         posts_count = Post.objects.filter(author_id=user.id).count()
@@ -44,7 +46,11 @@ class ProfileView(LoginRequiredMixin, View):
             "posts": posts,
             "my_profile": is_user_page,
         }
-        return render(request, self.template_name, {"user": user, "context": context})
+        return render(
+            request,
+            self.template_name,
+            {"user": user, "profile": profile, "context": context},
+        )
 
 
 class EditProfileView(UserPassesTestMixin, View):
@@ -58,7 +64,6 @@ class EditProfileView(UserPassesTestMixin, View):
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)
         edit_profile_form = EditProfileForm(instance=user)
-        Profile.objects.get_or_create(user=self.request.user)
         user_profile = get_object_or_404(Profile, user=self.request.user)
         edit_links_form = EditProfileLinksForm(instance=user_profile)
         return render(
