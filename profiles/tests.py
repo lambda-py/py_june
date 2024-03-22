@@ -18,7 +18,6 @@ class UpdateProfileViewTest(TestDataMixin, TestCase):
     def test_update_profile_get(self):
         self.client.force_login(self.user)
         response = self.client.get(self.update_profile_view_url)
-        print(response)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "profiles/edit_profile.html")

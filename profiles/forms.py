@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from users.models import ForumUser
@@ -62,32 +63,33 @@ class EditProfileLinksForm(forms.ModelForm):
         model = Profile
         fields = ["github_link", "linkedin_link", "instagram_link"]
 
-    def github(self) -> str:
-        github = self.cleaned_data.get("github_link")
+    def clean(self) -> str:
+        cleaned_data = super().clean()
 
-        if github == "":
-            return ""
-        elif github.startswith("https://github.com/"):
-            return github
-        else:
-            return "Error"
+        github = cleaned_data.get("github_link")
+        linkedin = cleaned_data.get("linkedin_link")
+        instagram = cleaned_data.get("instagram_link")
 
-    def linkedin(self) -> str:
-        linkedin = self.cleaned_data.get("linkedin_link")
+        if github and not github.startswith("https://github.com/"):
+            self.add_error(
+                "github_link",
+                _("Invalid GitHub profile URL. Please use format: https://github.com/"),
+            )
 
-        if linkedin == "":
-            return ""
-        elif linkedin.startswith("https://www.linkedin.com/in/"):
-            return linkedin
-        else:
-            return "Error"
+        if linkedin and not linkedin.startswith("https://www.linkedin.com/in/"):
+            self.add_error(
+                "linkedin_link",
+                _(
+                    "Invalid Linkedin profile URL. Please use format: https://www.linkedin.com/in/"
+                ),
+            )
 
-    def instagram(self) -> str:
-        instagram = self.cleaned_data.get("instagram_link")
+        if instagram and not instagram.startswith("https://www.instagram.com/"):
+            self.add_error(
+                "instagram_link",
+                _(
+                    "Invalid Instagram profile URL. Please use format: https://www.instagram.com/"
+                ),
+            )
 
-        if instagram == "":
-            return ""
-        elif instagram.startswith("https://www.instagram.com/"):
-            return instagram
-        else:
-            return "Error"
+        return cleaned_data
