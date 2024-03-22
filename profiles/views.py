@@ -84,12 +84,35 @@ class EditProfileView(UserPassesTestMixin, View):
 
         if edit_profile_form.is_valid() and edit_links_form.is_valid():
             user = edit_profile_form.save(commit=False)
-            user_profile = edit_links_form.save(commit=False)
-            user_profile.user = self.request.user
-            user_profile.save()
-            user.save()
-            messages.success(request, _("Profile was updated successfully"))
-            return redirect("profile:profile", profile=self.request.user.username)
+            if edit_links_form.github() == "Error":
+                edit_links_form.add_error(
+                    "github_link",
+                    _(
+                        "Invalid GitHub profile URL. Please use format: https://github.com/"
+                    ),
+                )
+            if edit_links_form.linkedin() == "Error":
+                edit_links_form.add_error(
+                    "linkedin_link",
+                    _(
+                        "Invalid Linkedin profile URL. Please use format: https://www.linkedin.com/in/"
+                    ),
+                )
+            if edit_links_form.instagram() == "Error":
+                edit_links_form.add_error(
+                    "instagram_link",
+                    _(
+                        "Invalid Instagram profile URL. Please use format: https://www.instagram.com/"
+                    ),
+                )
+
+            if edit_links_form.is_valid():
+                user_profile = edit_links_form.save(commit=False)
+                user_profile.user = self.request.user
+                user_profile.save()
+                user.save()
+                messages.success(request, _("Profile was updated successfully"))
+                return redirect("profile:profile", profile=self.request.user.username)
 
         return render(
             request,

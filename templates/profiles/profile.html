@@ -44,54 +44,84 @@
             {% endif %}
         </div>
 
-        <div class="row" id="row-info">
-            <div class="col s12 m4">
-                <div class="center info-block">
-                    <h2>
-                        {% trans "Posts Count" %}
-                    </h2>
-                    <h1>
-                        {{ context.posts_count }}
-                    </h1>
-                </div>
-            </div>
 
-            <div class="col s12 m4">
-                <div class="center info-block">
-                    <h2>
-                        {% trans "Comments Count" %}
-                    </h2>
-                    <h1>
-                        {{ context.comments_count }}
-                    </h1>
-                </div>
-            </div>
-            
-            <div class="col s12 m4">
-                <div class="center info-block">
-                    <h2>
-                        User Info
-                    </h2>
-                    {% if profile.github_link %}
-                        <a href="{{ profile.github_link }}" target="new">
-                            <i class="fa-brands fa-github-square fa-2xl" style="color: var(--brand-color);"></i>
-                        </a>
-                    {% endif %}
-
-                    {% if profile.linkedin_link %}
-                        <a href="{{ profile.linkedin_link }}" target="new">
-                            <i class="fa-brands fa-linkedin fa-2xl" style="color: var(--brand-color);"></i>
-                        </a>
-                    {% endif %}
+        {% if not profile.github_link and not profile.linkedin_link and not profile.instagram_link %}
                     
-                    {% if profile.instagram_link %}
-                        <a href="{{ profile.instagram_link }}" target="new">
-                            <i class="fa-brands fa-square-instagram fa-2xl" style="color: var(--brand-color);"></i>
-                        </a>
-                    {% endif %}
+            <div class="row" id="row-info">
+                <div class="col s6">
+                    <div class="center info-block">
+                        <h2>
+                            {% trans "Posts Count" %}
+                        </h2>
+                        <h1>
+                            {{ context.posts_count }}
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="col s6">
+                    <div class="center info-block">
+                        <h2>
+                            {% trans "Comments Count" %}
+                        </h2>
+                        <h1>
+                            {{ context.comments_count }}
+                        </h1>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        {% else %}
+
+            <div class="row" id="row-info">
+                <div class="col s12 m4">
+                    <div class="center info-block">
+                        <h2>
+                            {% trans "Posts Count" %}
+                        </h2>
+                        <h1>
+                            {{ context.posts_count }}
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="center info-block">
+                        <h2>
+                            {% trans "Comments Count" %}
+                        </h2>
+                        <h1>
+                            {{ context.comments_count }}
+                        </h1>
+                    </div>
+                </div>
+                    
+                <div class="col s12 m4">
+                    <div class="center info-block">
+                        <h2>
+                            User Info
+                        </h2>
+                        {% if profile.github_link %}
+                            <a href="{{ profile.github_link }}" target="new">
+                                <i class="fa-brands fa-github-square fa-2xl" style="color: var(--brand-color);"></i>
+                            </a>
+                        {% endif %}
+
+                        {% if profile.linkedin_link %}
+                            <a href="{{ profile.linkedin_link }}" target="new">
+                                <i class="fa-brands fa-linkedin fa-2xl" style="color: var(--brand-color);"></i>
+                            </a>
+                        {% endif %}
+                        
+                        {% if profile.instagram_link %}
+                            <a href="{{ profile.instagram_link }}" target="new">
+                                <i class="fa-brands fa-square-instagram fa-2xl" style="color: var(--brand-color);"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 
         {% if context.posts %}
             <div class="row">
