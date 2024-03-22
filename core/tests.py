@@ -6,6 +6,7 @@ from categories.models import Category, MainCategory
 from comments.models import Comment
 from core.utils.is_empty_comment import is_empty_comment
 from posts.models import Post
+from profiles.models import Profile
 from reactions.models import Reactions
 
 
@@ -40,6 +41,7 @@ class TestDataMixin:
             user_id=self.user.id,
             post_id=self.post.pk,
         )
+        self.profile = Profile.objects.create(user=self.user)
 
 
 class HomePageTest(TestDataMixin, TestCase):
