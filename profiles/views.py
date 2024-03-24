@@ -82,11 +82,11 @@ class EditProfileView(UserPassesTestMixin, View):
         edit_links_form = EditProfileLinksForm(request.POST, instance=user_profile)
 
         if edit_profile_form.is_valid() and edit_links_form.is_valid():
-            user = edit_profile_form.save(commit=False)
-            user_profile = edit_links_form.save(commit=False)
+            user_profile = edit_profile_form.save(commit=False)
+            user_links = edit_links_form.save(commit=False)
             user_profile.user = self.request.user
             user_profile.save()
-            user.save()
+            user_links.save()
             messages.success(request, _("Profile was updated successfully"))
             return redirect("profile:profile", profile=self.request.user.username)
 

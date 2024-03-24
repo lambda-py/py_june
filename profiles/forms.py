@@ -63,7 +63,7 @@ class EditProfileLinksForm(forms.ModelForm):
         model = Profile
         fields = ["github_link", "linkedin_link", "instagram_link"]
 
-    def clean(self) -> str:
+    def clean(self) -> dict:
         cleaned_data = super().clean()
 
         github = cleaned_data.get("github_link")
