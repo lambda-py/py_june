@@ -15,7 +15,7 @@
       <li><a href="{% url 'categories:list' %}">{% trans "Forum" %}</a></li>
       {% if user.is_authenticated %}
         <li>
-          <a href="{% url 'profile:profile' user.username %}">
+          <a href="{% url 'profile:profile' request.user.username %}">
             {% trans "My profile" %}
           </a>
         </li>
@@ -41,7 +41,7 @@
       </li>
       {% if user.is_authenticated %}
         <li>
-          <a href="{% url 'profile:profile' user.username %}">
+          <a href="{% url 'profile:profile' request.user.username %}">
             {% trans "My profile" %}
           </a>
         </li>

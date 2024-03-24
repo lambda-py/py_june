@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
@@ -11,7 +10,8 @@ from comments.models import Comment
 from posts.models import Post
 from users.models import ForumUser
 
-from .forms import EditProfileForm
+from .forms import EditProfileForm, EditProfileLinksForm
+from .models import Profile
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -19,6 +19,7 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)
+        profile, create = Profile.objects.get_or_create(user=self.request.user)
 
         comments_count = Comment.objects.filter(author_id=user.id).count()
         posts_count = Post.objects.filter(author_id=user.id).count()
@@ -44,7 +45,11 @@ class ProfileView(LoginRequiredMixin, View):
             "posts": posts,
             "my_profile": is_user_page,
         }
-        return render(request, self.template_name, {"user": user, "context": context})
+        return render(
+            request,
+            self.template_name,
+            {"user": user, "profile": profile, "context": context},
+        )
 
 
 class EditProfileView(UserPassesTestMixin, View):
@@ -57,21 +62,40 @@ class EditProfileView(UserPassesTestMixin, View):
 
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)
-        form = EditProfileForm(instance=user)
-        return render(request, self.template_name, {"user": user, "form": form})
+        edit_profile_form = EditProfileForm(instance=user)
+        user_profile = get_object_or_404(Profile, user=self.request.user)
+        edit_links_form = EditProfileLinksForm(instance=user_profile)
+        return render(
+            request,
+            self.template_name,
+            {
+                "user": user,
+                "edit_profile_form": edit_profile_form,
+                "edit_links_form": edit_links_form,
+            },
+        )
 
     def post(self, request: HttpRequest, profile: str) -> HttpResponse:
         user = get_object_or_404(ForumUser, username=profile)
-        form = EditProfileForm(request.POST, instance=user)
+        edit_profile_form = EditProfileForm(request.POST, instance=user)
+        user_profile = get_object_or_404(Profile, user=self.request.user)
+        edit_links_form = EditProfileLinksForm(request.POST, instance=user_profile)
 
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
+        if edit_profile_form.is_valid() and edit_links_form.is_valid():
+            user_profile = edit_profile_form.save(commit=False)
+            user_links = edit_links_form.save(commit=False)
+            user_profile.user = self.request.user
+            user_profile.save()
+            user_links.save()
             messages.success(request, _("Profile was updated successfully"))
             return redirect("profile:profile", profile=self.request.user.username)
 
         return render(
             request,
             self.template_name,
-            {"form": form, "user": user},
+            {
+                "edit_profile_form": edit_profile_form,
+                "edit_links_form": edit_links_form,
+                "user": user,
+            },
         )

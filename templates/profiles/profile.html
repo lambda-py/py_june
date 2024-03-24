@@ -4,6 +4,7 @@
 
 {% block link %}
 	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block title %}
@@ -42,7 +43,7 @@
                 <h6 class="empty-profile-bio">No bio</h6>
             {% endif %}
         </div>
-
+                    
         <div class="row" id="row-info">
             <div class="col s12 m4">
                 <div class="center info-block">
@@ -71,6 +72,23 @@
                     <h2>
                         User Info
                     </h2>
+                    {% if profile.github_link %}
+                        <a href="{{ profile.github_link }}" target="new">
+                            <i class="fa-brands fa-github-square fa-2xl" style="color: var(--brand-color);"></i>
+                        </a>
+                    {% endif %}
+                    
+                    {% if profile.linkedin_link %}
+                        <a href="{{ profile.linkedin_link }}" target="new">
+                            <i class="fa-brands fa-linkedin fa-2xl" style="color: var(--brand-color);"></i>
+                        </a>
+                    {% endif %}
+                    
+                    {% if profile.instagram_link %}
+                        <a href="{{ profile.instagram_link }}" target="new">
+                            <i class="fa-brands fa-square-instagram fa-2xl" style="color: var(--brand-color);"></i>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

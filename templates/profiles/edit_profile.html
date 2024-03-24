@@ -15,9 +15,20 @@
 {% block body %}
 <div class="edit-profile-page">
     <div class="container">
-        <form method="post" name="post-edit-form", class="edit-profile-form">
+        <form method="post" name="post-edit-form", class="edit-profile-form", enctype="multipart/form-data">
             {% csrf_token %}
-            {% crispy form %}
+            <div class="row center">
+                <h1>
+                    {% trans "Social Links" %}
+                </h1>
+                {{ edit_links_form.as_p }}
+            </div>
+            <div class="row center">
+                <h1>
+                    {% trans "Profile" %}
+                </h1>
+                {% crispy edit_profile_form %}
+            </div>
         </form>
     </div>
 </div>

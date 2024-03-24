@@ -160,12 +160,12 @@
                                         <li>
                                             {% if user.is_authenticated and user.id == comment.author.id %}
                                                 <button class="edit-comment-btn btn btn-small"
-                                                        data-comment-edit-content="{{ comment.content|safe }}"
+                                                        data-comment-edit-content="{{ comment.content }}"
                                                         data-comment-id="{{ comment.id }}">
                                                     <i class="tiny material-icons">edit</i>
                                                 </button>
                                                 <button class="delete-comment-btn btn btn-small" id="deleteCommentBtn"
-                                                        data-comment-delete-content="{{ comment.content|safe }}"
+                                                        data-comment-delete-content="{{ comment.content }}"
                                                         data-comment-id="{{ comment.id }}">
                                                     <i class="tiny material-icons">delete</i>
                                                 </button>
@@ -186,7 +186,7 @@
                                     <div class="reply">
                                         {% if user.is_authenticated %}
                                             <button class="reply-comment-btn btn btn-small"
-                                                    data-comment-content="{{ comment.content|safe }}">
+                                                    data-comment-content="{{ comment.content }}">
                                                 <i class="tiny material-icons">reply</i>
                                                 {% trans "Reply" %}
                                             </button>
