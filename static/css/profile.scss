@@ -130,4 +130,23 @@
   color: #fff;
 }
 
+.profile-picture {
+  top: -30px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(240, 246, 252, 0.1);
+}
+
+.no-profile-picture {
+  width: 100% !important;
+}
+
+.change-avatar {
+  display: none;
+}
+
+.change-avatar-button {
+  margin-bottom: 2%;
+}
+
 /*# sourceMappingURL=profile.css.map */

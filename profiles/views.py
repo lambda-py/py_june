@@ -1,3 +1,5 @@
+import os
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Count
@@ -10,7 +12,7 @@ from comments.models import Comment
 from posts.models import Post
 from users.models import ForumUser
 
-from .forms import EditProfileForm, EditProfileLinksForm
+from .forms import EditAvatarProfileForm, EditProfileForm, EditProfileLinksForm
 from .models import Profile
 
 
@@ -65,6 +67,8 @@ class EditProfileView(UserPassesTestMixin, View):
         edit_profile_form = EditProfileForm(instance=user)
         user_profile = get_object_or_404(Profile, user=self.request.user)
         edit_links_form = EditProfileLinksForm(instance=user_profile)
+        edit_avatar_form = EditAvatarProfileForm(instance=user)
+
         return render(
             request,
             self.template_name,
@@ -72,6 +76,7 @@ class EditProfileView(UserPassesTestMixin, View):
                 "user": user,
                 "edit_profile_form": edit_profile_form,
                 "edit_links_form": edit_links_form,
+                "edit_avatar_form": edit_avatar_form,
             },
         )
 
@@ -80,11 +85,24 @@ class EditProfileView(UserPassesTestMixin, View):
         edit_profile_form = EditProfileForm(request.POST, instance=user)
         user_profile = get_object_or_404(Profile, user=self.request.user)
         edit_links_form = EditProfileLinksForm(request.POST, instance=user_profile)
+        edit_avatar_form = EditAvatarProfileForm(
+            request.POST, request.FILES, instance=user
+        )
+        current_avatar = user.avatar
 
-        if edit_profile_form.is_valid() and edit_links_form.is_valid():
+        if current_avatar and "avatar" in request.FILES:
+            if current_avatar != request.FILES["avatar"]:
+                os.remove(current_avatar.path)
+
+        if (
+            edit_profile_form.is_valid()
+            and edit_links_form.is_valid()
+            and edit_avatar_form.is_valid()
+        ):
             user_profile = edit_profile_form.save(commit=False)
             user_links = edit_links_form.save(commit=False)
             user_profile.user = self.request.user
+            user_profile.avatar = edit_avatar_form.cleaned_data["avatar"]
             user_profile.save()
             user_links.save()
             messages.success(request, _("Profile was updated successfully"))
@@ -96,6 +114,7 @@ class EditProfileView(UserPassesTestMixin, View):
             {
                 "edit_profile_form": edit_profile_form,
                 "edit_links_form": edit_links_form,
+                "edit_avatar_form": edit_avatar_form,
                 "user": user,
             },
         )
