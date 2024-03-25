@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Profile(models.Model):
     user = models.OneToOneField(
         "users.ForumUser", on_delete=models.CASCADE, related_name="profile"

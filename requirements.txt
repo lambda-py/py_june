@@ -34,6 +34,7 @@ packaging==23.2
 pathspec==0.12.1
 platformdirs==4.2.0
 pluggy==1.4.0
+pillow==10.2.0
 psycopg2-binary==2.9.9
 pycodestyle==2.11.1
 pycparser==2.21
