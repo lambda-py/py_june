@@ -1,11 +1,7 @@
-from typing import Any
-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
-from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
-from PIL import Image
 
 from users.models import ForumUser
 
