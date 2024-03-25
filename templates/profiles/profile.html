@@ -26,9 +26,10 @@
                 </div>
             {% endif %}
 
-            <div class="no-profile-picture">
-                <i class="large material-icons">perm_identity</i>
+            <div class="row center">
+                <img src="{{ user.get_avatar_url }}" class="rounded-circle profile-picture" width="256" height="256">
             </div>
+
             <h6 class="user-first-last-name">{{ context.first_name }} {{ context.last_name }}</h6>
 
             {% if context.birth_date %}

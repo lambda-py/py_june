@@ -1,8 +1,11 @@
+from typing import Any
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
-from django.core.exceptions import ValidationError
+from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
+from PIL import Image
 
 from users.models import ForumUser
 
@@ -93,3 +96,11 @@ class EditProfileLinksForm(forms.ModelForm):
             )
 
         return cleaned_data
+
+
+class EditAvatarProfileForm(forms.ModelForm):
+    avatar = forms.ImageField(required=False)
+
+    class Meta:
+        model = ForumUser
+        fields = ["avatar"]
