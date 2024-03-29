@@ -17,5 +17,11 @@ class Subscription(models.Model):
         blank=True,
     )
 
-    def __str__(self):
+    class Meta:
+        db_table = "subscriptions"
+        verbose_name = 'Subscription'
+        verbose_name_plural = 'Subscriptions'
+        ordering = ['-user__username']
+
+    def __str__(self) -> str:
         return f"Subscription {self.user.username}"
