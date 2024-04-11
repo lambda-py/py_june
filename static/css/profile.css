@@ -3,6 +3,17 @@
   display: inline-table;
 }
 
+.profile-picture {
+  top: -30px;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  display: flex;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  left: 50%;
+}
+
 .profile-header {
   margin-top: 5%;
   color: rgb(255, 255, 255);
@@ -83,6 +94,18 @@
   text-align: center;
 }
 
+.profile-picture {
+  top: -30px;
+  display: block;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  display: flex;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  left: 50%;
+}
+
 .no-profile-picture {
   top: -30px;
   display: flex;
@@ -136,4 +159,7 @@
 .change-avatar-button {
   margin-bottom: 2%;
 }
+
+
+
 /*# sourceMappingURL=profile.css.map */
