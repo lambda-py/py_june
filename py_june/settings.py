@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "profiles.apps.ProfilesConfig",
     "search.apps.SearchConfig",
     "reactions.apps.ReactionsConfig",
+    "subscription.apps.SubscriptionConfig",
 ]
 
 MIDDLEWARE = [
