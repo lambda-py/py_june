@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
+from django.db.models import Case, Count, IntegerField, When
 
 from comments.models import Comment
 from posts.models import Post
@@ -52,11 +53,22 @@ class PostReactionsView(LoginRequiredMixin, View):
 
 
 class CommentReactionsView(LoginRequiredMixin, View):
-    template_name = "posts/post_detail.html"
+    template_name = "ui/comment/comment_like.html"
 
     def get(self, request: HttpRequest, post_slug: str, id: int) -> HttpResponse:
-        post = get_object_or_404(Post, slug=post_slug, is_active=True)
-        return redirect("posts:details", post_slug=post.slug)
+        comment = (
+            Comment.objects.filter(pk=id)
+            .annotate(
+                comment_likes=Count("comments_reactions"),
+                user_like=Count(
+                    Case(
+                        When(comments_reactions__user_id=self.request.user.id, then=1),
+                        output_field=IntegerField(),
+                    )
+                ),
+            )
+        )
+        return render(request, self.template_name, {"comment": comment})
 
     def post(
         self, request: HttpRequest, post_slug: str, id: int
@@ -74,4 +86,9 @@ class CommentReactionsView(LoginRequiredMixin, View):
                 CommentsReactions.objects.filter(
                     user_id=self.request.user.id, comment_id=user_comment.id
                 ).delete()
-        return redirect("posts:details", post_slug=post_slug)
+
+        context = {
+            "comment_id": id,
+        }
+
+        return render(request, self.template_name, context)
