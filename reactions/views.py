@@ -23,9 +23,7 @@ class PostReactionsView(LoginRequiredMixin, View):
             "like": likes_count,
             "is_liked": is_liked,
         }
-        return render(
-            request,
-            self.template_name, context)
+        return render(request, self.template_name, context)
 
     def post(self, request: HttpRequest, id: int) -> HttpResponseRedirect:
         post = get_object_or_404(Post, pk=id, is_active=True)
@@ -50,9 +48,7 @@ class PostReactionsView(LoginRequiredMixin, View):
             "is_liked": is_liked,
             "post_id": id,
         }
-        return render(
-            request,
-            self.template_name, context)
+        return render(request, self.template_name, context)
 
 
 class CommentReactionsView(LoginRequiredMixin, View):
