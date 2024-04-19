@@ -31,7 +31,7 @@ urlpatterns = i18n_patterns(
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("profile/", include("profiles.urls")),
     path("search/", include("search.urls")),
-    path("", include("reactions.urls")),
+    path("reactions/", include("reactions.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
     prefix_default_language=False,
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

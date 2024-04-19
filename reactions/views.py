@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
 
@@ -11,11 +11,19 @@ from .models import CommentsReactions, Reactions
 
 
 class PostReactionsView(LoginRequiredMixin, View):
-    template_name = "posts/post_detail.html"
+    template_name = "ui/post/post_like.html"
 
     def get(self, request: HttpRequest, id: int) -> HttpResponse:
         post = get_object_or_404(Post, pk=id, is_active=True)
-        return redirect("posts:details", post_slug=post.slug)
+        likes_count = Reactions.objects.filter(post_id=post.id).count()
+        is_liked = Reactions.objects.filter(
+            post_id=post.id, user_id=self.request.user.id
+        )
+        context = {
+            "like": likes_count,
+            "is_liked": is_liked,
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request: HttpRequest, id: int) -> HttpResponseRedirect:
         post = get_object_or_404(Post, pk=id, is_active=True)
@@ -29,7 +37,18 @@ class PostReactionsView(LoginRequiredMixin, View):
                 Reactions.objects.filter(
                     user_id=self.request.user.id, post_id=post.id
                 ).delete()
-        return redirect("posts:details", post_slug=post.slug)
+
+        likes_count = Reactions.objects.filter(post_id=post.id).count()
+        is_liked = Reactions.objects.filter(
+            post_id=post.id, user_id=self.request.user.id
+        )
+
+        context = {
+            "like": likes_count,
+            "is_liked": is_liked,
+            "post_id": id,
+        }
+        return render(request, self.template_name, context)
 
 
 class CommentReactionsView(LoginRequiredMixin, View):
