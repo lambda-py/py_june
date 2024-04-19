@@ -1,6 +1,6 @@
 {% if user.is_authenticated %}
     <div id="like-comment-{{ comment.id }}">
-        <form method="post" hx-post="/reactions/like-comment/{{ post.slug }}/{{ comment.id }}" hx-target="#like-comment-{{ comment.id }}">
+        <form method="post" hx-post="/reactions/like-comment/{{ comment.id }}">
             {% csrf_token %}
             <button type="submit" class="like-btn">
                 {% if comment.user_like %}
