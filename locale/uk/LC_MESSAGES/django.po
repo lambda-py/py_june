@@ -327,3 +327,7 @@ msgstr "Пошук"
 
 #~ msgid "Registration"
 #~ msgstr "Реєстрація"
+
+#: templates/ui/header/search.html:5
+msgid "Begin Typing"
+msgstr "Розпочати пошук"
