@@ -9,5 +9,7 @@ def search(request: HttpRequest) -> HttpResponse:
     if len(search_text) == 0 or not search_text[0].isalpha():
         query = None
     else:
-        query = Post.objects.filter(title__icontains=search_text).order_by("-updated_at")
+        query = Post.objects.filter(title__icontains=search_text).order_by(
+            "-updated_at"
+        )
     return render(request, "ui/header/search_results.html", {"query": query})
