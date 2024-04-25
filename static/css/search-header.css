@@ -1,0 +1,9 @@
+#search-results-header {
+  object-fit: cover;
+}
+
+.search-results-table {
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1000;
+}
