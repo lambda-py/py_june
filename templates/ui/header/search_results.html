@@ -1,4 +1,9 @@
-<table class="search-results-table" style="backdrop-filter: blur(10px)">
+{% load static %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/search-header.css' %}">
+{% endblock %}
+
+<table class="search-results-table">
     <tbody>
     {% for q in query %}
         <tr>
