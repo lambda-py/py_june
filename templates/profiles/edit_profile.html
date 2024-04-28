@@ -3,53 +3,58 @@
 {% load static %}
 
 {% block link %}
-	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block title %}
-{{ context.username }}
+    {{ context.username }}
 {% endblock %}
 
 {% load crispy_forms_tags %}
 
 {% block body %}
-<div class="edit-profile-page">
-    <div class="container">
-        <form method="post" name="post-edit-form", class="edit-profile-form", enctype="multipart/form-data">
+    <div class="edit-profile-page">
+        <div class="container">
+            <form method="post" name="post-edit-form" class="edit-profile-form" enctype="multipart/form-data">
 
-            <div class="row center">
-                <img id="avatar-image" src="{{ user.get_avatar_url }}" class="rounded-circle profile-picture" width="256" height="256">
-            </div>
+                <div class="row center">
+                    <img id="avatar-image" src="{{ user.get_avatar_url }}" class="rounded-circle profile-picture"
+                         width="256" height="256">
+                </div>
 
-            {% csrf_token %}
-            <div class="change-avatar">
-                {{ avatar_form.as_p }}
-            </div>
-            <div class="change-avatar-button">
-                <label for="id_avatar">
-                    <span class="btn" aria-hidden="true">Change profile picture</span>
-                    <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;">
-                </label>
-            </div>
+                {% csrf_token %}
+                <div class="change-avatar">
+                    {{ avatar_form.as_p }}
+                </div>
+                <div class="change-avatar-button">
+                    <label for="id_avatar">
+                        <span class="btn" aria-hidden="true">Change profile picture</span>
+                        <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;">
+                    </label>
+                </div>
 
-            <div class="row center">
-                <h1>
-                    {% trans "Social Links" %}
-                </h1>
-                {{ edit_links_form.as_p }}
-            </div>
-            <div class="row center">
-                <h1>
-                    {% trans "Profile" %}
-                </h1>
-                {% crispy edit_profile_form %}
-            </div>
-        </form>
+                <div class="row center">
+                    <h1>
+                        {% trans "Social Links" %}
+                    </h1>
+                    {{ edit_links_form.as_p }}
+                </div>
+                <div class="row center">
+                    <h1>
+                        {% trans "Profile" %}
+                    </h1>
+                    {% crispy edit_profile_form %}
+                </div>
+            </form>
+            
+            {% block subscription_form %}
+                    {% include "subscription/subscription_form.html" %}
+            {% endblock %}
+        </div>
     </div>
-</div>
 
-{% block scripts %}
-    <script src="{% static 'js/edit_profile.js' %}"></script>
-{% endblock %}
+    {% block scripts %}
+        <script src="{% static 'js/edit_profile.js' %}"></script>
+    {% endblock %}
 
 {% endblock %}
