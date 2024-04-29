@@ -6,8 +6,10 @@
     <a id="logo-container" href="{% url 'home' %}" class="brand-logo">py_june</a>
     <ul class="right hide-on-med-and-down">
         <li>
-            {% include 'ui/header/search.html' %}
-{#          <a href="{% url 'search:search' %}"><i class="material-icons">search</i></a>#}
+          {% include 'ui/header/search.html' %}
+        </li>
+        <li>
+            <a href="{% url 'search:search' %}"><i class="material-icons">search</i></a>
         </li>
       {% if request.LANGUAGE_CODE == 'uk' %}
         <li><a id="change-language" href="/">uk</a></li>

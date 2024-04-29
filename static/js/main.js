@@ -29,7 +29,7 @@ function scrollToTop() {
     });
 }
 
-// Search line processing
+// Header search line processing
 let searchResultsHeader = document.getElementById("search-results-header");
 let searchResults = document.getElementById("search-results");
 let searchInput = document.getElementById("search-input");
