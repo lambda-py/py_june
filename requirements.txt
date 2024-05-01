@@ -11,7 +11,7 @@ crispy-bootstrap4==2024.1
 cryptography==42.0.5
 defusedxml==0.7.1
 Django==5.0.3
-django-allauth==0.61.1
+django-allauth==0.62.1
 django-allauth-ui==0.2.2
 django-appconf==1.0.6
 django-ckeditor==6.7.1
