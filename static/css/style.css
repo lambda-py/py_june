@@ -36,7 +36,7 @@ main {
 footer {
   position: relative;
   bottom: 0;
-  height: 17vh;
+  flex-direction: column;
 }
 
 @media (max-width: 600px) {
