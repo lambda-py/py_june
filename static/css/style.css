@@ -24,6 +24,27 @@ body {
   height: 100vh;
 }
 
+header, main, footer {
+  display: flex;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  footer {
+    height: auto;
+  }
+}
+
 p {
   line-height: 2rem;
 }
@@ -43,7 +64,13 @@ td:first-child {
 }
 
 .content {
-  flex: 1 0 auto;
+  flex: 0.5 0 auto;
+}
+
+@media (max-width: 600px) {
+  .content {
+    overflow-x: auto;
+  }
 }
 
 .sidenav-trigger {
@@ -145,6 +172,10 @@ footer.page-footer {
 .page-footer .footer-copyright a {
   color: var(--brand-color);
   text-decoration: underline;
+}
+
+.home {
+  width: 100%;
 }
 
 .home #row-info {
@@ -336,9 +367,21 @@ footer a {
   text-decoration: underline;
 }
 
+@media (max-width: 600px) {
+  #forum-content {
+    overflow-x: auto;
+  }
+}
+
 #user-activities table tr td:first-child {
   width: 10em;
   vertical-align: top;
+}
+
+@media (max-width: 600px) {
+  #user-activities {
+    overflow-x: auto;
+  }
 }
 
 #nav-mobile li > a, nav a {
@@ -350,6 +393,7 @@ footer a {
   position: fixed;
   bottom: 50px;
   right: 50px;
+  z-index: 1000;
   background-color: #26a69a;
   color: #ffffcc;
   border: none;

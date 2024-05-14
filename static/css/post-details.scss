@@ -1,3 +1,7 @@
+#postDetail {
+  min-width: 500px;
+}
+
 #post-details {
   h1 {
     margin: 0;
@@ -104,6 +108,7 @@ table.striped > tbody > tr:nth-child(even) .comment-text {
 .comment-text {
   padding: 0 1.2rem !important;
   width: 100%;
+  flex-grow: 1;
   min-height: 290px !important;
 
   ul {

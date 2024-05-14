@@ -1,6 +1,14 @@
 .profile-page {
-  height: 100vh;
-  display: inline-table;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .user-post-info {
+    overflow-x: auto;
+  }
 }
 
 .profile-header {
