@@ -33,7 +33,7 @@ oauthlib==3.2.2
 packaging==24.0
 pathspec==0.12.1
 pillow==10.2.0
-platformdirs==4.2.0
+platformdirs==4.2.1
 pluggy==1.4.0
 prompt-toolkit==3.0.36
 psycopg2-binary==2.9.9
