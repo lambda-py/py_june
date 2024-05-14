@@ -316,6 +316,8 @@ msgstr "Створити пост"
 #: templates/search/search_result.html:18
 #: templates/search/search_result.html:20
 #: templates/search/search_result.html:21
+#: templates/header.html:42
+
 msgid "Search"
 msgstr "Пошук"
 
