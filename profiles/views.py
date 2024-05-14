@@ -12,7 +12,7 @@ from comments.models import Comment
 from posts.models import Post
 from subscription.forms import SubscriptionForm
 from subscription.models import Subscription
-from subscription.views import SubscriptionManager
+from subscription.views import SubscriptionCreateView
 from users.models import ForumUser
 
 from .forms import EditAvatarProfileForm, EditProfileForm, EditProfileLinksForm
@@ -72,7 +72,7 @@ class EditProfileView(UserPassesTestMixin, View):
         edit_links_form = EditProfileLinksForm(instance=user_profile)
         edit_avatar_form = EditAvatarProfileForm(instance=user)
 
-        user_subscriptions = Subscription.objects.get(user=user)
+        user_subscriptions, created = Subscription.objects.get_or_create(user=user)
         subscription_form = SubscriptionForm(user=user, instance=user_subscriptions)
 
         return render(
@@ -84,6 +84,7 @@ class EditProfileView(UserPassesTestMixin, View):
                 "edit_links_form": edit_links_form,
                 "edit_avatar_form": edit_avatar_form,
                 "subscription_form": subscription_form,
+                "user_subscriptions": user_subscriptions,
             },
         )
 
@@ -96,7 +97,7 @@ class EditProfileView(UserPassesTestMixin, View):
             request.POST, request.FILES, instance=user
         )
         current_avatar = user.avatar
-        subscription_form = SubscriptionForm(request.POST, user=request.user)
+        subscription_form = SubscriptionForm(request.POST, user=user)
 
         if current_avatar and "avatar" in request.FILES:
             if current_avatar != request.FILES["avatar"]:
@@ -113,11 +114,11 @@ class EditProfileView(UserPassesTestMixin, View):
             user_subscribe = subscription_form.save(commit=False)
             user_profile.user = self.request.user
             user_profile.avatar = edit_avatar_form.cleaned_data["avatar"]
-            subscription_form.instance.user = request.user
-
-            subscription_manager = SubscriptionManager(user)
             selected_categories = subscription_form.cleaned_data["categories"]
+
+            subscription_manager = SubscriptionCreateView(user)
             subscription_manager.update_subscriptions(selected_categories, user)
+            subscription_form.instance.user = request.user
 
             user_profile.save()
             user_links.save()
