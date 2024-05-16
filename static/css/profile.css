@@ -10,8 +10,6 @@
     overflow-x: auto;
   }
 }
-
-
 .profile-header {
   margin-top: 5%;
   color: rgb(255, 255, 255);
@@ -87,8 +85,7 @@
   color: rgb(255, 255, 255);
   margin-top: 10px;
   margin-bottom: 10px;
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   display: block;
   text-align: center;
 }
@@ -146,5 +143,7 @@
 .change-avatar-button {
   margin-bottom: 2%;
 }
+
+
 
 /*# sourceMappingURL=profile.css.map */
