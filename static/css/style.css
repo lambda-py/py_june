@@ -44,7 +44,6 @@ footer {
     height: auto;
   }
 }
-
 p {
   line-height: 2rem;
 }
@@ -72,7 +71,6 @@ td:first-child {
     overflow-x: auto;
   }
 }
-
 .sidenav-trigger {
   color: #26a69a;
 }
@@ -177,7 +175,6 @@ footer.page-footer {
 .home {
   width: 100%;
 }
-
 .home #row-info {
   margin: 1rem 0;
 }
@@ -366,9 +363,8 @@ footer a {
   color: var(--brand-color);
   text-decoration: underline;
 }
-
 @media (max-width: 600px) {
-  #forum-content {
+  #forum-content table #forum-content {
     overflow-x: auto;
   }
 }
@@ -383,7 +379,6 @@ footer a {
     overflow-x: auto;
   }
 }
-
 #nav-mobile li > a, nav a {
   color: white !important;
 }
