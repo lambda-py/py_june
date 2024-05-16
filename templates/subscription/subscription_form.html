@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/subscription_form.css' %}" type="text/css">
+{% endblock %}
+
+{% block subscription_form %}
+{% load crispy_forms_tags %}
+    <form action="" method="post" class="subscription-form" enctype="multipart/form-data">
+        <div class="row center">
+            <h1>
+                {% trans "Subscription" %}
+            </h1>
+            {% csrf_token %}
+            {% crispy subscription_form %}
+        </div>
+    </form>
+{% endblock %}
