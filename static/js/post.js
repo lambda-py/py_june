@@ -17,10 +17,12 @@ function reversToggleForm(object) {
 document.addEventListener("DOMContentLoaded", function () {
   // Toggle post comment form
   let replyPostButton = document.getElementById("reply-post-btn");
-  replyPostButton.addEventListener("click", function () {
-    let postCommentForm = document.getElementById("post-comment-form");
-    toggleForm(postCommentForm);
-  });
+  if (replyPostButton) {
+    replyPostButton.addEventListener("click", function () {
+      let postCommentForm = document.getElementById("post-comment-form");
+      toggleForm(postCommentForm);
+    });
+  }
 
   // Move reply comment form to comment
   // There's no need to toggle the form, it's at the bottom by default.
