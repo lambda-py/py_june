@@ -23,7 +23,7 @@ class ProfileView(LoginRequiredMixin, View):
     template_name = "profiles/profile.html"
 
     def get(self, request: HttpRequest, profile: str) -> HttpResponse:
-        user = get_object_or_404(ForumUser, username=profile.lower())
+        user = get_object_or_404(ForumUser, username__iexact=profile)
         profile, create = Profile.objects.get_or_create(user=self.request.user)
 
         comments_count = Comment.objects.filter(author_id=user.id).count()
