@@ -148,14 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
       cancelButton.addEventListener("click", cancelButton.clickHandler);
     });
   });
-  // Notification about actions was completed successfully
-  let messageBlock = document.getElementById("notification-messages");
-  if (messageBlock) {
-    messageBlock.style.display = "block";
-    setTimeout(function () {
-      messageBlock.style.display = "none";
-    }, 10000);
-  }
 
   function hideAllForms() {
     let comments = document.querySelectorAll(".comment");
@@ -173,11 +165,5 @@ document.addEventListener("DOMContentLoaded", function () {
         textComment.style.display = "block";
       }
     });
-  }
-  if (messageBlock) {
-    messageBlock.style.display = "block";
-    setTimeout(function () {
-      messageBlock.style.display = "none";
-    }, 10000);
   }
 })

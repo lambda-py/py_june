@@ -45,3 +45,16 @@ searchInput.addEventListener("click", function (event) {
         searchResults.style.display = "";
     }
 });
+
+// Notification about actions was completed successfully
+let messageBlock = document.getElementById("notification-messages");
+if (messageBlock) {
+    messageBlock.style.display = "block";
+    setTimeout(function () {
+        messageBlock.classList.add("notification-hidden");
+        setTimeout(function () {
+            messageBlock.style.display = "none";
+            messageBlock.classList.remove("notification-hidden");
+        }, 2000);
+    }, 2000);
+}

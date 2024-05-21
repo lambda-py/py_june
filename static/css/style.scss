@@ -55,6 +55,24 @@ p {
   line-height: 2rem;
 }
 
+#notification-messages {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  max-height: 50px;
+  background-color: var(--brand-second-color);
+  color: var(--primary-color);
+  text-align: center;
+  z-index: 1000;
+  display: none;
+  opacity: 0.95;
+  transition: opacity 2s ease-out;
+}
+
+.notification-hidden {
+  opacity: 0;
+}
+
 table.striped > tbody > tr:nth-child(odd) {
   background-color: var(--secondary-bg-color);
 }

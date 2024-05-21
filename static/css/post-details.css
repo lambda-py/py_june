@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #postDetail {
-  min-width: 500px;
+  width: 100%;
 }
 
 #post-details h1 {
