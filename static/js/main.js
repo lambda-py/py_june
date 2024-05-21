@@ -49,12 +49,12 @@ searchInput.addEventListener("click", function (event) {
 // Notification about actions was completed successfully
 let messageBlock = document.getElementById("notification-messages");
 if (messageBlock) {
-    messageBlock.style.display = "block";
+    messageBlock.style.visibility = "visible";
     setTimeout(function () {
-        messageBlock.classList.add("notification-hidden");
+        messageBlock.classList.add("hidden");
         setTimeout(function () {
-            messageBlock.style.display = "none";
-            messageBlock.classList.remove("notification-hidden");
-        }, 2000);
-    }, 2000);
+            messageBlock.style.visibility = "hidden";
+            messageBlock.classList.remove("hidden");
+        }, 3000);
+    }, 3000);
 }
