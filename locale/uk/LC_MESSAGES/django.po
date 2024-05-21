@@ -184,7 +184,7 @@ msgstr "Зроблено завдяки"
 
 #: templates/header.html:19 templates/header.html:45
 msgid "My profile"
-msgstr ""
+msgstr "Мій профіль"
 
 #: templates/header.html:24 templates/header.html:50
 msgid "Logout"
