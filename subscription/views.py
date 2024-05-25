@@ -1,12 +1,13 @@
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.generic import CreateView, View
 
-from categories.models import MainCategory, Category
+from categories.models import Category, MainCategory
 from posts.models import Post
+
 from .forms import SubscriptionForm
 from .models import Subscription
 
