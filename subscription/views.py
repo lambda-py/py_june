@@ -30,13 +30,15 @@ class SubscriptionCreateView(CreateView):
 
 
 class PostsOfSubscribedCategoriesView(LoginRequiredMixin, View):
-    template_name = 'subscription/posts_of_subscribed_categories.html'
+    template_name = "subscription/posts_of_subscribed_categories.html"
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: dict) -> HttpResponse:
         user = request.user
         subscribed_categories = user.subscriptions.categories.all()
-        posts = Post.objects.filter(category__in=subscribed_categories,
-                                    is_active=True, ).order_by("-created_at")
+        posts = Post.objects.filter(
+            category__in=subscribed_categories,
+            is_active=True,
+        ).order_by("-created_at")
 
         categories = Category.objects.annotate().select_related("main_category")
 
@@ -49,7 +51,8 @@ class PostsOfSubscribedCategoriesView(LoginRequiredMixin, View):
             "categories": categories,
         }
 
-        return render(request,
-                      "subscription/posts_of_subscribed_categories.html",
-                      context,
-                      )
+        return render(
+            request,
+            "subscription/posts_of_subscribed_categories.html",
+            context,
+        )

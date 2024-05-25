@@ -59,31 +59,55 @@ class SubscriptionCreateViewTest(TestDataMixin, TestCase):
 
 class PostsOfSubscribedCategoriesViewTest(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(username='testuser', password='testpassword')
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpassword"
+        )
         self.client.force_login(self.user)
 
-        self.main_category1 = MainCategory.objects.create(title='Main Category 1')
-        self.main_category2 = MainCategory.objects.create(title='Main Category 2')
+        self.main_category1 = MainCategory.objects.create(title="Main Category 1")
+        self.main_category2 = MainCategory.objects.create(title="Main Category 2")
 
-        self.category1 = Category.objects.create(title='Category 1', main_category=self.main_category1)
-        self.category2 = Category.objects.create(title='Category 2', main_category=self.main_category2)
-        self.category3 = Category.objects.create(title='Category 3', main_category=self.main_category2)
+        self.category1 = Category.objects.create(
+            title="Category 1", main_category=self.main_category1
+        )
+        self.category2 = Category.objects.create(
+            title="Category 2", main_category=self.main_category2
+        )
+        self.category3 = Category.objects.create(
+            title="Category 3", main_category=self.main_category2
+        )
 
         self.subscription = Subscription.objects.create(user=self.user)
         self.subscription.categories.add(self.category1)
         self.subscription.categories.add(self.category2)
 
-        self.post1 = Post.objects.create(title='Post 1', content='Content 1', category=self.category1,
-                                         author=self.user)
-        self.post2 = Post.objects.create(title='Post 2', content='Content 2', category=self.category2,
-                                         author=self.user)
-        self.post3 = Post.objects.create(title='Post 3', content='Content 3', category=self.category3,
-                                         author=self.user)
+        self.post1 = Post.objects.create(
+            title="Post 1",
+            content="Content 1",
+            category=self.category1,
+            author=self.user,
+        )
+        self.post2 = Post.objects.create(
+            title="Post 2",
+            content="Content 2",
+            category=self.category2,
+            author=self.user,
+        )
+        self.post3 = Post.objects.create(
+            title="Post 3",
+            content="Content 3",
+            category=self.category3,
+            author=self.user,
+        )
 
     def test_get_posts_of_subscribed_categories(self):
-        response = self.client.get(reverse('subscription:posts_of_subcribed'))
+        response = self.client.get(reverse("subscription:posts_of_subcribed"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'subscription/posts_of_subscribed_categories.html')
-        self.assertCountEqual(response.context['posts'], [self.post1, self.post2])
-        self.assertQuerysetEqual(response.context['posts'], [self.post1, self.post2], ordered=False)
+        self.assertTemplateUsed(
+            response, "subscription/posts_of_subscribed_categories.html"
+        )
+        self.assertCountEqual(response.context["posts"], [self.post1, self.post2])
+        self.assertQuerysetEqual(
+            response.context["posts"], [self.post1, self.post2], ordered=False
+        )
