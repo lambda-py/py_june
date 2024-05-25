@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.telegram",
     "widget_tweaks",
     "crispy_forms",
     "crispy_bootstrap4",
@@ -249,6 +250,13 @@ SOCIALACCOUNT_PROVIDERS = {
             "client_id": os.getenv("GOOGLE_CLIENT_ID"),
             "secret": os.getenv("GOOGLE_SECRET"),
             "key": "",
+        }
+    },
+    "telegram": {
+        "APP": {
+            "client_id": os.getenv("TELEGRAM_CLIENT_ID"),
+            "secret": "",
+            "key": os.getenv("TELEGRAM_KEY"),
         }
     },
 }
