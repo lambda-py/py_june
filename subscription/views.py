@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.views.generic import CreateView, View
 
@@ -31,7 +32,7 @@ class SubscriptionCreateView(CreateView):
 class PostsOfSubscribedCategoriesView(LoginRequiredMixin, View):
     template_name = 'subscription/posts_of_subscribed_categories.html'
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: dict) -> HttpResponse:
         user = request.user
         subscribed_categories = user.subscriptions.categories.all()
         posts = Post.objects.filter(category__in=subscribed_categories,
