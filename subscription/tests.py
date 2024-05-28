@@ -22,7 +22,7 @@ class SubscriptionCreateViewTest(TestDataMixin, TestCase):
         response = self.client.get(self.subscription_create_view_url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "subscription/subscription_form.html")
+        self.assertTemplateUsed(response, "profiles/edit_profile.html")
         self.assertIsInstance(response.context["subscription_form"], SubscriptionForm)
 
     def test_subscription_post(self):
@@ -57,7 +57,7 @@ class SubscriptionCreateViewTest(TestDataMixin, TestCase):
         self.assertIn(data[1], updated_subscriptions.categories.all())
 
 
-class PostsOfSubscribedCategoriesViewTest(TestCase):
+class SubscriptionPostViewTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username="testuser", password="testpassword"
@@ -101,12 +101,10 @@ class PostsOfSubscribedCategoriesViewTest(TestCase):
         )
 
     def test_get_posts_of_subscribed_categories(self):
-        response = self.client.get(reverse("subscription:posts_of_subcribed"))
+        response = self.client.get(reverse("subscription:posts_list"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "subscription/posts_of_subscribed_categories.html"
-        )
+        self.assertTemplateUsed(response, "subscription/subscription_post_list.html")
         self.assertCountEqual(response.context["posts"], [self.post1, self.post2])
         self.assertQuerysetEqual(
             response.context["posts"], [self.post1, self.post2], ordered=False

@@ -30,8 +30,8 @@ class SubscriptionCreateView(CreateView):
         user_subscriptions.first().categories.set(selected_categories)
 
 
-class PostsOfSubscribedCategoriesView(LoginRequiredMixin, View):
-    template_name = "subscription/posts_of_subscribed_categories.html"
+class SubscriptionPostView(LoginRequiredMixin, View):
+    template_name = "subscription/subscription_post_list.html"
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: dict) -> HttpResponse:
         user = request.user
@@ -54,6 +54,6 @@ class PostsOfSubscribedCategoriesView(LoginRequiredMixin, View):
 
         return render(
             request,
-            "subscription/posts_of_subscribed_categories.html",
+            "subscription/subscription_post_list.html",
             context,
         )
