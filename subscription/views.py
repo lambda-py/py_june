@@ -1,6 +1,12 @@
 from typing import Any
 
-from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
+from django.views.generic import CreateView, View
+
+from categories.models import Category, MainCategory
+from posts.models import Post
 
 from .forms import SubscriptionForm
 from .models import Subscription
@@ -22,3 +28,32 @@ class SubscriptionCreateView(CreateView):
             user_subscriptions = Subscription.objects.filter(user=self.user)
 
         user_subscriptions.first().categories.set(selected_categories)
+
+
+class SubscriptionPostView(LoginRequiredMixin, View):
+    template_name = "subscription/subscription_post_list.html"
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: dict) -> HttpResponse:
+        user = request.user
+        subscribed_categories = user.subscriptions.categories.all()
+        posts = Post.objects.filter(
+            category__in=subscribed_categories,
+            is_active=True,
+        ).order_by("-created_at")
+
+        categories = Category.objects.annotate().select_related("main_category")
+
+        main_categories = MainCategory.objects.all()
+
+        context = {
+            "main_categories": main_categories,
+            "posts": posts,
+            "subscribed_categories": subscribed_categories,
+            "categories": categories,
+        }
+
+        return render(
+            request,
+            "subscription/subscription_post_list.html",
+            context,
+        )

@@ -33,5 +33,6 @@ urlpatterns = i18n_patterns(
     path("search/", include("search.urls")),
     path("reactions/", include("reactions.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
+    path("subscription/", include("subscription.urls")),
     prefix_default_language=False,
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

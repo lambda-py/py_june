@@ -4,6 +4,7 @@
 
 {% block link %}
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/subscription_form.css' %}" type="text/css">
 {% endblock %}
 
 {% block title %}
@@ -44,12 +45,12 @@
                         {% trans "Profile" %}
                     </h1>
                     {% crispy edit_profile_form %}
+                    <h1>
+                        {% trans "Subscription" %}
+                    </h1>
+                    {{ subscription_form.as_p }}
                 </div>
             </form>
-            
-            {% block subscription_form %}
-                    {% include "subscription/subscription_form.html" %}
-            {% endblock %}
         </div>
     </div>
 
