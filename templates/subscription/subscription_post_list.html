@@ -11,37 +11,38 @@
         <div class="row">
             <div class="col s12">
                 <div class="section content" id="forum-content">
+                  {% if subscribed_categories %}
                     {% for category in subscribed_categories %}
                         <a href="{% url 'categories:detail' category_slug=category.slug %}"
                            class="category-title"><h1>{{ category.title }}</h1>
                         </a>
                         <hr>
                         <h3>{{ category.description }}</h3>
-                        <table class="striped">
+                          <table class="striped">
                             <tbody>
-                            {% for post in posts %}
+                              {% for post in posts %}
                                 {% if post.category == category %}
-                                    <tr>
-                                        <td>
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ post.get_absolute_url }}" class="category-title">
-                                                        <h2>{{ post.title }}</h2>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                        <td class="created-at">
-                                            <h4>{{ post.created_at }}</h4>
-                                        </td>
-                                    </tr>
+                                  <tr>
+                                    <td>
+                                      <a href="{{ post.get_absolute_url }}" class="category-title">
+                                        <h2>{{ post.title }}</h2>
+                                      </a>
+                                    </td>
+                                    <td class="created-at">
+                                      <h4>{{ post.created_at }}</h4>
+                                    </td>
+                                  </tr>
                                 {% endif %}
-                            {% endfor %}
+                              {% endfor %}
                             </tbody>
-                        </table>
+                          </table>
                     {% endfor %}
+                  {% else %}
+                    <h1>You don't have any subscriptions</h1>
+                  {% endif %}
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
