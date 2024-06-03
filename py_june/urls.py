@@ -15,7 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
@@ -29,7 +31,8 @@ urlpatterns = i18n_patterns(
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("profile/", include("profiles.urls")),
     path("search/", include("search.urls")),
-    path("", include("reactions.urls")),
+    path("reactions/", include("reactions.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
+    path("subscription/", include("subscription.urls")),
     prefix_default_language=False,
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

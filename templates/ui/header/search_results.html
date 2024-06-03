@@ -1,0 +1,13 @@
+<table class="search-results-table">
+    <tbody>
+    {% for q in query %}
+        <tr>
+            <td>
+                <a href="{% url 'posts:details' post_slug=q.slug %}">
+                    <h3>{{ q.title }}</h3>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,8 +1,15 @@
 .profile-page {
-  height: 100vh;
-  display: inline-table;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+@media (max-width: 600px) {
+  .user-post-info {
+    overflow-x: auto;
+  }
+}
 .profile-header {
   margin-top: 5%;
   color: rgb(255, 255, 255);
@@ -83,18 +90,6 @@
   text-align: center;
 }
 
-.profile-picture {
-  top: -30px;
-  display: block;
-  width: 60px;
-  height: 60px;
-  position: relative;
-  display: flex;
-  margin-bottom: 10px;
-  border-radius: 50%;
-  left: 50%;
-}
-
 .no-profile-picture {
   top: -30px;
   display: flex;
@@ -111,7 +106,7 @@
 .edit-profile-form {
   width: 100%;
   text-align: center;
-  margin-top: 2%;
+  margin-top: 5%;
   margin-bottom: 5%;
 }
 
@@ -124,6 +119,29 @@
 
 .django-ckeditor-widget {
   width: 100% !important;
+}
+
+.social_links {
+  color: #fff;
+}
+
+.profile-picture {
+  top: -30px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(240, 246, 252, 0.1);
+}
+
+.no-profile-picture {
+  width: 100% !important;
+}
+
+.change-avatar {
+  display: none;
+}
+
+.change-avatar-button {
+  margin-bottom: 2%;
 }
 
 

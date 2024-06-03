@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load static %}
+
+{% block subscription_link %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'subscription:posts_list' %}">
+                <h1>My subscriptions (uncommented posts {{ get_nocomments_count }})</h1>
+        </a>
+    {% else %}
+                <h1>Log in to view subscriptions</h1>
+    {% endif %}
+    
+{% endblock %}

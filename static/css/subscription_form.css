@@ -1,0 +1,11 @@
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked{
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.requiredField{
+    opacity: 0;
+}

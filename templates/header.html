@@ -1,3 +1,4 @@
+{% load static %}
 {% load i18n %}
 
 <nav class="nav" role="navigation">
@@ -5,7 +6,10 @@
     <a id="logo-container" href="{% url 'home' %}" class="brand-logo">py_june</a>
     <ul class="right hide-on-med-and-down">
         <li>
-          <a href="{% url 'search:search' %}"><i class="material-icons">search</i></a>
+          {% include 'ui/header/search.html' %}
+        </li>
+        <li>
+            <a href="{% url 'search:search' %}"><i class="material-icons">search</i></a>
         </li>
       {% if request.LANGUAGE_CODE == 'uk' %}
         <li><a id="change-language" href="/">uk</a></li>
@@ -15,7 +19,7 @@
       <li><a href="{% url 'categories:list' %}">{% trans "Forum" %}</a></li>
       {% if user.is_authenticated %}
         <li>
-          <a href="{% url 'profile:profile' user.username %}">
+          <a href="{% url 'profile:profile' request.user.username %}">
             {% trans "My profile" %}
           </a>
         </li>
@@ -35,13 +39,16 @@
 
     <ul id="nav-mobile" class="sidenav">
       <li>
+          <a href="{% url 'search:search' %}">{% trans "Search" %}</a>
+      </li>
+      <li>
         <a href="{% url 'categories:list' %}">
           {% trans "Forum" %} 
         </a>
       </li>
       {% if user.is_authenticated %}
         <li>
-          <a href="{% url 'profile:profile' user.username %}">
+          <a href="{% url 'profile:profile' request.user.username %}">
             {% trans "My profile" %}
           </a>
         </li>

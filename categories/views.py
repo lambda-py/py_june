@@ -36,9 +36,18 @@ def category_list(request: HttpRequest) -> HttpResponse:
     ).select_related("main_category")
 
     main_categories = MainCategory.objects.all()
+
+    if request.user.is_authenticated:
+        get_nocomments_count = Post.objects.filter(
+            author=request.user, comments__isnull=True
+        ).count()
+    else:
+        get_nocomments_count = 0
+
     context = {
         "main_categories": main_categories,
         "categories": categories,
+        "get_nocomments_count": get_nocomments_count,
     }
     return render(request, "categories/category_list.html", context)
 

@@ -14,6 +14,9 @@
   <div class="container content">
     <div class="row">
       <div class="col s12">
+          {% block subscription_link %}
+            {% include "subscription/subscription_link.html" %}
+          {% endblock %}
         <div class="section content" id="forum-content">
           {% for main_category in main_categories %}
             <h2>{{ main_category.title }}</h2>

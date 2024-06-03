@@ -23,6 +23,38 @@ function showHideScrollTopBtn() {
 }
 
 function scrollToTop() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+// Header search line processing
+let searchResultsHeader = document.getElementById("search-results-header");
+let searchResults = document.getElementById("search-results");
+let searchInput = document.getElementById("search-input");
+document.addEventListener("click", function (event) {
+
+    if (event.target !== searchInput && !searchResultsHeader.contains(event.target)) {
+        searchResults.style.display = "none";
+    }
+});
+
+searchInput.addEventListener("click", function (event) {
+    if (searchResults.style.display === "none") {
+        searchResults.style.display = "";
+    }
+});
+
+// Notification about actions was completed successfully
+let messageBlock = document.getElementById("notification-messages");
+if (messageBlock) {
+    messageBlock.style.visibility = "visible";
+    setTimeout(function () {
+        messageBlock.classList.add("hidden");
+        setTimeout(function () {
+            messageBlock.style.visibility = "hidden";
+            messageBlock.classList.remove("hidden");
+        }, 3000);
+    }, 3000);
 }

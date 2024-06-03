@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "profiles.apps.ProfilesConfig",
     "search.apps.SearchConfig",
     "reactions.apps.ReactionsConfig",
+    "subscription.apps.SubscriptionConfig",
 ]
 
 MIDDLEWARE = [
@@ -164,6 +165,9 @@ STATICFILES_DIRS = [
 ]
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
+
+AVATAR_URL = "uploads/profiles/"
+AVATAR_ROOT = os.path.join(BASE_DIR, "profiles")
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {

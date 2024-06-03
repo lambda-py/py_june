@@ -17,10 +17,12 @@ function reversToggleForm(object) {
 document.addEventListener("DOMContentLoaded", function () {
   // Toggle post comment form
   let replyPostButton = document.getElementById("reply-post-btn");
-  replyPostButton.addEventListener("click", function () {
-    let postCommentForm = document.getElementById("post-comment-form");
-    toggleForm(postCommentForm);
-  });
+  if (replyPostButton) {
+    replyPostButton.addEventListener("click", function () {
+      let postCommentForm = document.getElementById("post-comment-form");
+      toggleForm(postCommentForm);
+    });
+  }
 
   // Move reply comment form to comment
   // There's no need to toggle the form, it's at the bottom by default.
@@ -146,14 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
       cancelButton.addEventListener("click", cancelButton.clickHandler);
     });
   });
-  // Notification about actions was completed successfully
-  let messageBlock = document.getElementById("notification-messages");
-  if (messageBlock) {
-    messageBlock.style.display = "block";
-    setTimeout(function () {
-      messageBlock.style.display = "none";
-    }, 10000);
-  }
 
   function hideAllForms() {
     let comments = document.querySelectorAll(".comment");
@@ -171,11 +165,5 @@ document.addEventListener("DOMContentLoaded", function () {
         textComment.style.display = "block";
       }
     });
-  }
-  if (messageBlock) {
-    messageBlock.style.display = "block";
-    setTimeout(function () {
-      messageBlock.style.display = "none";
-    }, 10000);
   }
 })

@@ -1,0 +1,9 @@
+td:last-of-type {
+    text-align: right !important;
+    padding-right: 40px;
+}
+
+th:last-of-type {
+    text-align: right !important;
+    padding-right: 40px !important;
+}

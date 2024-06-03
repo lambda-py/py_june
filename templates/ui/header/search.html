@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load static %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/search-header.css' %}">
+{% endblock %}
+
+<div id="search-results-header">
+    <input id="search-input" class="form-control" type="search"
+           name="search" placeholder="{% trans 'Begin Typing' %}"
+           value="{{ request.GET.search }}"
+           hx-get="/search/header/"
+           hx-trigger="input changed delay:500ms, search"
+           hx-target="#search-results" >
+
+
+    <div id="search-results">
+        {% include 'ui/header/search_results.html' %}
+    </div>
+</div>
